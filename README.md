@@ -2,13 +2,13 @@
 
 ¡Bienvenido al repositorio oficial del proyecto para el Laboratorio I! Este proyecto sirve como evaluación del primer módulo y está enfocado en el desarrollo de una API RESTful robusta y escalable utilizando Node.js y Express.
 
-🎯 Objetivo del Proyecto
+###🎯 Objetivo del Proyecto
 
 El objetivo principal de esta evaluación es demostrar el dominio en:
 
--Configuración y gestión de entornos (variables de entorno, archivos de configuración).
--Creación de una estructura de carpetas lógica y modular.
--Implementación de rutas y controladores para una API REST.
+- Configuración y gestión de entornos (variables de entorno, archivos de configuración).
+- Creación de una estructura de carpetas lógica y modular.
+- Implementación de rutas y controladores para una API REST.
 [...Añade el tema clave de tu evaluación, ej: Conexión y manejo de base de datos SQL/NoSQL...]
 
 ⚙️ Tecnologías Utilizadas

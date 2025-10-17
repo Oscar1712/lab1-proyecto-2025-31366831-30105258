@@ -1,14 +1,16 @@
 # lab1-proyecto-2025-31366831
 <div align="center">
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white))
-https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white
-https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
-https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white
+### Participantes
+- **Nombre Completo 1** - Cédula: XXXXXXXX - Email: email1@example.com - Rol: Backend Developer
+- **Nombre Completo 2** - Cédula: YYYYYYYY - Email: email2@example.com - Rol: Database Designer
 
-Una API REST moderna y escalable construida con Node.js, Express.js y MongoDB
+### Descripción
+API REST para gestión de servicios médicos incluyendo agendamiento, atención ambulatoria y registro clínico.
 
-
-Características • Instalación • Documentación • Ejemplos
-
-</div>
+### Tecnologías
+- Backend: [Node.js/Python/Go/.NET]
+- Base de Datos: [PostgreSQL/MySQL/SQL Server]
+- Autenticación: JWT
+- Documentación: Swagger/OpenAPI
 📋 Tabla de Contenidos
+

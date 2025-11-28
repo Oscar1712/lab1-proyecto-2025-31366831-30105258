@@ -1,0 +1,66 @@
+{
+  "name": "lab1-proyecto-2025-31366831-30105258",
+  "version": "1.0.0",
+  "description": "API REST para gestión de servicios médicos con Node.js, Express, TypeScript, Prisma y MySQL.",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oscar1712/lab1-proyecto-2025-31366831-30105258.git"
+  },
+  "keywords": [
+    "api",
+    "medical",
+    "healthcare",
+    "express",
+    "typescript"
+  ],
+  "author": "Oscar Palencia - 31366831 / Roberto Barrios - 30105258",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oscar1712/lab1-proyecto-2025-31366831-30105258/issues"
+  },
+  "homepage": "https://github.com/Oscar1712/lab1-proyecto-2025-31366831-30105258#readme",
+  "dependencies": {
+    "@prisma/client": "^7.0.1",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "express-validator": "^7.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.1",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.6.2",
+    "prisma": "^7.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

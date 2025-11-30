@@ -19,6 +19,14 @@ router.get('/', citasController.getCitas);
 // solo pueda crear citas para sí mismo (o un ADMIN para cualquiera).
 router.post('/', citasController.createCita);
 
+// routes/citas.routes.ts (Ejemplo de uso)
+
+router.post(
+    '/',
+    authMiddleware,                         // 1. Verifica el Token
+    roleMiddleware(['ADMIN', 'ASISTENTE']), // 2. Verifica el Rol
+    citasController.createCita
+);
 
 // --- Rutas para Operaciones Específicas ---
 

@@ -1,0 +1,16 @@
+// ============================================
+// ARCHIVO: src/middlewares/error.middleware.ts
+// ============================================
+import { Request, Response, NextFunction } from 'express';
+
+export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  
+  const status = err.status || 500;
+  const message = err.message || 'Error interno del servidor';
+  
+  res.status(status).json({
+    error: message,
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+  });
+};

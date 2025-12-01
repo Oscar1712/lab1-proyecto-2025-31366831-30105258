@@ -1,7 +1,6 @@
 // src/controllers/episodios.controller.ts
 
 import { Request, Response } from 'express';
-// ⚠️ SIN .ts al final
 import { episodiosService } from '../services/episodios.service'; 
 
 class EpisodiosController {
@@ -15,7 +14,6 @@ class EpisodiosController {
     }
 
     async getEpisodioById(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345 (Ejemplo para línea 19)
         const { id } = req.params; 
 
         if (!id) {
@@ -34,8 +32,6 @@ class EpisodiosController {
             res.status(500).send({ message: 'ERROR_OBTENER_EPISODIO', error });
         }
     }
-    
-    // ... otros métodos del controlador de episodios
 }
 
 export const episodiosController = new EpisodiosController();

@@ -4,7 +4,7 @@
 // import { Episodio } from '../models/Episodio'; 
 
 class EpisodiosService {
-    // 1. Iniciar el registro clínico (al cumplirse una cita)
+    // Iniciar el registro clínico (al cumplirse una cita)
     async createEpisodio(data: { pacienteId: string, profesionalId: string, unidadId: string }) {
         console.log(`[SERVICE] Creando nuevo episodio para Paciente ID: ${data.pacienteId}`);
         // Lógica: Crear el registro en DB.
@@ -12,7 +12,7 @@ class EpisodiosService {
         return newEpisodio;
     }
 
-    // 2. Obtener un episodio con toda su documentación relacionada
+    // Obtener un episodio con toda su documentación relacionada
     async getEpisodioById(episodioId: string) {
         console.log(`[SERVICE] Buscando episodio ID: ${episodioId}`);
         // Lógica: Consulta en DB con 'populate' o joins a Notas, Diagnósticos, etc.
@@ -21,14 +21,14 @@ class EpisodiosService {
         return episodio;
     }
 
-    // 3. Obtener listado de episodios por filtros
+    // Obtener listado de episodios por filtros
     async getAllEpisodios(filtros: any) {
         console.log('[SERVICE] Obteniendo todos los episodios con filtros:', filtros);
         // Lógica: Búsqueda en DB
         return [{ id: 'ep1', estado: 'ACTIVO' }, { id: 'ep2', estado: 'CERRADO' }];
     }
 
-    // 4. Cerrar un episodio de atención
+    // Cerrar un episodio de atención
     async closeEpisodio(episodioId: string) {
         console.log(`[SERVICE] Cerrando episodio ID: ${episodioId}`);
         // Lógica: Actualizar el campo fechaFin y estado a 'CERRADO' en DB.

@@ -24,7 +24,6 @@ export const profesionalService = {
             where: {
                 estaActivo: true,
             },
-            // Puedes incluir relaciones aquí, por ejemplo: include: { citas: true }
         });
     },
 

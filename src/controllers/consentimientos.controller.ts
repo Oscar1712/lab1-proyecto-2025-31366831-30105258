@@ -1,7 +1,6 @@
 // src/controllers/consentimientos.controller.ts
 
 import { Request, Response } from 'express';
-// ⚠️ Asegúrate de que no tenga la extensión .ts
 import { consentimientosService } from '../services/consentimientos.service'; 
 
 class ConsentimientosController {
@@ -15,7 +14,7 @@ class ConsentimientosController {
     }
 
     async getConsentimientoById(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345 (Línea 18 en tu error)
+
         const { id } = req.params; 
 
         if (!id) {
@@ -37,7 +36,7 @@ class ConsentimientosController {
     }
 
     async getConsentimientosByEpisodio(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345 (Línea 27 en tu error)
+
         const { episodioId } = req.params;
 
         if (!episodioId) {
@@ -54,7 +53,7 @@ class ConsentimientosController {
     }
 
     async invalidateConsentimiento(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345 (Línea 37 en tu error)
+
         const { id } = req.params;
 
         if (!id) {

@@ -1,7 +1,6 @@
 // src/controllers/profesionales.controller.ts
 
 import { Request, Response } from 'express';
-// ⚠️ SIN .ts al final
 import { profesionalService } from '../services/profesionales.service'; 
 
 class ProfesionalesController {
@@ -9,7 +8,6 @@ class ProfesionalesController {
     // ... (Mantener otros métodos como getAllProfesionales, createProfesional)
     
     async getProfesionalById(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345 (Ejemplo para línea 35)
         const { id } = req.params; 
 
         // Puedes usar Number() para asegurar el tipo si tu servicio espera un número
@@ -34,7 +32,6 @@ class ProfesionalesController {
     }
     
     async updateProfesional(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345 (Ejemplo para línea 80)
         const { id } = req.params; 
         const numId = Number(id);
 

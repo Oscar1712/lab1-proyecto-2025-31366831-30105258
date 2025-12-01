@@ -22,5 +22,4 @@ export const unidadesController = {
             next(error);
         }
     },
-    // ... Implementar getById, update, delete de forma similar a Personas
 };

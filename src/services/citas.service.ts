@@ -1,14 +1,12 @@
 // src/services/citas.service.ts
 
-// 1. Importación de Prisma y Tipos
+// Importación de Prisma y Tipos
 import prisma from '../config/database'; 
-// 🛑 CORRECCIÓN CLAVE: Importación Nombrada para evitar TS2305 y TS2694
 import { Cita, Prisma } from '@prisma/client'; 
 // Importación de utilidades
 import { comparePassword } from '../utils/bcrypt.util'; 
 
 // Definición de Tipos
-// 🛑 CORRECCIÓN: Usamos los tipos importados directamente
 export type CitaCreateData = Prisma.CitaCreateInput;
 
 export const citasService = {
@@ -19,7 +17,6 @@ export const citasService = {
     },
 
     // Buscar por filtro (Controlador llama a esta función como 'findByFilter')
-    // 🛑 CORRECCIÓN: Implementación para sincronizar con el controlador
     async findByFilter(personaId: number | undefined, profesionalId: number | undefined): Promise<Cita[]> {
         const whereClause: Prisma.CitaWhereInput = {};
 

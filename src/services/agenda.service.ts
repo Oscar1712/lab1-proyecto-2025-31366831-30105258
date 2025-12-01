@@ -1,6 +1,5 @@
 // src/services/agenda.service.ts
 
-// 🛑 CORRECCIÓN DE PRISMA (TS2305)
 // 1. Importar la instancia centralizada de Prisma
 import prisma from '../config/database'; // ⬅️ SIN .ts al final
 
@@ -10,8 +9,6 @@ import * as PrismaTypes from '@prisma/client';
 // 3. Redefinir tipos usando el bundle (evita errores TS2305/TS2694)
 type Agenda = PrismaTypes.Agenda;
 export type AgendaCreateData = PrismaTypes.Prisma.AgendaCreateInput;
-
-// 🛑 Eliminamos 'const prisma = new PrismaClient();' porque importamos la instancia centralizada
 
 export const agendaService = {
 
@@ -42,6 +39,4 @@ export const agendaService = {
             data: { estado: newStatus },
         });
     },
-
-    // ... Otros métodos CRUD para la gestión interna de la agenda
 };

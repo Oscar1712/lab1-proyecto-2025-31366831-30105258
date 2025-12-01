@@ -1,7 +1,6 @@
 // src/controllers/diagnosticos.controller.ts
 
 import { Request, Response } from 'express';
-// ⚠️ SIN .ts al final
 import { diagnosticosService } from '../services/diagnosticos.service'; 
 
 class DiagnosticosController {
@@ -15,7 +14,6 @@ class DiagnosticosController {
     }
 
     async getDiagnosticoById(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345 (Ejemplo para línea 18)
         const { id } = req.params; 
 
         if (!id) {
@@ -34,8 +32,6 @@ class DiagnosticosController {
             res.status(500).send({ message: 'ERROR_OBTENER_DIAGNOSTICO', error });
         }
     }
-    
-    // ... otros métodos del controlador de diagnósticos
 }
 
 export const diagnosticosController = new DiagnosticosController();

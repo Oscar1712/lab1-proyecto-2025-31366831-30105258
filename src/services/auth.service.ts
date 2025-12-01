@@ -35,7 +35,6 @@ export const authService = {
                 id: true,
                 email: true,
                 role: true,
-                // Añade aquí cualquier otro campo que debas retornar
             },
         });
 

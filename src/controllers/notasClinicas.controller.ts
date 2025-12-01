@@ -1,7 +1,6 @@
 // src/controllers/notasClinicas.controller.ts
 
 import { Request, Response } from 'express';
-// ⚠️ SIN .ts al final
 import { notasClinicasService } from '../services/notasClinicas.service'; 
 
 class NotasClinicasController {
@@ -15,7 +14,6 @@ class NotasClinicasController {
     }
 
     async getNotaById(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345
         const { id } = req.params; 
         const numId = Number(id); // Convertir a número si el servicio espera un number
 
@@ -37,7 +35,6 @@ class NotasClinicasController {
     }
 
     async getNotasByEpisodio(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345
         const { episodioId } = req.params; 
         const numEpisodioId = Number(episodioId);
 
@@ -54,7 +51,6 @@ class NotasClinicasController {
     }
 
     async updateNota(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345
         const { id } = req.params;
         const numId = Number(id);
 

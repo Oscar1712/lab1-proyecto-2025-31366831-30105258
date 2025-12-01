@@ -6,7 +6,6 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     
     // Aquí iría la lógica para verificar el token JWT.
     
-    // Por ahora, solo llama a next() para que la API avance a la siguiente función.
     next(); 
 };
 

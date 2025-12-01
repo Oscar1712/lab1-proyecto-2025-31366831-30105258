@@ -18,12 +18,10 @@ export const errorMiddleware = (err: any, req: Request, res: Response, next: Nex
         statusCode = 409; // Conflict
         message = 'Conflicto de datos: El registro que intenta crear ya existe (clave única duplicada).';
     } 
-    // Puedes añadir más manejo de errores específicos de tu aplicación aquí
 
     // Respuesta HTTP estandarizada
     res.status(statusCode).json({
         success: false,
         message: message,
-        // Puedes incluir un campo 'errorCode' si lo necesitas para el cliente
     });
 };

@@ -1,9 +1,7 @@
 // src/routes/citas.routes.ts
 
 import { Router } from 'express';
-// 🛑 CORRECCIÓN DE RUTA: Sin la extensión .ts
 import { citasController } from '../controllers/citas.controller'; 
-// 🛑 CORRECCIÓN DE RUTA: Ajustar la ruta a 'middlewares'
 import { authMiddleware } from '../middlewares/auth.middleware'; 
 import { roleMiddleware } from '../middlewares/role.middleware'; 
 

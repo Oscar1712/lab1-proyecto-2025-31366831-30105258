@@ -1,7 +1,6 @@
 // src/controllers/personasAtendidas.controller.ts
 
 import { Request, Response } from 'express';
-// ⚠️ SIN .ts al final
 import { personasService } from '../services/personasAtendidas.service'; 
 
 class PersonasAtendidasController {
@@ -15,7 +14,6 @@ class PersonasAtendidasController {
     }
 
     async getPersonaById(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345
         const { id } = req.params; 
         const numId = Number(id); // Convertir a número si el servicio espera un number
 
@@ -37,7 +35,6 @@ class PersonasAtendidasController {
     }
 
     async updatePersona(req: Request, res: Response) {
-        // 🛑 CORRECCIÓN DE TIPADO TS2345
         const { id } = req.params; 
         const numId = Number(id);
 

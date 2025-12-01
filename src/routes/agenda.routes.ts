@@ -1,6 +1,5 @@
 // src/routes/agenda.routes.ts
 import { Router } from 'express';
-// ⚠️ SIN .ts
 import { agendaController } from '../controllers/agenda.controller'; 
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { roleMiddleware } from '../middlewares/role.middleware';
@@ -17,7 +16,5 @@ router.post(
     roleMiddleware(['ADMIN', 'PROFESIONAL']), 
     agendaController.createBloque
 );
-
-// ... otras rutas de Agenda
 
 export default router;

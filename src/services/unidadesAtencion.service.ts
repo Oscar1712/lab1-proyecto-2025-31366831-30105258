@@ -1,6 +1,6 @@
 // src/services/unidadesAtencion.service.ts
 
-// 1. Importación de Prisma y Tipos
+// Importación de Prisma y Tipos
 import prisma from '../config/database'; 
 import * as PrismaTypes from '@prisma/client'; 
 
@@ -11,28 +11,26 @@ export type UnidadUpdateData = PrismaTypes.Prisma.UnidadAtencionUpdateInput;
 
 export const unidadesAtencionService = {
 
-    // 1. Crear una unidad de atención
+    // Crear una unidad de atención
     async createUnidad(data: UnidadCreateData): Promise<UnidadAtencion> {
         return prisma.unidadAtencion.create({ data });
     },
 
-    // 2. Obtener todas las unidades
+    // Obtener todas las unidades
     async getAllUnidades(): Promise<UnidadAtencion[]> {
         return prisma.unidadAtencion.findMany({
             where: { softDelete: false }
         });
     },
 
-    // 3. Obtener unidad por ID
-    // 🛑 CORRECCIÓN DE TIPADO: El ID es un número
+    // Obtener unidad por ID
     async getUnidadById(id: number): Promise<UnidadAtencion | null> {
         return prisma.unidadAtencion.findUnique({
             where: { id: id },
         });
     },
 
-    // 4. Actualizar unidad
-    // 🛑 CORRECCIÓN DE TIPADO: El ID es un número
+    // Actualizar unidad
     async updateUnidad(id: number, data: UnidadUpdateData): Promise<UnidadAtencion | null> {
         return prisma.unidadAtencion.update({
             where: { id: id },
@@ -40,8 +38,7 @@ export const unidadesAtencionService = {
         });
     },
 
-    // 5. Borrado Lógico
-    // 🛑 CORRECCIÓN DE TIPADO: El ID es un número
+    // Borrado Lógico
     async softDeleteUnidad(id: number): Promise<UnidadAtencion> {
         return prisma.unidadAtencion.update({
             where: { id: id },

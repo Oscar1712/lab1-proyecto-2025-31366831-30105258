@@ -1,32 +1,28 @@
 // src/services/notasClinicas.service.ts
 
-// 1. IMPORTACIÓN DE PRISMA Y TIPOS (Corregido para TS2305)
 // Importamos la instancia centralizada
-import prisma from '../config/database'; // ⬅️ SIN .ts al final
-// Importamos el bundle solo para los tipos de la base de datos
+import prisma from '../config/database';
 import * as PrismaTypes from '@prisma/client'; 
 
 // Definición de Tipos
 type NotaClinica = PrismaTypes.NotaClinica; // Usamos el tipo real de Prisma
 
 class NotasClinicasService {
-    // 1. Crear una nota clínica asociada a un episodio
-    // Asumo que episodioId y profesionalId son numbers en el schema de Prisma
+    // Crear una nota clínica asociada a un episodio
     async createNota(data: { episodioId: number, profesionalId: number, contenido: string, tipo: string }): Promise<NotaClinica> {
         
         // Lógica de Prisma
         const newNota = await prisma.notaClinica.create({
             data: {
                 ...data,
-                // Asumiendo que Prisma gestiona fechas
+                // Asumiendo que se gestione fechas
             },
         });
         
         return newNota;
     }
 
-    // 2. Obtener una nota específica
-    // 🛑 CORRECCIÓN DE TIPADO: Cambiado de 'string' a 'number'
+    // Obtener una nota específica
     async getNotaById(notaId: number): Promise<NotaClinica | null> {
         
         const nota = await prisma.notaClinica.findUnique({
@@ -37,8 +33,7 @@ class NotasClinicasService {
         return nota;
     }
 
-    // 3. Obtener todas las notas de un episodio
-    // 🛑 CORRECCIÓN DE TIPADO: Cambiado de 'string' a 'number'
+    // Obtener todas las notas de un episodio
     async getNotasByEpisodio(episodioId: number): Promise<NotaClinica[]> {
         
         const notas = await prisma.notaClinica.findMany({
@@ -49,8 +44,7 @@ class NotasClinicasService {
         return notas;
     }
 
-    // 4. Actualizar el contenido de una nota 
-    // 🛑 CORRECCIÓN DE TIPADO: Cambiado de 'string' a 'number'
+    // Actualizar el contenido de una nota 
     async updateNota(notaId: number, data: { contenido?: string, tipo?: string }): Promise<NotaClinica | null> {
         
         const notaActualizada = await prisma.notaClinica.update({

@@ -1,11 +1,11 @@
 // src/routes/index.ts
 
 import { Router } from 'express';
-// 1. Importa todos los routers de las entidades
+// Importa todos los routers de las entidades
 import authRoutes from './auth.routes';
 import personasAtendidasRoutes from './personasAtendidas.routes';
 import profesionalesRoutes from './profesionales.routes';
-import unidadesRoutes from './unidadesAtencion.routes'; // Asumiendo este nombre
+import unidadesRoutes from './unidadesAtencion.routes';
 import agendaRoutes from './agenda.routes';
 import citasRoutes from './citas.routes';
 import episodiosRoutes from './episodios.routes';
@@ -13,7 +13,7 @@ import episodiosRoutes from './episodios.routes';
 
 const router = Router();
 
-// 2. Agrupa los routers en un solo punto
+// Agrupa los routers en un solo punto
 // Rutas de autenticación no suelen tener prefijo de entidad
 router.use('/auth', authRoutes); 
 

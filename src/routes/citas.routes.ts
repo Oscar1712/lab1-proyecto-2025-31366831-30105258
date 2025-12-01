@@ -1,30 +1,25 @@
-// routes/citas.routes.ts
+// src/routes/citas.routes.ts
 
 import { Router } from 'express';
-import { citasController } from '../controllers/citas.controller';
-import { authMiddleware } from '../middleware/auth.middleware';
-import { roleMiddleware } from '../middleware/role.middleware';
+// 🛑 CORRECCIÓN DE RUTA: Sin la extensión .ts
+import { citasController } from '../controllers/citas.controller'; 
+// 🛑 CORRECCIÓN DE RUTA: Ajustar la ruta a 'middlewares'
+import { authMiddleware } from '../middlewares/auth.middleware'; 
+import { roleMiddleware } from '../middlewares/role.middleware'; 
 
 const router = Router();
 
-// --- Rutas Protegidas por Autenticación (Consulta/Creación por Paciente o Asistente) ---
-
+// 1. Aplica el authMiddleware a todas las rutas que siguen
 router.use(authMiddleware);
 
-// GET /api/citas: Obtener citas del usuario autenticado o usar filtros si es ADMIN/ASISTENTE
+// GET /api/citas: Obtener citas del usuario autenticado o usar filtros
 router.get('/', citasController.getCitas);
 
 // POST /api/citas: Crear una nueva cita
-// Aquí se puede usar un middleware adicional para verificar que el usuario autenticado
-// solo pueda crear citas para sí mismo (o un ADMIN para cualquiera).
-router.post('/', citasController.createCita);
-
-// routes/citas.routes.ts (Ejemplo de uso)
-
 router.post(
     '/',
-    authMiddleware,                         // 1. Verifica el Token
-    roleMiddleware(['ADMIN', 'ASISTENTE']), // 2. Verifica el Rol
+    // Usar roleMiddleware aquí es buena práctica si solo ciertos roles pueden crear citas
+    roleMiddleware(['ADMIN', 'ASISTENTE']), 
     citasController.createCita
 );
 
@@ -33,13 +28,13 @@ router.post(
 // PUT /api/citas/:id/cancelar: Cambia el estado a "cancelada"
 router.put('/:id/cancelar', citasController.cancelCita);
 
-// PUT /api/citas/:id/reprogramar: Actualiza la cita a un nuevo bloque (requiere lógica transaccional)
+// PUT /api/citas/:id/reprogramar: Actualiza la cita
 router.put('/:id/reprogramar', citasController.rescheduleCita);
 
-// PUT /api/citas/:id/confirmar: Confirmación (usualmente por el paciente o asistente)
+// PUT /api/citas/:id/confirmar: Confirmación
 router.put('/:id/confirmar', citasController.confirmCita);
 
-// PUT /api/citas/:id/cumplir (Solo para PROFESIONAL): Marca como cumplida y abre el Episodio de Atención
+// PUT /api/citas/:id/cumplir (Solo para PROFESIONAL): Marca como cumplida
 router.put('/:id/cumplir', roleMiddleware(['PROFESIONAL']), citasController.completeCita);
 
 

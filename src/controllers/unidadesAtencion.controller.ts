@@ -1,6 +1,6 @@
 // controllers/unidades.controller.ts
 import { Request, Response, NextFunction } from 'express';
-import { unidadesService, UnidadCreateData } from '../services/unidades.service';
+import { unidadesService, UnidadCreateData } from '../services/unidadesAtencion.service';
 
 export const unidadesController = {
 

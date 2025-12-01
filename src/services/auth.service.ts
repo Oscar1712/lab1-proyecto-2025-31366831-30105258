@@ -1,28 +1,19 @@
-// services/auth.service.ts
+// src/services/auth.service.ts
+import prisma from '../config/database'; // ⬅️ Importamos la instancia sin .ts
+import * as PrismaTypes from '@prisma/client'; // ⬅️ Importamos el bundle SÓLO para tipos
+// Asegúrarse de que las rutas locales no tengan .ts
+import { generateToken } from '../utils/jwt.util'; 
+import { hashPassword, comparePassword } from '../utils/bcrypt.util'; 
 
-// Usar la importación nombrada estándar (que espera la documentación de Prisma)
-import PrismaClient, { Prisma } from '@prisma/client'; // Importación mixta
-// import { PrismaClient, Prisma } from '@prisma/client';
+// Definición de tipos
+type Usuario = PrismaTypes.Usuario;
 
-// 1. Definir el tipo Usuario
-type Usuario = Prisma.Usuario; 
-
-// 2. Inicialización del cliente
-const prisma = new PrismaClient();
-
-import bcrypt from 'bcrypt';
-import { generateToken } from '../utils/jwt.util'; // Utilidad para crear JWT
-import { hashPassword, comparePassword } from '../utils/bcrypt.util'; // Utilidades de bcrypt
-
-// Definición de tipos para la respuesta de login
 export type LoginResult = {
     user: Omit<Usuario, 'password'>;
     token: string;
 };
 
-/**
- * Servicio centralizado para la lógica de autenticación (registro, login).
- */
+// **Definición del Servicio Centralizado**
 export const authService = {
 
     /**
@@ -31,22 +22,20 @@ export const authService = {
      * @returns El nuevo objeto Usuario (sin la contraseña).
      */
     async register(data: any): Promise<Omit<Usuario, 'password'>> {
-        // 1. **Hashing de la Contraseña**
+        
+        // Asumiendo que 'data' ya está validado y tiene los campos necesarios
         const hashedPassword = await hashPassword(data.password);
         
-        // 2. **Creación del Usuario en DB (Prisma)**
         const newUser = await prisma.usuario.create({
             data: {
                 ...data,
                 password: hashedPassword,
-                // Asumiendo que el modelo Usuario está ligado a Persona/Profesional
-                // y tiene campos como email, role, etc.
             },
             select: {
                 id: true,
                 email: true,
                 role: true,
-                // Excluye la contraseña de la respuesta por seguridad
+                // Añade aquí cualquier otro campo que debas retornar
             },
         });
 
@@ -56,47 +45,37 @@ export const authService = {
 
     /**
      * Verifica credenciales y genera un token de acceso.
-     * @param email Email del usuario.
-     * @param plainPassword Contraseña sin hashear.
-     * @returns Objeto con el usuario y el JWT, o lanza un error si falla.
      */
     async login(email: string, plainPassword: string): Promise<LoginResult> {
         
-        // 1. **Buscar Usuario por Email (Prisma)**
         const user = await prisma.usuario.findUnique({
             where: { email },
-            // Seleccionamos la contraseña *hash* para la verificación
             select: {
                 id: true,
                 email: true,
-                password: true,
+                password: true, // Necesario para la comparación
                 role: true,
             }
         });
 
-        // Verificación de existencia
         if (!user) {
-            throw new Error('AUTH_INVALID_CREDENTIALS');
+            // Usar una clase de error HTTP en una API real. Aquí usamos Error genérico.
+            throw new Error('AUTH_INVALID_CREDENTIALS'); 
         }
 
-        // 2. **Comparar Contraseña (bcrypt)**
         const passwordMatch = await comparePassword(plainPassword, user.password);
 
         if (!passwordMatch) {
             throw new Error('AUTH_INVALID_CREDENTIALS');
         }
 
-        // 3. **Generar JWT**
-        // Payload del token: Información mínima para identificar y autorizar al usuario
         const token = generateToken({ 
             id: user.id, 
             email: user.email, 
             role: user.role 
         });
-
-        console.log(`[AUTH SERVICE] Login exitoso para usuario ID: ${user.id}`);
         
-        // Retornar el resultado, excluyendo explícitamente la contraseña
+        // Excluir la contraseña del objeto retornado
         const { password, ...userWithoutPassword } = user;
         
         return {

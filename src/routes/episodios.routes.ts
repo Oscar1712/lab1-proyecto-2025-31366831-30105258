@@ -2,8 +2,8 @@
 
 import { Router } from 'express';
 import { episodiosController } from '../controllers/episodios.controller';
-import { authMiddleware } from '../middleware/auth.middleware';
-import { roleMiddleware } from '../middleware/role.middleware';
+import { authMiddleware } from '../middlewares/auth.middleware';
+import { roleMiddleware } from '../middlewares/role.middleware';
 
 const router = Router();
 

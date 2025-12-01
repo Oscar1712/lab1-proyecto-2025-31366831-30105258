@@ -1,36 +1,51 @@
-// services/unidades.service.ts
-import { PrismaClient, UnidadesAtencion, Prisma } from '@prisma/client';
+// src/services/unidadesAtencion.service.ts
 
-const prisma = new PrismaClient();
-export type UnidadCreateData = Prisma.UnidadesAtencionCreateInput;
+// 1. Importación de Prisma y Tipos
+import prisma from '../config/database'; 
+import * as PrismaTypes from '@prisma/client'; 
 
-export const unidadesService = {
+// Definición de Tipos
+type UnidadAtencion = PrismaTypes.UnidadAtencion;
+export type UnidadCreateData = PrismaTypes.Prisma.UnidadAtencionCreateInput;
+export type UnidadUpdateData = PrismaTypes.Prisma.UnidadAtencionUpdateInput;
 
-    async findAllActive(): Promise<UnidadesAtencion[]> {
-        return prisma.unidadesAtencion.findMany({
-            where: { estado: 'activo' },
+export const unidadesAtencionService = {
+
+    // 1. Crear una unidad de atención
+    async createUnidad(data: UnidadCreateData): Promise<UnidadAtencion> {
+        return prisma.unidadAtencion.create({ data });
+    },
+
+    // 2. Obtener todas las unidades
+    async getAllUnidades(): Promise<UnidadAtencion[]> {
+        return prisma.unidadAtencion.findMany({
+            where: { softDelete: false }
         });
     },
 
-    async findById(id: number): Promise<UnidadesAtencion | null> {
-        return prisma.unidadesAtencion.findUnique({
-            where: { id },
+    // 3. Obtener unidad por ID
+    // 🛑 CORRECCIÓN DE TIPADO: El ID es un número
+    async getUnidadById(id: number): Promise<UnidadAtencion | null> {
+        return prisma.unidadAtencion.findUnique({
+            where: { id: id },
         });
     },
 
-    async create(data: UnidadCreateData): Promise<UnidadesAtencion> {
-        // Lógica de negocio: Validar que el tipo sea 'sede', 'consultorio' o 'servicio'
-        return prisma.unidadesAtencion.create({ data });
+    // 4. Actualizar unidad
+    // 🛑 CORRECCIÓN DE TIPADO: El ID es un número
+    async updateUnidad(id: number, data: UnidadUpdateData): Promise<UnidadAtencion | null> {
+        return prisma.unidadAtencion.update({
+            where: { id: id },
+            data: data,
+        });
     },
 
-    async update(id: number, data: Partial<UnidadCreateData>): Promise<UnidadesAtencion> {
-        return prisma.unidadesAtencion.update({ where: { id }, data });
-    },
-
-    async softDelete(id: number): Promise<UnidadesAtencion> {
-        return prisma.unidadesAtencion.update({
-            where: { id },
-            data: { estado: 'inactivo' },
+    // 5. Borrado Lógico
+    // 🛑 CORRECCIÓN DE TIPADO: El ID es un número
+    async softDeleteUnidad(id: number): Promise<UnidadAtencion> {
+        return prisma.unidadAtencion.update({
+            where: { id: id },
+            data: { softDelete: true },
         });
     },
 };

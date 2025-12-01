@@ -2,9 +2,9 @@
 
 import { Router } from 'express';
 import { profesionalController } from '../controllers/profesionales.controller';
-import { authMiddleware } from '../middleware/auth.middleware'; // Middleware para verificar JWT
-import { roleMiddleware } from '../middleware/role.middleware'; // Middleware de control de roles
-import { validateProfesional } from '../middleware/validation.middleware'; // Middlewares de Express Validator
+import { authMiddleware } from '../middlewares/auth.middleware'; // Middleware para verificar JWT
+import { roleMiddleware } from '../middlewares/role.middleware'; // Middleware de control de roles
+import { validateProfesional } from '../middlewares/validator.middleware'; // Middlewares de Express Validator
 
 const router = Router();
 

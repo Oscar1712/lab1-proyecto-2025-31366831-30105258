@@ -1,8 +1,8 @@
 // routes/personas.routes.ts
 import { Router } from 'express';
-import { personasController } from '../controllers/personas.controller';
-import { authMiddleware } from '../middleware/auth.middleware';
-import { roleMiddleware } from '../middleware/role.middleware';
+import { personasController } from '../controllers/personasAtendidas.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
+import { roleMiddleware } from '../middlewares/role.middleware';
 // import { validatePersona } from '../middleware/validation.middleware'; // Asumimos un validador
 
 const router = Router();

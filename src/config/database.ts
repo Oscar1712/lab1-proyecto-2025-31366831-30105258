@@ -1,12 +1,11 @@
-// src/config/database.ts
+// src/config/database.ts (Restaurado)
+import { PrismaClient } from '@prisma/client'; 
 
-// Usar la importación nombrada estándar
-import PrismaClient from '@prisma/client';
-// import { PrismaClient } from '@prisma/client'; 
+// const prisma = new PrismaClient({
+//      log: ['query', 'error', 'warn'], 
+// });
 
-const prisma = new PrismaClient({ 
-    log: ['query', 'error', 'warn'],
-});
+const prisma = new PrismaClient();
 
 export default prisma;
 

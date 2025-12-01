@@ -1,18 +1,21 @@
-// controllers/citas.controller.ts
+// src/controllers/citas.controller.ts
+
 import { Request, Response, NextFunction } from 'express';
-import { citasService, CitaCreateData } from '../services/citas.service';
+// 🛑 CORRECCIÓN DE RUTA: Eliminar .ts y usar ruta relativa correcta
+import { citasService, CitaCreateData } from '../services/citas.service'; 
 
 export const citasController = {
 
     async getCitas(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            // Filtrar por ID de usuario autenticado o por filtros de ADMIN
             const { personaId, profesionalId } = req.query;
 
-            const citas = await citasService.findByFilter(
-                personaId ? parseInt(personaId as string) : undefined,
-                profesionalId ? parseInt(profesionalId as string) : undefined
-            );
+            // 🛑 CORRECCIÓN DE TIPADO: Convertir a número o undefined
+            const pId = personaId ? Number(personaId) : undefined;
+            const profId = profesionalId ? Number(profesionalId) : undefined;
+            
+            // 🛑 CORRECCIÓN DE NOMBRE: findByFilter ahora existe en el servicio.
+            const citas = await citasService.findByFilter(pId, profId);
 
             res.status(200).json(citas);
         } catch (error) {
@@ -23,14 +26,46 @@ export const citasController = {
     async createCita(req: Request, res: Response, next: NextFunction): Promise<void> {
         const data: CitaCreateData = req.body;
         try {
-            const nuevaCita = await citasService.create(data);
+            // 🛑 CORRECCIÓN DE NOMBRE: Usamos 'create' que es el nombre en el servicio.
+            const nuevaCita = await citasService.create(data); 
             res.status(201).json(nuevaCita);
         } catch (error) {
-            // Manejar errores de transacción (p. ej., el bloque no estaba abierto)
-            res.status(400).json({ message: 'No se pudo crear la cita. Verifique la disponibilidad del bloque de agenda.' });
-            next(error);
+            next(error); 
         }
     },
+    
+    // 🛑 CORRECCIÓN: Implementar los métodos requeridos por las rutas (TS2339)
+    async cancelCita(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const id = Number(req.params.id); 
+            const citaCancelada = await citasService.cancelCita(id);
+            res.status(200).json(citaCancelada);
+        } catch (error) { next(error); }
+    },
 
-    // ... Implementar métodos para reprogramar, cancelar y actualizar estado
+    async rescheduleCita(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const id = Number(req.params.id); 
+            const { newFecha, newAgendaBlockId } = req.body;
+            // 🛑 CORRECCIÓN TS1005: Asegúrate de que las llaves y paréntesis estén cerrados correctamente.
+            const citaReprogramada = await citasService.rescheduleCita(id, new Date(newFecha), Number(newAgendaBlockId));
+            res.status(200).json(citaReprogramada);
+        } catch (error) { next(error); }
+    },
+    
+    async confirmCita(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const id = Number(req.params.id);
+            const citaConfirmada = await citasService.confirmCita(id);
+            res.status(200).json(citaConfirmada);
+        } catch (error) { next(error); }
+    },
+    
+    async completeCita(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const id = Number(req.params.id);
+            const citaCumplida = await citasService.completeCita(id);
+            res.status(200).json(citaCumplida);
+        } catch (error) { next(error); }
+    },
 };

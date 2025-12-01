@@ -1,64 +1,88 @@
-// services/citas.service.ts
-import { PrismaClient, Citas, Prisma } from '@prisma/client';
-import { agendaService } from './agenda.service';
+// src/services/citas.service.ts
 
-const prisma = new PrismaClient();
-export type CitaCreateData = Prisma.CitasCreateInput;
+// 1. Importación de Prisma y Tipos
+import prisma from '../config/database'; 
+// 🛑 CORRECCIÓN CLAVE: Importación Nombrada para evitar TS2305 y TS2694
+import { Cita, Prisma } from '@prisma/client'; 
+// Importación de utilidades
+import { comparePassword } from '../utils/bcrypt.util'; 
+
+// Definición de Tipos
+// 🛑 CORRECCIÓN: Usamos los tipos importados directamente
+export type CitaCreateData = Prisma.CitaCreateInput;
 
 export const citasService = {
 
-    // Obtener citas por paciente o profesional
-    async findByFilter(personaId?: number, profesionalId?: number): Promise<Citas[]> {
-        return prisma.citas.findMany({
-            where: { personaId, profesionalId },
-            include: { profesional: true, persona: true, unidad: true },
+    // Crear una cita (Controlador llama a esta función como 'create')
+    async create(data: CitaCreateData): Promise<Cita> {
+        return prisma.cita.create({ data });
+    },
+
+    // Buscar por filtro (Controlador llama a esta función como 'findByFilter')
+    // 🛑 CORRECCIÓN: Implementación para sincronizar con el controlador
+    async findByFilter(personaId: number | undefined, profesionalId: number | undefined): Promise<Cita[]> {
+        const whereClause: Prisma.CitaWhereInput = {};
+
+        if (personaId) {
+            whereClause.personaId = personaId;
+        }
+        if (profesionalId) {
+            whereClause.profesionalId = profesionalId;
+        }
+
+        return prisma.cita.findMany({
+            where: whereClause,
+            orderBy: { fecha: 'asc' },
+        });
+    },
+    
+    // Obtener una cita específica
+    async getCitaById(id: number): Promise<Cita | null> {
+        return prisma.cita.findUnique({
+            where: { id: id },
         });
     },
 
-    // Creación de una nueva cita
-    async create(data: CitaCreateData): Promise<Citas> {
-        // Lógica de negocio CRÍTICA:
-        // 1. Verificar disponibilidad en Agenda (el bloque debe estar 'abierto').
-        // 2. Crear la Cita.
-        // 3. Marcar el bloque de Agenda como 'reservado' (Transacción).
-
-        return prisma.$transaction(async (tx) => {
-            // Se debe obtener el ID del bloque de Agenda desde la data o del horario
-            // Suponiendo que 'data' incluye 'agendaBloqueId'
-            const agendaBloqueId = (data as any).agendaBloqueId;
-
-            // 1. Crear la Cita
-            const nuevaCita = await tx.citas.create({ data });
-
-            // 2. Marcar el bloque como 'reservado'
-            await tx.agenda.update({
-                where: { id: agendaBloqueId },
-                data: { estado: 'reservado' },
-            });
-
-            return nuevaCita;
+    // Obtener citas por WhereClause
+    async getCitas(whereClause: Prisma.CitaWhereInput): Promise<Cita[]> {
+        return prisma.cita.findMany({
+            where: whereClause,
+            orderBy: { fecha: 'asc' },
         });
     },
 
-    // Reprogramación de una cita
-    async reschedule(citaId: number, oldAgendaBloqueId: number, newAgendaBloqueId: number): Promise<Citas> {
-        // Lógica de negocio:
-        // 1. Marcar el bloque viejo como 'abierto'.
-        // 2. Marcar el bloque nuevo como 'reservado'.
-        // 3. Actualizar la cita con el nuevo horario.
-        return prisma.$transaction(async (tx) => {
-            // 1. Liberar el bloque viejo
-            await tx.agenda.update({ where: { id: oldAgendaBloqueId }, data: { estado: 'abierto' } });
-
-            // 2. Reservar el bloque nuevo
-            await tx.agenda.update({ where: { id: newAgendaBloqueId }, data: { estado: 'reservado' } });
-
-            // 3. Actualizar la Cita
-            return tx.citas.update({
-                where: { id: citaId },
-                data: { inicio: new Date(/* New Start Time */), fin: new Date(/* New End Time */), observaciones: 'Reprogramada' },
-            });
+    // Cancelar una cita
+    async cancelCita(id: number): Promise<Cita> {
+        return prisma.cita.update({
+            where: { id: id },
+            data: { estado: 'CANCELADA' }, 
         });
     },
-    // ... Métodos para confirmación, cancelación (actualización de estado)
+
+    // Reprogramar una cita
+    async rescheduleCita(id: number, newFecha: Date, newAgendaBlockId: number): Promise<Cita> {
+        return prisma.cita.update({
+            where: { id: id },
+            data: { 
+                fecha: newFecha,
+                agendaId: newAgendaBlockId,
+            },
+        });
+    },
+
+    // Confirmar Cita (Implementación para sincronizar con el controlador/rutas)
+    async confirmCita(id: number): Promise<Cita> {
+        return prisma.cita.update({
+            where: { id: id },
+            data: { estado: 'CONFIRMADA' }, 
+        });
+    },
+
+    // Completar Cita (Implementación para sincronizar con el controlador/rutas)
+    async completeCita(id: number): Promise<Cita> {
+        return prisma.cita.update({
+            where: { id: id },
+            data: { estado: 'COMPLETADA' }, 
+        });
+    },
 };

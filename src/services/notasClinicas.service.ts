@@ -1,36 +1,63 @@
-// services/notasClinicas.service.ts
+// src/services/notasClinicas.service.ts
 
-// import { NotaClinica } from '../models/NotaClinica';
+// 1. IMPORTACIÓN DE PRISMA Y TIPOS (Corregido para TS2305)
+// Importamos la instancia centralizada
+import prisma from '../config/database'; // ⬅️ SIN .ts al final
+// Importamos el bundle solo para los tipos de la base de datos
+import * as PrismaTypes from '@prisma/client'; 
+
+// Definición de Tipos
+type NotaClinica = PrismaTypes.NotaClinica; // Usamos el tipo real de Prisma
 
 class NotasClinicasService {
     // 1. Crear una nota clínica asociada a un episodio
-    async createNota(data: { episodioId: string, profesionalId: string, contenido: string, tipo: string }) {
-        console.log(`[SERVICE] Creando nota para Episodio ID: ${data.episodioId}`);
-        // Lógica: Validar que el profesional pertenezca al episodio y guardar en DB.
-        const newNota = { id: 'nc456', ...data, fechaCreacion: new Date() };
-        // Lógica adicional: Enlazar la nota al Episodio
+    // Asumo que episodioId y profesionalId son numbers en el schema de Prisma
+    async createNota(data: { episodioId: number, profesionalId: number, contenido: string, tipo: string }): Promise<NotaClinica> {
+        
+        // Lógica de Prisma
+        const newNota = await prisma.notaClinica.create({
+            data: {
+                ...data,
+                // Asumiendo que Prisma gestiona fechas
+            },
+        });
+        
         return newNota;
     }
 
     // 2. Obtener una nota específica
-    async getNotaById(notaId: string) {
-        const nota = { id: notaId, contenido: 'Paciente refiere mejoría...', tipo: 'Evolución' };
-        if (!nota) throw new Error('Nota clínica no encontrada');
+    // 🛑 CORRECCIÓN DE TIPADO: Cambiado de 'string' a 'number'
+    async getNotaById(notaId: number): Promise<NotaClinica | null> {
+        
+        const nota = await prisma.notaClinica.findUnique({
+            where: { id: notaId },
+        });
+        
+        if (!nota) return null; // No lanzar error, dejar que el controlador maneje el 404
         return nota;
     }
 
     // 3. Obtener todas las notas de un episodio
-    async getNotasByEpisodio(episodioId: string) {
-        console.log(`[SERVICE] Obteniendo notas de Episodio ID: ${episodioId}`);
-        // Lógica: Búsqueda filtrada y ordenada por fecha.
-        return [{ id: 'nc1', contenido: 'Inicial' }, { id: 'nc2', contenido: 'Seguimiento' }];
+    // 🛑 CORRECCIÓN DE TIPADO: Cambiado de 'string' a 'number'
+    async getNotasByEpisodio(episodioId: number): Promise<NotaClinica[]> {
+        
+        const notas = await prisma.notaClinica.findMany({
+            where: { episodioId: episodioId },
+            orderBy: { fechaCreacion: 'desc' },
+        });
+
+        return notas;
     }
 
-    // 4. Actualizar el contenido de una nota (con restricciones de tiempo o rol)
-    async updateNota(notaId: string, data: { contenido?: string, tipo?: string }) {
-        console.log(`[SERVICE] Actualizando nota ID: ${notaId}`);
-        // Lógica: Actualizar en DB.
-        const notaActualizada = { id: notaId, ...data, fechaActualizacion: new Date() };
+    // 4. Actualizar el contenido de una nota 
+    // 🛑 CORRECCIÓN DE TIPADO: Cambiado de 'string' a 'number'
+    async updateNota(notaId: number, data: { contenido?: string, tipo?: string }): Promise<NotaClinica | null> {
+        
+        const notaActualizada = await prisma.notaClinica.update({
+            where: { id: notaId },
+            data: data,
+        });
+        
         return notaActualizada;
     }
 }

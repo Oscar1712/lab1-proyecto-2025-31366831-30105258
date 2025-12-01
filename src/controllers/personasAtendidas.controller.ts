@@ -1,62 +1,62 @@
-// controllers/personas.controller.ts
-import { Request, Response, NextFunction } from 'express';
-import { personasService, PersonaCreateData } from '../services/personas.service';
+// src/controllers/personasAtendidas.controller.ts
 
-export const personasController = {
+import { Request, Response } from 'express';
+// ⚠️ SIN .ts al final
+import { personasService } from '../services/personasAtendidas.service'; 
 
-    async getAllPersonas(req: Request, res: Response, next: NextFunction): Promise<void> {
+class PersonasAtendidasController {
+    async createPersona(req: Request, res: Response) {
         try {
-            const personas = await personasService.findAllActive();
-            res.status(200).json(personas);
+            const persona = await personasService.createPersona(req.body);
+            res.status(201).json(persona);
         } catch (error) {
-            next(error);
+            res.status(400).send({ message: 'ERROR_CREAR_PERSONA', error });
         }
-    },
+    }
 
-    async getPersonaById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async getPersonaById(req: Request, res: Response) {
+        // 🛑 CORRECCIÓN DE TIPADO TS2345
+        const { id } = req.params; 
+        const numId = Number(id); // Convertir a número si el servicio espera un number
+
+        if (!id || isNaN(numId)) {
+            return res.status(400).send({ message: 'ERROR: El ID de la persona debe ser un número válido.' });
+        }
+        
         try {
-            const id = parseInt(req.params.id);
-            const persona = await personasService.findById(id);
-
+            const persona = await personasService.getPersonaById(numId);
+            
             if (!persona) {
-                res.status(404).json({ message: 'Paciente no encontrado' });
-                return;
+                return res.status(404).send({ message: 'ERROR: Persona no encontrada.' });
             }
+            
             res.status(200).json(persona);
         } catch (error) {
-            next(error);
+            res.status(500).send({ message: 'ERROR_OBTENER_PERSONA', error });
         }
-    },
+    }
 
-    async createPersona(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const data: PersonaCreateData = req.body;
-        try {
-            const nuevaPersona = await personasService.create(data);
-            res.status(201).json(nuevaPersona);
-        } catch (error) {
-            // Manejo de error de Prisma (ej. DNI/Documento duplicado)
-            next(error);
-        }
-    },
+    async updatePersona(req: Request, res: Response) {
+        // 🛑 CORRECCIÓN DE TIPADO TS2345
+        const { id } = req.params; 
+        const numId = Number(id);
 
-    async updatePersona(req: Request, res: Response, next: NextFunction): Promise<void> {
-        try {
-            const id = parseInt(req.params.id);
-            const data: Partial<PersonaCreateData> = req.body;
-            const personaActualizada = await personasService.update(id, data);
-            res.status(200).json(personaActualizada);
-        } catch (error) {
-            next(error);
+        if (!id || isNaN(numId)) {
+            return res.status(400).send({ message: 'ERROR: El ID de la persona debe ser un número válido para actualizar.' });
         }
-    },
 
-    async deletePersona(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const id = parseInt(req.params.id);
-            await personasService.softDelete(id);
-            res.status(204).send();
+            const updatedPersona = await personasService.updatePersona(numId, req.body);
+            
+            if (!updatedPersona) {
+                return res.status(404).send({ message: 'ERROR: Persona no encontrada para actualizar.' });
+            }
+            
+            res.status(200).json(updatedPersona);
         } catch (error) {
-            next(error);
+            res.status(500).send({ message: 'ERROR_ACTUALIZAR_PERSONA', error });
         }
-    },
-};
+    }
+}
+
+export const personasAtendidasController = new PersonasAtendidasController();

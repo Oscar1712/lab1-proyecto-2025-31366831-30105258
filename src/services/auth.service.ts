@@ -1,11 +1,18 @@
 // services/auth.service.ts
 
-import { PrismaClient, Usuario } from '@prisma/client';
+// Usar la importación nombrada estándar (que espera la documentación de Prisma)
+import PrismaClient, { Prisma } from '@prisma/client'; // Importación mixta
+// import { PrismaClient, Prisma } from '@prisma/client';
+
+// 1. Definir el tipo Usuario
+type Usuario = Prisma.Usuario; 
+
+// 2. Inicialización del cliente
+const prisma = new PrismaClient();
+
 import bcrypt from 'bcrypt';
 import { generateToken } from '../utils/jwt.util'; // Utilidad para crear JWT
 import { hashPassword, comparePassword } from '../utils/bcrypt.util'; // Utilidades de bcrypt
-
-const prisma = new PrismaClient();
 
 // Definición de tipos para la respuesta de login
 export type LoginResult = {

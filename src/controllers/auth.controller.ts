@@ -26,5 +26,13 @@ export const authController = {
             res.status(401).json({ message: 'Credenciales inválidas' }); 
         }
     },
-    // Implementar registerUser de forma similar...
+    // Implementar registerUser
+    async registerUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            // Lógica de registro (ej. await authService.register(req.body);)
+            res.status(201).json({ message: 'Usuario registrado exitosamente' });
+        } catch (error) {
+            next(error);
+        }
+    }
 };

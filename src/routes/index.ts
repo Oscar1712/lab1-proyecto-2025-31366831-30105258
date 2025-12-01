@@ -3,7 +3,7 @@
 import { Router } from 'express';
 // 1. Importa todos los routers de las entidades
 import authRoutes from './auth.routes';
-import personasRoutes from './personas.routes';
+import personasAtendidasRoutes from './personasAtendidas.routes';
 import profesionalesRoutes from './profesionales.routes';
 import unidadesRoutes from './unidadesAtencion.routes'; // Asumiendo este nombre
 import agendaRoutes from './agenda.routes';
@@ -18,7 +18,7 @@ const router = Router();
 router.use('/auth', authRoutes); 
 
 // Rutas de identidades y recursos clínicos
-router.use('/personas', personasRoutes);
+router.use('/personas', personasAtendidasRoutes);
 router.use('/profesionales', profesionalesRoutes);
 router.use('/unidades', unidadesRoutes);
 

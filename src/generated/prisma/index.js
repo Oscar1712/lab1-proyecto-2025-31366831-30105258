@@ -97,11 +97,13 @@ exports.Prisma.UsuarioScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
-  role: 'role',
-  createdAt: 'createdAt'
+  rol: 'rol',
+  activo: 'activo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PacienteScalarFieldEnum = {
+exports.Prisma.PersonaAtendidaScalarFieldEnum = {
   id: 'id',
   tipoDocumento: 'tipoDocumento',
   numeroDocumento: 'numeroDocumento',
@@ -112,6 +114,9 @@ exports.Prisma.PacienteScalarFieldEnum = {
   correo: 'correo',
   telefono: 'telefono',
   direccion: 'direccion',
+  contactoEmergencia: 'contactoEmergencia',
+  alergias: 'alergias',
+  antecedentesResumen: 'antecedentesResumen',
   estado: 'estado',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -121,11 +126,14 @@ exports.Prisma.ProfesionalScalarFieldEnum = {
   id: 'id',
   nombres: 'nombres',
   apellidos: 'apellidos',
-  registroMedico: 'registroMedico',
+  registroProfesional: 'registroProfesional',
   especialidad: 'especialidad',
   correo: 'correo',
   telefono: 'telefono',
-  agendaHabilitada: 'agendaHabilitada'
+  agendaHabilitada: 'agendaHabilitada',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.UnidadAtencionScalarFieldEnum = {
@@ -133,48 +141,86 @@ exports.Prisma.UnidadAtencionScalarFieldEnum = {
   nombre: 'nombre',
   tipo: 'tipo',
   direccion: 'direccion',
-  estado: 'estado'
+  telefono: 'telefono',
+  horarioReferencia: 'horarioReferencia',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.BloqueAgendaScalarFieldEnum = {
   id: 'id',
-  fechaInicio: 'fechaInicio',
-  fechaFin: 'fechaFin',
+  profesionalId: 'profesionalId',
+  unidadId: 'unidadId',
+  inicio: 'inicio',
+  fin: 'fin',
   capacidad: 'capacidad',
   estado: 'estado',
-  profesionalId: 'profesionalId',
-  unidadId: 'unidadId'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CitaScalarFieldEnum = {
   id: 'id',
-  fechaInicio: 'fechaInicio',
-  fechaFin: 'fechaFin',
-  motivo: 'motivo',
-  estado: 'estado',
-  canal: 'canal',
-  pacienteId: 'pacienteId',
+  personaId: 'personaId',
   profesionalId: 'profesionalId',
-  unidadId: 'unidadId'
+  unidadId: 'unidadId',
+  inicio: 'inicio',
+  fin: 'fin',
+  motivo: 'motivo',
+  canal: 'canal',
+  estado: 'estado',
+  observaciones: 'observaciones',
+  historialCambios: 'historialCambios',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.EpisodioAtencionScalarFieldEnum = {
   id: 'id',
+  personaId: 'personaId',
+  fechaApertura: 'fechaApertura',
   motivo: 'motivo',
-  fecha: 'fecha',
+  tipo: 'tipo',
   estado: 'estado',
-  pacienteId: 'pacienteId'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.NotaClinicaScalarFieldEnum = {
   id: 'id',
+  episodioId: 'episodioId',
+  profesionalId: 'profesionalId',
+  fecha: 'fecha',
   subjetivo: 'subjetivo',
   objetivo: 'objetivo',
   analisis: 'analisis',
   plan: 'plan',
-  fecha: 'fecha',
+  adjuntos: 'adjuntos',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DiagnosticoScalarFieldEnum = {
+  id: 'id',
   episodioId: 'episodioId',
-  profesionalId: 'profesionalId'
+  codigo: 'codigo',
+  descripcion: 'descripcion',
+  tipo: 'tipo',
+  principal: 'principal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConsentimientoScalarFieldEnum = {
+  id: 'id',
+  personaId: 'personaId',
+  tipoProcedimiento: 'tipoProcedimiento',
+  fecha: 'fecha',
+  metodo: 'metodo',
+  archivoId: 'archivoId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -185,7 +231,7 @@ exports.Prisma.SortOrder = {
 exports.Prisma.UsuarioOrderByRelevanceFieldEnum = {
   email: 'email',
   password: 'password',
-  role: 'role'
+  rol: 'rol'
 };
 
 exports.Prisma.NullsOrder = {
@@ -193,7 +239,7 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.PacienteOrderByRelevanceFieldEnum = {
+exports.Prisma.PersonaAtendidaOrderByRelevanceFieldEnum = {
   tipoDocumento: 'tipoDocumento',
   numeroDocumento: 'numeroDocumento',
   nombres: 'nombres',
@@ -201,22 +247,30 @@ exports.Prisma.PacienteOrderByRelevanceFieldEnum = {
   sexo: 'sexo',
   correo: 'correo',
   telefono: 'telefono',
-  direccion: 'direccion'
+  direccion: 'direccion',
+  contactoEmergencia: 'contactoEmergencia',
+  alergias: 'alergias',
+  antecedentesResumen: 'antecedentesResumen',
+  estado: 'estado'
 };
 
 exports.Prisma.ProfesionalOrderByRelevanceFieldEnum = {
   nombres: 'nombres',
   apellidos: 'apellidos',
-  registroMedico: 'registroMedico',
+  registroProfesional: 'registroProfesional',
   especialidad: 'especialidad',
   correo: 'correo',
-  telefono: 'telefono'
+  telefono: 'telefono',
+  estado: 'estado'
 };
 
 exports.Prisma.UnidadAtencionOrderByRelevanceFieldEnum = {
   nombre: 'nombre',
   tipo: 'tipo',
-  direccion: 'direccion'
+  direccion: 'direccion',
+  telefono: 'telefono',
+  horarioReferencia: 'horarioReferencia',
+  estado: 'estado'
 };
 
 exports.Prisma.BloqueAgendaOrderByRelevanceFieldEnum = {
@@ -225,12 +279,15 @@ exports.Prisma.BloqueAgendaOrderByRelevanceFieldEnum = {
 
 exports.Prisma.CitaOrderByRelevanceFieldEnum = {
   motivo: 'motivo',
+  canal: 'canal',
   estado: 'estado',
-  canal: 'canal'
+  observaciones: 'observaciones',
+  historialCambios: 'historialCambios'
 };
 
 exports.Prisma.EpisodioAtencionOrderByRelevanceFieldEnum = {
   motivo: 'motivo',
+  tipo: 'tipo',
   estado: 'estado'
 };
 
@@ -238,19 +295,34 @@ exports.Prisma.NotaClinicaOrderByRelevanceFieldEnum = {
   subjetivo: 'subjetivo',
   objetivo: 'objetivo',
   analisis: 'analisis',
-  plan: 'plan'
+  plan: 'plan',
+  adjuntos: 'adjuntos'
+};
+
+exports.Prisma.DiagnosticoOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion',
+  tipo: 'tipo'
+};
+
+exports.Prisma.ConsentimientoOrderByRelevanceFieldEnum = {
+  tipoProcedimiento: 'tipoProcedimiento',
+  metodo: 'metodo',
+  archivoId: 'archivoId'
 };
 
 
 exports.Prisma.ModelName = {
   Usuario: 'Usuario',
-  Paciente: 'Paciente',
+  PersonaAtendida: 'PersonaAtendida',
   Profesional: 'Profesional',
   UnidadAtencion: 'UnidadAtencion',
   BloqueAgenda: 'BloqueAgenda',
   Cita: 'Cita',
   EpisodioAtencion: 'EpisodioAtencion',
-  NotaClinica: 'NotaClinica'
+  NotaClinica: 'NotaClinica',
+  Diagnostico: 'Diagnostico',
+  Consentimiento: 'Consentimiento'
 };
 /**
  * Create the Client
@@ -260,10 +332,10 @@ const config = {
   "clientVersion": "7.1.0",
   "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
   "activeProvider": "mysql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  //  url      = env(\"DATABASE_URL\")\n}\n\n// 1. USUARIOS DEL SISTEMA (Para login)\n// Puedes vincular esto a Profesionales o Administrativos\nmodel Usuario {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  password  String // Hash con bcrypt\n  role      String // 'ADMIN', 'MEDICO', 'ENFERMERO'\n  createdAt DateTime @default(now())\n}\n\n// 2. PACIENTES (PersonasAtendidas)\nmodel Paciente {\n  id              Int      @id @default(autoincrement())\n  tipoDocumento   String // CC, TI, CE\n  numeroDocumento String   @unique\n  nombres         String\n  apellidos       String\n  fechaNacimiento DateTime\n  sexo            String\n  correo          String?\n  telefono        String\n  direccion       String?\n  estado          Boolean  @default(true) // Activo/Inactivo\n\n  citas     Cita[]\n  episodios EpisodioAtencion[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\n// 3. PROFESIONALES\nmodel Profesional {\n  id               Int     @id @default(autoincrement())\n  nombres          String\n  apellidos        String\n  registroMedico   String  @unique // Tarjeta profesional\n  especialidad     String\n  correo           String  @unique\n  telefono         String?\n  agendaHabilitada Boolean @default(true)\n\n  bloquesAgenda BloqueAgenda[]\n  citas         Cita[]\n  notas         NotaClinica[]\n}\n\n// 4. UNIDADES DE ATENCION (Sedes)\nmodel UnidadAtencion {\n  id        Int     @id @default(autoincrement())\n  nombre    String\n  tipo      String // Sede, Consultorio\n  direccion String\n  estado    Boolean @default(true)\n\n  bloquesAgenda BloqueAgenda[]\n  citas         Cita[]\n}\n\n// 5. AGENDA (Bloques de tiempo disponibles)\nmodel BloqueAgenda {\n  id          Int      @id @default(autoincrement())\n  fechaInicio DateTime\n  fechaFin    DateTime\n  capacidad   Int      @default(1)\n  estado      String // 'ABIERTO', 'CERRADO'\n\n  profesional   Profesional    @relation(fields: [profesionalId], references: [id])\n  profesionalId Int\n  unidad        UnidadAtencion @relation(fields: [unidadId], references: [id])\n  unidadId      Int\n}\n\n// 6. CITAS\nmodel Cita {\n  id          Int      @id @default(autoincrement())\n  fechaInicio DateTime\n  fechaFin    DateTime\n  motivo      String\n  estado      String // 'SOLICITADA', 'CONFIRMADA', 'CANCELADA'\n  canal       String // 'PRESENCIAL', 'VIRTUAL'\n\n  paciente      Paciente       @relation(fields: [pacienteId], references: [id])\n  pacienteId    Int\n  profesional   Profesional    @relation(fields: [profesionalId], references: [id])\n  profesionalId Int\n  unidad        UnidadAtencion @relation(fields: [unidadId], references: [id])\n  unidadId      Int\n}\n\n// 7. REGISTRO CLINICO (Simplificado para inicio)\nmodel EpisodioAtencion {\n  id     Int      @id @default(autoincrement())\n  motivo String\n  fecha  DateTime @default(now())\n  estado String // 'ABIERTO', 'CERRADO'\n\n  paciente   Paciente @relation(fields: [pacienteId], references: [id])\n  pacienteId Int\n\n  notas NotaClinica[]\n}\n\nmodel NotaClinica {\n  id        Int      @id @default(autoincrement())\n  subjetivo String // Lo que dice el paciente\n  objetivo  String // Lo que ve el medico\n  analisis  String\n  plan      String\n  fecha     DateTime @default(now())\n\n  episodio      EpisodioAtencion @relation(fields: [episodioId], references: [id])\n  episodioId    Int\n  profesional   Profesional      @relation(fields: [profesionalId], references: [id])\n  profesionalId Int\n}\n"
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  //  url      = env(\"DATABASE_URL\")\n}\n\n// Tabla de Usuarios para autenticación\nmodel Usuario {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  password  String\n  rol       String // admin, medico, recepcionista\n  activo    Boolean  @default(true)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"usuarios\")\n}\n\n// Personas Atendidas (Pacientes)\nmodel PersonaAtendida {\n  id                  Int      @id @default(autoincrement())\n  tipoDocumento       String\n  numeroDocumento     String   @unique\n  nombres             String\n  apellidos           String\n  fechaNacimiento     DateTime\n  sexo                String\n  correo              String?\n  telefono            String?\n  direccion           String?\n  contactoEmergencia  String?\n  alergias            String?  @db.Text\n  antecedentesResumen String?  @db.Text\n  estado              String   @default(\"activo\")\n  createdAt           DateTime @default(now())\n  updatedAt           DateTime @updatedAt\n\n  citas           Cita[]\n  episodios       EpisodioAtencion[]\n  consentimientos Consentimiento[]\n\n  @@map(\"personas_atendidas\")\n}\n\n// Profesionales de Salud\nmodel Profesional {\n  id                  Int      @id @default(autoincrement())\n  nombres             String\n  apellidos           String\n  registroProfesional String   @unique\n  especialidad        String\n  correo              String?\n  telefono            String?\n  agendaHabilitada    Boolean  @default(true)\n  estado              String   @default(\"activo\")\n  createdAt           DateTime @default(now())\n  updatedAt           DateTime @updatedAt\n\n  bloques       BloqueAgenda[]\n  citas         Cita[]\n  notasClinicas NotaClinica[]\n\n  @@map(\"profesionales\")\n}\n\n// Unidades de Atención\nmodel UnidadAtencion {\n  id                Int      @id @default(autoincrement())\n  nombre            String\n  tipo              String // sede, consultorio, servicio\n  direccion         String?\n  telefono          String?\n  horarioReferencia String?\n  estado            String   @default(\"activo\")\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n\n  bloques BloqueAgenda[]\n  citas   Cita[]\n\n  @@map(\"unidades_atencion\")\n}\n\n// Bloques de Agenda\nmodel BloqueAgenda {\n  id            Int      @id @default(autoincrement())\n  profesionalId Int\n  unidadId      Int\n  inicio        DateTime\n  fin           DateTime\n  capacidad     Int      @default(1)\n  estado        String   @default(\"abierto\") // abierto, cerrado, reservado\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  profesional Profesional    @relation(fields: [profesionalId], references: [id])\n  unidad      UnidadAtencion @relation(fields: [unidadId], references: [id])\n\n  @@map(\"bloques_agenda\")\n}\n\n// Citas\nmodel Cita {\n  id               Int      @id @default(autoincrement())\n  personaId        Int\n  profesionalId    Int\n  unidadId         Int\n  inicio           DateTime\n  fin              DateTime\n  motivo           String   @db.Text\n  canal            String // presencial, virtual\n  estado           String   @default(\"solicitada\") // solicitada, confirmada, cumplida, cancelada, noAsistida\n  observaciones    String?  @db.Text\n  historialCambios String?  @db.Text\n  createdAt        DateTime @default(now())\n  updatedAt        DateTime @updatedAt\n\n  persona     PersonaAtendida @relation(fields: [personaId], references: [id])\n  profesional Profesional     @relation(fields: [profesionalId], references: [id])\n  unidad      UnidadAtencion  @relation(fields: [unidadId], references: [id])\n\n  @@map(\"citas\")\n}\n\n// Episodios de Atención\nmodel EpisodioAtencion {\n  id            Int      @id @default(autoincrement())\n  personaId     Int\n  fechaApertura DateTime @default(now())\n  motivo        String   @db.Text\n  tipo          String // consulta, procedimiento, control, urgencia ambulatoria\n  estado        String   @default(\"abierto\") // abierto, cerrado\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  persona       PersonaAtendida @relation(fields: [personaId], references: [id])\n  notasClinicas NotaClinica[]\n  diagnosticos  Diagnostico[]\n\n  @@map(\"episodios_atencion\")\n}\n\n// Notas Clínicas\nmodel NotaClinica {\n  id            Int      @id @default(autoincrement())\n  episodioId    Int\n  profesionalId Int\n  fecha         DateTime @default(now())\n  subjetivo     String?  @db.Text\n  objetivo      String?  @db.Text\n  analisis      String?  @db.Text\n  plan          String?  @db.Text\n  adjuntos      String?  @db.Text // JSON array de URLs\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  episodio    EpisodioAtencion @relation(fields: [episodioId], references: [id])\n  profesional Profesional      @relation(fields: [profesionalId], references: [id])\n\n  @@map(\"notas_clinicas\")\n}\n\n// Diagnósticos\nmodel Diagnostico {\n  id          Int      @id @default(autoincrement())\n  episodioId  Int\n  codigo      String // CIE-10\n  descripcion String\n  tipo        String // presuntivo, definitivo\n  principal   Boolean  @default(false)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  episodio EpisodioAtencion @relation(fields: [episodioId], references: [id])\n\n  @@map(\"diagnosticos\")\n}\n\n// Consentimientos Informados\nmodel Consentimiento {\n  id                Int      @id @default(autoincrement())\n  personaId         Int\n  tipoProcedimiento String\n  fecha             DateTime @default(now())\n  metodo            String // firma digital, aceptación verbal con registro\n  archivoId         String?\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n\n  persona PersonaAtendida @relation(fields: [personaId], references: [id])\n\n  @@map(\"consentimientos\")\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Usuario\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Paciente\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tipoDocumento\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"numeroDocumento\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nombres\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"apellidos\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fechaNacimiento\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sexo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"correo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telefono\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"direccion\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"citas\",\"kind\":\"object\",\"type\":\"Cita\",\"relationName\":\"CitaToPaciente\"},{\"name\":\"episodios\",\"kind\":\"object\",\"type\":\"EpisodioAtencion\",\"relationName\":\"EpisodioAtencionToPaciente\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Profesional\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nombres\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"apellidos\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"registroMedico\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"especialidad\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"correo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telefono\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"agendaHabilitada\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"bloquesAgenda\",\"kind\":\"object\",\"type\":\"BloqueAgenda\",\"relationName\":\"BloqueAgendaToProfesional\"},{\"name\":\"citas\",\"kind\":\"object\",\"type\":\"Cita\",\"relationName\":\"CitaToProfesional\"},{\"name\":\"notas\",\"kind\":\"object\",\"type\":\"NotaClinica\",\"relationName\":\"NotaClinicaToProfesional\"}],\"dbName\":null},\"UnidadAtencion\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nombre\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tipo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"direccion\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"bloquesAgenda\",\"kind\":\"object\",\"type\":\"BloqueAgenda\",\"relationName\":\"BloqueAgendaToUnidadAtencion\"},{\"name\":\"citas\",\"kind\":\"object\",\"type\":\"Cita\",\"relationName\":\"CitaToUnidadAtencion\"}],\"dbName\":null},\"BloqueAgenda\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fechaInicio\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"fechaFin\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"capacidad\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profesional\",\"kind\":\"object\",\"type\":\"Profesional\",\"relationName\":\"BloqueAgendaToProfesional\"},{\"name\":\"profesionalId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unidad\",\"kind\":\"object\",\"type\":\"UnidadAtencion\",\"relationName\":\"BloqueAgendaToUnidadAtencion\"},{\"name\":\"unidadId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Cita\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fechaInicio\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"fechaFin\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"motivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"canal\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paciente\",\"kind\":\"object\",\"type\":\"Paciente\",\"relationName\":\"CitaToPaciente\"},{\"name\":\"pacienteId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profesional\",\"kind\":\"object\",\"type\":\"Profesional\",\"relationName\":\"CitaToProfesional\"},{\"name\":\"profesionalId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unidad\",\"kind\":\"object\",\"type\":\"UnidadAtencion\",\"relationName\":\"CitaToUnidadAtencion\"},{\"name\":\"unidadId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"EpisodioAtencion\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"motivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fecha\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paciente\",\"kind\":\"object\",\"type\":\"Paciente\",\"relationName\":\"EpisodioAtencionToPaciente\"},{\"name\":\"pacienteId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"notas\",\"kind\":\"object\",\"type\":\"NotaClinica\",\"relationName\":\"EpisodioAtencionToNotaClinica\"}],\"dbName\":null},\"NotaClinica\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"subjetivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"objetivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"analisis\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"plan\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fecha\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"episodio\",\"kind\":\"object\",\"type\":\"EpisodioAtencion\",\"relationName\":\"EpisodioAtencionToNotaClinica\"},{\"name\":\"episodioId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profesional\",\"kind\":\"object\",\"type\":\"Profesional\",\"relationName\":\"NotaClinicaToProfesional\"},{\"name\":\"profesionalId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Usuario\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rol\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"activo\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"usuarios\"},\"PersonaAtendida\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tipoDocumento\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"numeroDocumento\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nombres\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"apellidos\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fechaNacimiento\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sexo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"correo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telefono\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"direccion\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"contactoEmergencia\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"alergias\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"antecedentesResumen\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"citas\",\"kind\":\"object\",\"type\":\"Cita\",\"relationName\":\"CitaToPersonaAtendida\"},{\"name\":\"episodios\",\"kind\":\"object\",\"type\":\"EpisodioAtencion\",\"relationName\":\"EpisodioAtencionToPersonaAtendida\"},{\"name\":\"consentimientos\",\"kind\":\"object\",\"type\":\"Consentimiento\",\"relationName\":\"ConsentimientoToPersonaAtendida\"}],\"dbName\":\"personas_atendidas\"},\"Profesional\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nombres\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"apellidos\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"registroProfesional\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"especialidad\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"correo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telefono\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"agendaHabilitada\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"bloques\",\"kind\":\"object\",\"type\":\"BloqueAgenda\",\"relationName\":\"BloqueAgendaToProfesional\"},{\"name\":\"citas\",\"kind\":\"object\",\"type\":\"Cita\",\"relationName\":\"CitaToProfesional\"},{\"name\":\"notasClinicas\",\"kind\":\"object\",\"type\":\"NotaClinica\",\"relationName\":\"NotaClinicaToProfesional\"}],\"dbName\":\"profesionales\"},\"UnidadAtencion\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nombre\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tipo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"direccion\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telefono\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"horarioReferencia\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"bloques\",\"kind\":\"object\",\"type\":\"BloqueAgenda\",\"relationName\":\"BloqueAgendaToUnidadAtencion\"},{\"name\":\"citas\",\"kind\":\"object\",\"type\":\"Cita\",\"relationName\":\"CitaToUnidadAtencion\"}],\"dbName\":\"unidades_atencion\"},\"BloqueAgenda\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profesionalId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unidadId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"inicio\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"fin\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"capacidad\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"profesional\",\"kind\":\"object\",\"type\":\"Profesional\",\"relationName\":\"BloqueAgendaToProfesional\"},{\"name\":\"unidad\",\"kind\":\"object\",\"type\":\"UnidadAtencion\",\"relationName\":\"BloqueAgendaToUnidadAtencion\"}],\"dbName\":\"bloques_agenda\"},\"Cita\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"personaId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profesionalId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unidadId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"inicio\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"fin\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"motivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"canal\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"observaciones\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"historialCambios\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"persona\",\"kind\":\"object\",\"type\":\"PersonaAtendida\",\"relationName\":\"CitaToPersonaAtendida\"},{\"name\":\"profesional\",\"kind\":\"object\",\"type\":\"Profesional\",\"relationName\":\"CitaToProfesional\"},{\"name\":\"unidad\",\"kind\":\"object\",\"type\":\"UnidadAtencion\",\"relationName\":\"CitaToUnidadAtencion\"}],\"dbName\":\"citas\"},\"EpisodioAtencion\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"personaId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fechaApertura\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"motivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tipo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"persona\",\"kind\":\"object\",\"type\":\"PersonaAtendida\",\"relationName\":\"EpisodioAtencionToPersonaAtendida\"},{\"name\":\"notasClinicas\",\"kind\":\"object\",\"type\":\"NotaClinica\",\"relationName\":\"EpisodioAtencionToNotaClinica\"},{\"name\":\"diagnosticos\",\"kind\":\"object\",\"type\":\"Diagnostico\",\"relationName\":\"DiagnosticoToEpisodioAtencion\"}],\"dbName\":\"episodios_atencion\"},\"NotaClinica\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"episodioId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profesionalId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fecha\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"subjetivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"objetivo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"analisis\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"plan\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"adjuntos\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"episodio\",\"kind\":\"object\",\"type\":\"EpisodioAtencion\",\"relationName\":\"EpisodioAtencionToNotaClinica\"},{\"name\":\"profesional\",\"kind\":\"object\",\"type\":\"Profesional\",\"relationName\":\"NotaClinicaToProfesional\"}],\"dbName\":\"notas_clinicas\"},\"Diagnostico\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"episodioId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"codigo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"descripcion\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tipo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"principal\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"episodio\",\"kind\":\"object\",\"type\":\"EpisodioAtencion\",\"relationName\":\"DiagnosticoToEpisodioAtencion\"}],\"dbName\":\"diagnosticos\"},\"Consentimiento\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"personaId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tipoProcedimiento\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fecha\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"metodo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"archivoId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"persona\",\"kind\":\"object\",\"type\":\"PersonaAtendida\",\"relationName\":\"ConsentimientoToPersonaAtendida\"}],\"dbName\":\"consentimientos\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
       getRuntime: async () => require('./query_compiler_bg.js'),

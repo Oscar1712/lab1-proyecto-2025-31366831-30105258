@@ -19,10 +19,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Usuario = $Result.DefaultSelection<Prisma.$UsuarioPayload>
 /**
- * Model Paciente
+ * Model PersonaAtendida
  * 
  */
-export type Paciente = $Result.DefaultSelection<Prisma.$PacientePayload>
+export type PersonaAtendida = $Result.DefaultSelection<Prisma.$PersonaAtendidaPayload>
 /**
  * Model Profesional
  * 
@@ -53,6 +53,16 @@ export type EpisodioAtencion = $Result.DefaultSelection<Prisma.$EpisodioAtencion
  * 
  */
 export type NotaClinica = $Result.DefaultSelection<Prisma.$NotaClinicaPayload>
+/**
+ * Model Diagnostico
+ * 
+ */
+export type Diagnostico = $Result.DefaultSelection<Prisma.$DiagnosticoPayload>
+/**
+ * Model Consentimiento
+ * 
+ */
+export type Consentimiento = $Result.DefaultSelection<Prisma.$ConsentimientoPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -182,14 +192,14 @@ export class PrismaClient<
   get usuario(): Prisma.UsuarioDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.paciente`: Exposes CRUD operations for the **Paciente** model.
+   * `prisma.personaAtendida`: Exposes CRUD operations for the **PersonaAtendida** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Pacientes
-    * const pacientes = await prisma.paciente.findMany()
+    * // Fetch zero or more PersonaAtendidas
+    * const personaAtendidas = await prisma.personaAtendida.findMany()
     * ```
     */
-  get paciente(): Prisma.PacienteDelegate<ExtArgs, ClientOptions>;
+  get personaAtendida(): Prisma.PersonaAtendidaDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.profesional`: Exposes CRUD operations for the **Profesional** model.
@@ -250,6 +260,26 @@ export class PrismaClient<
     * ```
     */
   get notaClinica(): Prisma.NotaClinicaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.diagnostico`: Exposes CRUD operations for the **Diagnostico** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Diagnosticos
+    * const diagnosticos = await prisma.diagnostico.findMany()
+    * ```
+    */
+  get diagnostico(): Prisma.DiagnosticoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.consentimiento`: Exposes CRUD operations for the **Consentimiento** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Consentimientos
+    * const consentimientos = await prisma.consentimiento.findMany()
+    * ```
+    */
+  get consentimiento(): Prisma.ConsentimientoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -685,13 +715,15 @@ export namespace Prisma {
 
   export const ModelName: {
     Usuario: 'Usuario',
-    Paciente: 'Paciente',
+    PersonaAtendida: 'PersonaAtendida',
     Profesional: 'Profesional',
     UnidadAtencion: 'UnidadAtencion',
     BloqueAgenda: 'BloqueAgenda',
     Cita: 'Cita',
     EpisodioAtencion: 'EpisodioAtencion',
-    NotaClinica: 'NotaClinica'
+    NotaClinica: 'NotaClinica',
+    Diagnostico: 'Diagnostico',
+    Consentimiento: 'Consentimiento'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -707,7 +739,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuario" | "paciente" | "profesional" | "unidadAtencion" | "bloqueAgenda" | "cita" | "episodioAtencion" | "notaClinica"
+      modelProps: "usuario" | "personaAtendida" | "profesional" | "unidadAtencion" | "bloqueAgenda" | "cita" | "episodioAtencion" | "notaClinica" | "diagnostico" | "consentimiento"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -777,69 +809,69 @@ export namespace Prisma {
           }
         }
       }
-      Paciente: {
-        payload: Prisma.$PacientePayload<ExtArgs>
-        fields: Prisma.PacienteFieldRefs
+      PersonaAtendida: {
+        payload: Prisma.$PersonaAtendidaPayload<ExtArgs>
+        fields: Prisma.PersonaAtendidaFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PacienteFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload> | null
+            args: Prisma.PersonaAtendidaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PacienteFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload>
+            args: Prisma.PersonaAtendidaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload>
           }
           findFirst: {
-            args: Prisma.PacienteFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload> | null
+            args: Prisma.PersonaAtendidaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PacienteFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload>
+            args: Prisma.PersonaAtendidaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload>
           }
           findMany: {
-            args: Prisma.PacienteFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload>[]
+            args: Prisma.PersonaAtendidaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload>[]
           }
           create: {
-            args: Prisma.PacienteCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload>
+            args: Prisma.PersonaAtendidaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload>
           }
           createMany: {
-            args: Prisma.PacienteCreateManyArgs<ExtArgs>
+            args: Prisma.PersonaAtendidaCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.PacienteDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload>
+            args: Prisma.PersonaAtendidaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload>
           }
           update: {
-            args: Prisma.PacienteUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload>
+            args: Prisma.PersonaAtendidaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload>
           }
           deleteMany: {
-            args: Prisma.PacienteDeleteManyArgs<ExtArgs>
+            args: Prisma.PersonaAtendidaDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PacienteUpdateManyArgs<ExtArgs>
+            args: Prisma.PersonaAtendidaUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.PacienteUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PacientePayload>
+            args: Prisma.PersonaAtendidaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonaAtendidaPayload>
           }
           aggregate: {
-            args: Prisma.PacienteAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePaciente>
+            args: Prisma.PersonaAtendidaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePersonaAtendida>
           }
           groupBy: {
-            args: Prisma.PacienteGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PacienteGroupByOutputType>[]
+            args: Prisma.PersonaAtendidaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PersonaAtendidaGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PacienteCountArgs<ExtArgs>
-            result: $Utils.Optional<PacienteCountAggregateOutputType> | number
+            args: Prisma.PersonaAtendidaCountArgs<ExtArgs>
+            result: $Utils.Optional<PersonaAtendidaCountAggregateOutputType> | number
           }
         }
       }
@@ -1239,6 +1271,138 @@ export namespace Prisma {
           }
         }
       }
+      Diagnostico: {
+        payload: Prisma.$DiagnosticoPayload<ExtArgs>
+        fields: Prisma.DiagnosticoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DiagnosticoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DiagnosticoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload>
+          }
+          findFirst: {
+            args: Prisma.DiagnosticoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DiagnosticoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload>
+          }
+          findMany: {
+            args: Prisma.DiagnosticoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload>[]
+          }
+          create: {
+            args: Prisma.DiagnosticoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload>
+          }
+          createMany: {
+            args: Prisma.DiagnosticoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.DiagnosticoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload>
+          }
+          update: {
+            args: Prisma.DiagnosticoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload>
+          }
+          deleteMany: {
+            args: Prisma.DiagnosticoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DiagnosticoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DiagnosticoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DiagnosticoPayload>
+          }
+          aggregate: {
+            args: Prisma.DiagnosticoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDiagnostico>
+          }
+          groupBy: {
+            args: Prisma.DiagnosticoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DiagnosticoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DiagnosticoCountArgs<ExtArgs>
+            result: $Utils.Optional<DiagnosticoCountAggregateOutputType> | number
+          }
+        }
+      }
+      Consentimiento: {
+        payload: Prisma.$ConsentimientoPayload<ExtArgs>
+        fields: Prisma.ConsentimientoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConsentimientoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConsentimientoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload>
+          }
+          findFirst: {
+            args: Prisma.ConsentimientoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConsentimientoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload>
+          }
+          findMany: {
+            args: Prisma.ConsentimientoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload>[]
+          }
+          create: {
+            args: Prisma.ConsentimientoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload>
+          }
+          createMany: {
+            args: Prisma.ConsentimientoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ConsentimientoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload>
+          }
+          update: {
+            args: Prisma.ConsentimientoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConsentimientoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConsentimientoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ConsentimientoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConsentimientoPayload>
+          }
+          aggregate: {
+            args: Prisma.ConsentimientoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConsentimiento>
+          }
+          groupBy: {
+            args: Prisma.ConsentimientoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConsentimientoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConsentimientoCountArgs<ExtArgs>
+            result: $Utils.Optional<ConsentimientoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1348,13 +1512,15 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     usuario?: UsuarioOmit
-    paciente?: PacienteOmit
+    personaAtendida?: PersonaAtendidaOmit
     profesional?: ProfesionalOmit
     unidadAtencion?: UnidadAtencionOmit
     bloqueAgenda?: BloqueAgendaOmit
     cita?: CitaOmit
     episodioAtencion?: EpisodioAtencionOmit
     notaClinica?: NotaClinicaOmit
+    diagnostico?: DiagnosticoOmit
+    consentimiento?: ConsentimientoOmit
   }
 
   /* Types for Logging */
@@ -1431,42 +1597,51 @@ export namespace Prisma {
 
 
   /**
-   * Count Type PacienteCountOutputType
+   * Count Type PersonaAtendidaCountOutputType
    */
 
-  export type PacienteCountOutputType = {
+  export type PersonaAtendidaCountOutputType = {
     citas: number
     episodios: number
+    consentimientos: number
   }
 
-  export type PacienteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    citas?: boolean | PacienteCountOutputTypeCountCitasArgs
-    episodios?: boolean | PacienteCountOutputTypeCountEpisodiosArgs
+  export type PersonaAtendidaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    citas?: boolean | PersonaAtendidaCountOutputTypeCountCitasArgs
+    episodios?: boolean | PersonaAtendidaCountOutputTypeCountEpisodiosArgs
+    consentimientos?: boolean | PersonaAtendidaCountOutputTypeCountConsentimientosArgs
   }
 
   // Custom InputTypes
   /**
-   * PacienteCountOutputType without action
+   * PersonaAtendidaCountOutputType without action
    */
-  export type PacienteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PacienteCountOutputType
+     * Select specific fields to fetch from the PersonaAtendidaCountOutputType
      */
-    select?: PacienteCountOutputTypeSelect<ExtArgs> | null
+    select?: PersonaAtendidaCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * PacienteCountOutputType without action
+   * PersonaAtendidaCountOutputType without action
    */
-  export type PacienteCountOutputTypeCountCitasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaCountOutputTypeCountCitasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CitaWhereInput
   }
 
   /**
-   * PacienteCountOutputType without action
+   * PersonaAtendidaCountOutputType without action
    */
-  export type PacienteCountOutputTypeCountEpisodiosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaCountOutputTypeCountEpisodiosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EpisodioAtencionWhereInput
+  }
+
+  /**
+   * PersonaAtendidaCountOutputType without action
+   */
+  export type PersonaAtendidaCountOutputTypeCountConsentimientosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConsentimientoWhereInput
   }
 
 
@@ -1475,15 +1650,15 @@ export namespace Prisma {
    */
 
   export type ProfesionalCountOutputType = {
-    bloquesAgenda: number
+    bloques: number
     citas: number
-    notas: number
+    notasClinicas: number
   }
 
   export type ProfesionalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    bloquesAgenda?: boolean | ProfesionalCountOutputTypeCountBloquesAgendaArgs
+    bloques?: boolean | ProfesionalCountOutputTypeCountBloquesArgs
     citas?: boolean | ProfesionalCountOutputTypeCountCitasArgs
-    notas?: boolean | ProfesionalCountOutputTypeCountNotasArgs
+    notasClinicas?: boolean | ProfesionalCountOutputTypeCountNotasClinicasArgs
   }
 
   // Custom InputTypes
@@ -1500,7 +1675,7 @@ export namespace Prisma {
   /**
    * ProfesionalCountOutputType without action
    */
-  export type ProfesionalCountOutputTypeCountBloquesAgendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProfesionalCountOutputTypeCountBloquesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BloqueAgendaWhereInput
   }
 
@@ -1514,7 +1689,7 @@ export namespace Prisma {
   /**
    * ProfesionalCountOutputType without action
    */
-  export type ProfesionalCountOutputTypeCountNotasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProfesionalCountOutputTypeCountNotasClinicasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotaClinicaWhereInput
   }
 
@@ -1524,12 +1699,12 @@ export namespace Prisma {
    */
 
   export type UnidadAtencionCountOutputType = {
-    bloquesAgenda: number
+    bloques: number
     citas: number
   }
 
   export type UnidadAtencionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    bloquesAgenda?: boolean | UnidadAtencionCountOutputTypeCountBloquesAgendaArgs
+    bloques?: boolean | UnidadAtencionCountOutputTypeCountBloquesArgs
     citas?: boolean | UnidadAtencionCountOutputTypeCountCitasArgs
   }
 
@@ -1547,7 +1722,7 @@ export namespace Prisma {
   /**
    * UnidadAtencionCountOutputType without action
    */
-  export type UnidadAtencionCountOutputTypeCountBloquesAgendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnidadAtencionCountOutputTypeCountBloquesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BloqueAgendaWhereInput
   }
 
@@ -1564,11 +1739,13 @@ export namespace Prisma {
    */
 
   export type EpisodioAtencionCountOutputType = {
-    notas: number
+    notasClinicas: number
+    diagnosticos: number
   }
 
   export type EpisodioAtencionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    notas?: boolean | EpisodioAtencionCountOutputTypeCountNotasArgs
+    notasClinicas?: boolean | EpisodioAtencionCountOutputTypeCountNotasClinicasArgs
+    diagnosticos?: boolean | EpisodioAtencionCountOutputTypeCountDiagnosticosArgs
   }
 
   // Custom InputTypes
@@ -1585,8 +1762,15 @@ export namespace Prisma {
   /**
    * EpisodioAtencionCountOutputType without action
    */
-  export type EpisodioAtencionCountOutputTypeCountNotasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EpisodioAtencionCountOutputTypeCountNotasClinicasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotaClinicaWhereInput
+  }
+
+  /**
+   * EpisodioAtencionCountOutputType without action
+   */
+  export type EpisodioAtencionCountOutputTypeCountDiagnosticosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiagnosticoWhereInput
   }
 
 
@@ -1618,24 +1802,30 @@ export namespace Prisma {
     id: number | null
     email: string | null
     password: string | null
-    role: string | null
+    rol: string | null
+    activo: boolean | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UsuarioMaxAggregateOutputType = {
     id: number | null
     email: string | null
     password: string | null
-    role: string | null
+    rol: string | null
+    activo: boolean | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UsuarioCountAggregateOutputType = {
     id: number
     email: number
     password: number
-    role: number
+    rol: number
+    activo: number
     createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -1652,24 +1842,30 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
-    role?: true
+    rol?: true
+    activo?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type UsuarioMaxAggregateInputType = {
     id?: true
     email?: true
     password?: true
-    role?: true
+    rol?: true
+    activo?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type UsuarioCountAggregateInputType = {
     id?: true
     email?: true
     password?: true
-    role?: true
+    rol?: true
+    activo?: true
     createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1763,8 +1959,10 @@ export namespace Prisma {
     id: number
     email: string
     password: string
-    role: string
+    rol: string
+    activo: boolean
     createdAt: Date
+    updatedAt: Date
     _count: UsuarioCountAggregateOutputType | null
     _avg: UsuarioAvgAggregateOutputType | null
     _sum: UsuarioSumAggregateOutputType | null
@@ -1790,8 +1988,10 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
-    role?: boolean
+    rol?: boolean
+    activo?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["usuario"]>
 
 
@@ -1800,11 +2000,13 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
-    role?: boolean
+    rol?: boolean
+    activo?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "createdAt", ExtArgs["result"]["usuario"]>
+  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "rol" | "activo" | "createdAt" | "updatedAt", ExtArgs["result"]["usuario"]>
 
   export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuario"
@@ -1813,8 +2015,10 @@ export namespace Prisma {
       id: number
       email: string
       password: string
-      role: string
+      rol: string
+      activo: boolean
       createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["usuario"]>
     composites: {}
   }
@@ -2187,8 +2391,10 @@ export namespace Prisma {
     readonly id: FieldRef<"Usuario", 'Int'>
     readonly email: FieldRef<"Usuario", 'String'>
     readonly password: FieldRef<"Usuario", 'String'>
-    readonly role: FieldRef<"Usuario", 'String'>
+    readonly rol: FieldRef<"Usuario", 'String'>
+    readonly activo: FieldRef<"Usuario", 'Boolean'>
     readonly createdAt: FieldRef<"Usuario", 'DateTime'>
+    readonly updatedAt: FieldRef<"Usuario", 'DateTime'>
   }
     
 
@@ -2511,42 +2717,26 @@ export namespace Prisma {
 
 
   /**
-   * Model Paciente
+   * Model PersonaAtendida
    */
 
-  export type AggregatePaciente = {
-    _count: PacienteCountAggregateOutputType | null
-    _avg: PacienteAvgAggregateOutputType | null
-    _sum: PacienteSumAggregateOutputType | null
-    _min: PacienteMinAggregateOutputType | null
-    _max: PacienteMaxAggregateOutputType | null
+  export type AggregatePersonaAtendida = {
+    _count: PersonaAtendidaCountAggregateOutputType | null
+    _avg: PersonaAtendidaAvgAggregateOutputType | null
+    _sum: PersonaAtendidaSumAggregateOutputType | null
+    _min: PersonaAtendidaMinAggregateOutputType | null
+    _max: PersonaAtendidaMaxAggregateOutputType | null
   }
 
-  export type PacienteAvgAggregateOutputType = {
+  export type PersonaAtendidaAvgAggregateOutputType = {
     id: number | null
   }
 
-  export type PacienteSumAggregateOutputType = {
+  export type PersonaAtendidaSumAggregateOutputType = {
     id: number | null
   }
 
-  export type PacienteMinAggregateOutputType = {
-    id: number | null
-    tipoDocumento: string | null
-    numeroDocumento: string | null
-    nombres: string | null
-    apellidos: string | null
-    fechaNacimiento: Date | null
-    sexo: string | null
-    correo: string | null
-    telefono: string | null
-    direccion: string | null
-    estado: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type PacienteMaxAggregateOutputType = {
+  export type PersonaAtendidaMinAggregateOutputType = {
     id: number | null
     tipoDocumento: string | null
     numeroDocumento: string | null
@@ -2557,12 +2747,34 @@ export namespace Prisma {
     correo: string | null
     telefono: string | null
     direccion: string | null
-    estado: boolean | null
+    contactoEmergencia: string | null
+    alergias: string | null
+    antecedentesResumen: string | null
+    estado: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type PacienteCountAggregateOutputType = {
+  export type PersonaAtendidaMaxAggregateOutputType = {
+    id: number | null
+    tipoDocumento: string | null
+    numeroDocumento: string | null
+    nombres: string | null
+    apellidos: string | null
+    fechaNacimiento: Date | null
+    sexo: string | null
+    correo: string | null
+    telefono: string | null
+    direccion: string | null
+    contactoEmergencia: string | null
+    alergias: string | null
+    antecedentesResumen: string | null
+    estado: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PersonaAtendidaCountAggregateOutputType = {
     id: number
     tipoDocumento: number
     numeroDocumento: number
@@ -2573,6 +2785,9 @@ export namespace Prisma {
     correo: number
     telefono: number
     direccion: number
+    contactoEmergencia: number
+    alergias: number
+    antecedentesResumen: number
     estado: number
     createdAt: number
     updatedAt: number
@@ -2580,15 +2795,15 @@ export namespace Prisma {
   }
 
 
-  export type PacienteAvgAggregateInputType = {
+  export type PersonaAtendidaAvgAggregateInputType = {
     id?: true
   }
 
-  export type PacienteSumAggregateInputType = {
+  export type PersonaAtendidaSumAggregateInputType = {
     id?: true
   }
 
-  export type PacienteMinAggregateInputType = {
+  export type PersonaAtendidaMinAggregateInputType = {
     id?: true
     tipoDocumento?: true
     numeroDocumento?: true
@@ -2599,12 +2814,15 @@ export namespace Prisma {
     correo?: true
     telefono?: true
     direccion?: true
+    contactoEmergencia?: true
+    alergias?: true
+    antecedentesResumen?: true
     estado?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type PacienteMaxAggregateInputType = {
+  export type PersonaAtendidaMaxAggregateInputType = {
     id?: true
     tipoDocumento?: true
     numeroDocumento?: true
@@ -2615,12 +2833,15 @@ export namespace Prisma {
     correo?: true
     telefono?: true
     direccion?: true
+    contactoEmergencia?: true
+    alergias?: true
+    antecedentesResumen?: true
     estado?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type PacienteCountAggregateInputType = {
+  export type PersonaAtendidaCountAggregateInputType = {
     id?: true
     tipoDocumento?: true
     numeroDocumento?: true
@@ -2631,99 +2852,102 @@ export namespace Prisma {
     correo?: true
     telefono?: true
     direccion?: true
+    contactoEmergencia?: true
+    alergias?: true
+    antecedentesResumen?: true
     estado?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
   }
 
-  export type PacienteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Paciente to aggregate.
+     * Filter which PersonaAtendida to aggregate.
      */
-    where?: PacienteWhereInput
+    where?: PersonaAtendidaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Pacientes to fetch.
+     * Determine the order of PersonaAtendidas to fetch.
      */
-    orderBy?: PacienteOrderByWithRelationInput | PacienteOrderByWithRelationInput[]
+    orderBy?: PersonaAtendidaOrderByWithRelationInput | PersonaAtendidaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PacienteWhereUniqueInput
+    cursor?: PersonaAtendidaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Pacientes from the position of the cursor.
+     * Take `±n` PersonaAtendidas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Pacientes.
+     * Skip the first `n` PersonaAtendidas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Pacientes
+     * Count returned PersonaAtendidas
     **/
-    _count?: true | PacienteCountAggregateInputType
+    _count?: true | PersonaAtendidaCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: PacienteAvgAggregateInputType
+    _avg?: PersonaAtendidaAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: PacienteSumAggregateInputType
+    _sum?: PersonaAtendidaSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PacienteMinAggregateInputType
+    _min?: PersonaAtendidaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PacienteMaxAggregateInputType
+    _max?: PersonaAtendidaMaxAggregateInputType
   }
 
-  export type GetPacienteAggregateType<T extends PacienteAggregateArgs> = {
-        [P in keyof T & keyof AggregatePaciente]: P extends '_count' | 'count'
+  export type GetPersonaAtendidaAggregateType<T extends PersonaAtendidaAggregateArgs> = {
+        [P in keyof T & keyof AggregatePersonaAtendida]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePaciente[P]>
-      : GetScalarType<T[P], AggregatePaciente[P]>
+        : GetScalarType<T[P], AggregatePersonaAtendida[P]>
+      : GetScalarType<T[P], AggregatePersonaAtendida[P]>
   }
 
 
 
 
-  export type PacienteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PacienteWhereInput
-    orderBy?: PacienteOrderByWithAggregationInput | PacienteOrderByWithAggregationInput[]
-    by: PacienteScalarFieldEnum[] | PacienteScalarFieldEnum
-    having?: PacienteScalarWhereWithAggregatesInput
+  export type PersonaAtendidaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PersonaAtendidaWhereInput
+    orderBy?: PersonaAtendidaOrderByWithAggregationInput | PersonaAtendidaOrderByWithAggregationInput[]
+    by: PersonaAtendidaScalarFieldEnum[] | PersonaAtendidaScalarFieldEnum
+    having?: PersonaAtendidaScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PacienteCountAggregateInputType | true
-    _avg?: PacienteAvgAggregateInputType
-    _sum?: PacienteSumAggregateInputType
-    _min?: PacienteMinAggregateInputType
-    _max?: PacienteMaxAggregateInputType
+    _count?: PersonaAtendidaCountAggregateInputType | true
+    _avg?: PersonaAtendidaAvgAggregateInputType
+    _sum?: PersonaAtendidaSumAggregateInputType
+    _min?: PersonaAtendidaMinAggregateInputType
+    _max?: PersonaAtendidaMaxAggregateInputType
   }
 
-  export type PacienteGroupByOutputType = {
+  export type PersonaAtendidaGroupByOutputType = {
     id: number
     tipoDocumento: string
     numeroDocumento: string
@@ -2732,33 +2956,36 @@ export namespace Prisma {
     fechaNacimiento: Date
     sexo: string
     correo: string | null
-    telefono: string
+    telefono: string | null
     direccion: string | null
-    estado: boolean
+    contactoEmergencia: string | null
+    alergias: string | null
+    antecedentesResumen: string | null
+    estado: string
     createdAt: Date
     updatedAt: Date
-    _count: PacienteCountAggregateOutputType | null
-    _avg: PacienteAvgAggregateOutputType | null
-    _sum: PacienteSumAggregateOutputType | null
-    _min: PacienteMinAggregateOutputType | null
-    _max: PacienteMaxAggregateOutputType | null
+    _count: PersonaAtendidaCountAggregateOutputType | null
+    _avg: PersonaAtendidaAvgAggregateOutputType | null
+    _sum: PersonaAtendidaSumAggregateOutputType | null
+    _min: PersonaAtendidaMinAggregateOutputType | null
+    _max: PersonaAtendidaMaxAggregateOutputType | null
   }
 
-  type GetPacienteGroupByPayload<T extends PacienteGroupByArgs> = Prisma.PrismaPromise<
+  type GetPersonaAtendidaGroupByPayload<T extends PersonaAtendidaGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PacienteGroupByOutputType, T['by']> &
+      PickEnumerable<PersonaAtendidaGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PacienteGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof PersonaAtendidaGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PacienteGroupByOutputType[P]>
-            : GetScalarType<T[P], PacienteGroupByOutputType[P]>
+              : GetScalarType<T[P], PersonaAtendidaGroupByOutputType[P]>
+            : GetScalarType<T[P], PersonaAtendidaGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PacienteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PersonaAtendidaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tipoDocumento?: boolean
     numeroDocumento?: boolean
@@ -2769,17 +2996,21 @@ export namespace Prisma {
     correo?: boolean
     telefono?: boolean
     direccion?: boolean
+    contactoEmergencia?: boolean
+    alergias?: boolean
+    antecedentesResumen?: boolean
     estado?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    citas?: boolean | Paciente$citasArgs<ExtArgs>
-    episodios?: boolean | Paciente$episodiosArgs<ExtArgs>
-    _count?: boolean | PacienteCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["paciente"]>
+    citas?: boolean | PersonaAtendida$citasArgs<ExtArgs>
+    episodios?: boolean | PersonaAtendida$episodiosArgs<ExtArgs>
+    consentimientos?: boolean | PersonaAtendida$consentimientosArgs<ExtArgs>
+    _count?: boolean | PersonaAtendidaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["personaAtendida"]>
 
 
 
-  export type PacienteSelectScalar = {
+  export type PersonaAtendidaSelectScalar = {
     id?: boolean
     tipoDocumento?: boolean
     numeroDocumento?: boolean
@@ -2790,23 +3021,28 @@ export namespace Prisma {
     correo?: boolean
     telefono?: boolean
     direccion?: boolean
+    contactoEmergencia?: boolean
+    alergias?: boolean
+    antecedentesResumen?: boolean
     estado?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PacienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipoDocumento" | "numeroDocumento" | "nombres" | "apellidos" | "fechaNacimiento" | "sexo" | "correo" | "telefono" | "direccion" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["paciente"]>
-  export type PacienteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    citas?: boolean | Paciente$citasArgs<ExtArgs>
-    episodios?: boolean | Paciente$episodiosArgs<ExtArgs>
-    _count?: boolean | PacienteCountOutputTypeDefaultArgs<ExtArgs>
+  export type PersonaAtendidaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipoDocumento" | "numeroDocumento" | "nombres" | "apellidos" | "fechaNacimiento" | "sexo" | "correo" | "telefono" | "direccion" | "contactoEmergencia" | "alergias" | "antecedentesResumen" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["personaAtendida"]>
+  export type PersonaAtendidaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    citas?: boolean | PersonaAtendida$citasArgs<ExtArgs>
+    episodios?: boolean | PersonaAtendida$episodiosArgs<ExtArgs>
+    consentimientos?: boolean | PersonaAtendida$consentimientosArgs<ExtArgs>
+    _count?: boolean | PersonaAtendidaCountOutputTypeDefaultArgs<ExtArgs>
   }
 
-  export type $PacientePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Paciente"
+  export type $PersonaAtendidaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PersonaAtendida"
     objects: {
       citas: Prisma.$CitaPayload<ExtArgs>[]
       episodios: Prisma.$EpisodioAtencionPayload<ExtArgs>[]
+      consentimientos: Prisma.$ConsentimientoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2817,148 +3053,151 @@ export namespace Prisma {
       fechaNacimiento: Date
       sexo: string
       correo: string | null
-      telefono: string
+      telefono: string | null
       direccion: string | null
-      estado: boolean
+      contactoEmergencia: string | null
+      alergias: string | null
+      antecedentesResumen: string | null
+      estado: string
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["paciente"]>
+    }, ExtArgs["result"]["personaAtendida"]>
     composites: {}
   }
 
-  type PacienteGetPayload<S extends boolean | null | undefined | PacienteDefaultArgs> = $Result.GetResult<Prisma.$PacientePayload, S>
+  type PersonaAtendidaGetPayload<S extends boolean | null | undefined | PersonaAtendidaDefaultArgs> = $Result.GetResult<Prisma.$PersonaAtendidaPayload, S>
 
-  type PacienteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PacienteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PacienteCountAggregateInputType | true
+  type PersonaAtendidaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PersonaAtendidaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PersonaAtendidaCountAggregateInputType | true
     }
 
-  export interface PacienteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Paciente'], meta: { name: 'Paciente' } }
+  export interface PersonaAtendidaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PersonaAtendida'], meta: { name: 'PersonaAtendida' } }
     /**
-     * Find zero or one Paciente that matches the filter.
-     * @param {PacienteFindUniqueArgs} args - Arguments to find a Paciente
+     * Find zero or one PersonaAtendida that matches the filter.
+     * @param {PersonaAtendidaFindUniqueArgs} args - Arguments to find a PersonaAtendida
      * @example
-     * // Get one Paciente
-     * const paciente = await prisma.paciente.findUnique({
+     * // Get one PersonaAtendida
+     * const personaAtendida = await prisma.personaAtendida.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PacienteFindUniqueArgs>(args: SelectSubset<T, PacienteFindUniqueArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends PersonaAtendidaFindUniqueArgs>(args: SelectSubset<T, PersonaAtendidaFindUniqueArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Paciente that matches the filter or throw an error with `error.code='P2025'`
+     * Find one PersonaAtendida that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PacienteFindUniqueOrThrowArgs} args - Arguments to find a Paciente
+     * @param {PersonaAtendidaFindUniqueOrThrowArgs} args - Arguments to find a PersonaAtendida
      * @example
-     * // Get one Paciente
-     * const paciente = await prisma.paciente.findUniqueOrThrow({
+     * // Get one PersonaAtendida
+     * const personaAtendida = await prisma.personaAtendida.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PacienteFindUniqueOrThrowArgs>(args: SelectSubset<T, PacienteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends PersonaAtendidaFindUniqueOrThrowArgs>(args: SelectSubset<T, PersonaAtendidaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Paciente that matches the filter.
+     * Find the first PersonaAtendida that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PacienteFindFirstArgs} args - Arguments to find a Paciente
+     * @param {PersonaAtendidaFindFirstArgs} args - Arguments to find a PersonaAtendida
      * @example
-     * // Get one Paciente
-     * const paciente = await prisma.paciente.findFirst({
+     * // Get one PersonaAtendida
+     * const personaAtendida = await prisma.personaAtendida.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PacienteFindFirstArgs>(args?: SelectSubset<T, PacienteFindFirstArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends PersonaAtendidaFindFirstArgs>(args?: SelectSubset<T, PersonaAtendidaFindFirstArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Paciente that matches the filter or
+     * Find the first PersonaAtendida that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PacienteFindFirstOrThrowArgs} args - Arguments to find a Paciente
+     * @param {PersonaAtendidaFindFirstOrThrowArgs} args - Arguments to find a PersonaAtendida
      * @example
-     * // Get one Paciente
-     * const paciente = await prisma.paciente.findFirstOrThrow({
+     * // Get one PersonaAtendida
+     * const personaAtendida = await prisma.personaAtendida.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PacienteFindFirstOrThrowArgs>(args?: SelectSubset<T, PacienteFindFirstOrThrowArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends PersonaAtendidaFindFirstOrThrowArgs>(args?: SelectSubset<T, PersonaAtendidaFindFirstOrThrowArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Pacientes that matches the filter.
+     * Find zero or more PersonaAtendidas that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PacienteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {PersonaAtendidaFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Pacientes
-     * const pacientes = await prisma.paciente.findMany()
+     * // Get all PersonaAtendidas
+     * const personaAtendidas = await prisma.personaAtendida.findMany()
      * 
-     * // Get first 10 Pacientes
-     * const pacientes = await prisma.paciente.findMany({ take: 10 })
+     * // Get first 10 PersonaAtendidas
+     * const personaAtendidas = await prisma.personaAtendida.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const pacienteWithIdOnly = await prisma.paciente.findMany({ select: { id: true } })
+     * const personaAtendidaWithIdOnly = await prisma.personaAtendida.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PacienteFindManyArgs>(args?: SelectSubset<T, PacienteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends PersonaAtendidaFindManyArgs>(args?: SelectSubset<T, PersonaAtendidaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Paciente.
-     * @param {PacienteCreateArgs} args - Arguments to create a Paciente.
+     * Create a PersonaAtendida.
+     * @param {PersonaAtendidaCreateArgs} args - Arguments to create a PersonaAtendida.
      * @example
-     * // Create one Paciente
-     * const Paciente = await prisma.paciente.create({
+     * // Create one PersonaAtendida
+     * const PersonaAtendida = await prisma.personaAtendida.create({
      *   data: {
-     *     // ... data to create a Paciente
+     *     // ... data to create a PersonaAtendida
      *   }
      * })
      * 
      */
-    create<T extends PacienteCreateArgs>(args: SelectSubset<T, PacienteCreateArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends PersonaAtendidaCreateArgs>(args: SelectSubset<T, PersonaAtendidaCreateArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Pacientes.
-     * @param {PacienteCreateManyArgs} args - Arguments to create many Pacientes.
+     * Create many PersonaAtendidas.
+     * @param {PersonaAtendidaCreateManyArgs} args - Arguments to create many PersonaAtendidas.
      * @example
-     * // Create many Pacientes
-     * const paciente = await prisma.paciente.createMany({
+     * // Create many PersonaAtendidas
+     * const personaAtendida = await prisma.personaAtendida.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PacienteCreateManyArgs>(args?: SelectSubset<T, PacienteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends PersonaAtendidaCreateManyArgs>(args?: SelectSubset<T, PersonaAtendidaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Paciente.
-     * @param {PacienteDeleteArgs} args - Arguments to delete one Paciente.
+     * Delete a PersonaAtendida.
+     * @param {PersonaAtendidaDeleteArgs} args - Arguments to delete one PersonaAtendida.
      * @example
-     * // Delete one Paciente
-     * const Paciente = await prisma.paciente.delete({
+     * // Delete one PersonaAtendida
+     * const PersonaAtendida = await prisma.personaAtendida.delete({
      *   where: {
-     *     // ... filter to delete one Paciente
+     *     // ... filter to delete one PersonaAtendida
      *   }
      * })
      * 
      */
-    delete<T extends PacienteDeleteArgs>(args: SelectSubset<T, PacienteDeleteArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends PersonaAtendidaDeleteArgs>(args: SelectSubset<T, PersonaAtendidaDeleteArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Paciente.
-     * @param {PacienteUpdateArgs} args - Arguments to update one Paciente.
+     * Update one PersonaAtendida.
+     * @param {PersonaAtendidaUpdateArgs} args - Arguments to update one PersonaAtendida.
      * @example
-     * // Update one Paciente
-     * const paciente = await prisma.paciente.update({
+     * // Update one PersonaAtendida
+     * const personaAtendida = await prisma.personaAtendida.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2968,30 +3207,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PacienteUpdateArgs>(args: SelectSubset<T, PacienteUpdateArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends PersonaAtendidaUpdateArgs>(args: SelectSubset<T, PersonaAtendidaUpdateArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Pacientes.
-     * @param {PacienteDeleteManyArgs} args - Arguments to filter Pacientes to delete.
+     * Delete zero or more PersonaAtendidas.
+     * @param {PersonaAtendidaDeleteManyArgs} args - Arguments to filter PersonaAtendidas to delete.
      * @example
-     * // Delete a few Pacientes
-     * const { count } = await prisma.paciente.deleteMany({
+     * // Delete a few PersonaAtendidas
+     * const { count } = await prisma.personaAtendida.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PacienteDeleteManyArgs>(args?: SelectSubset<T, PacienteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends PersonaAtendidaDeleteManyArgs>(args?: SelectSubset<T, PersonaAtendidaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Pacientes.
+     * Update zero or more PersonaAtendidas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PacienteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {PersonaAtendidaUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Pacientes
-     * const paciente = await prisma.paciente.updateMany({
+     * // Update many PersonaAtendidas
+     * const personaAtendida = await prisma.personaAtendida.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3001,56 +3240,56 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PacienteUpdateManyArgs>(args: SelectSubset<T, PacienteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends PersonaAtendidaUpdateManyArgs>(args: SelectSubset<T, PersonaAtendidaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Paciente.
-     * @param {PacienteUpsertArgs} args - Arguments to update or create a Paciente.
+     * Create or update one PersonaAtendida.
+     * @param {PersonaAtendidaUpsertArgs} args - Arguments to update or create a PersonaAtendida.
      * @example
-     * // Update or create a Paciente
-     * const paciente = await prisma.paciente.upsert({
+     * // Update or create a PersonaAtendida
+     * const personaAtendida = await prisma.personaAtendida.upsert({
      *   create: {
-     *     // ... data to create a Paciente
+     *     // ... data to create a PersonaAtendida
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Paciente we want to update
+     *     // ... the filter for the PersonaAtendida we want to update
      *   }
      * })
      */
-    upsert<T extends PacienteUpsertArgs>(args: SelectSubset<T, PacienteUpsertArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends PersonaAtendidaUpsertArgs>(args: SelectSubset<T, PersonaAtendidaUpsertArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Pacientes.
+     * Count the number of PersonaAtendidas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PacienteCountArgs} args - Arguments to filter Pacientes to count.
+     * @param {PersonaAtendidaCountArgs} args - Arguments to filter PersonaAtendidas to count.
      * @example
-     * // Count the number of Pacientes
-     * const count = await prisma.paciente.count({
+     * // Count the number of PersonaAtendidas
+     * const count = await prisma.personaAtendida.count({
      *   where: {
-     *     // ... the filter for the Pacientes we want to count
+     *     // ... the filter for the PersonaAtendidas we want to count
      *   }
      * })
     **/
-    count<T extends PacienteCountArgs>(
-      args?: Subset<T, PacienteCountArgs>,
+    count<T extends PersonaAtendidaCountArgs>(
+      args?: Subset<T, PersonaAtendidaCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PacienteCountAggregateOutputType>
+          : GetScalarType<T['select'], PersonaAtendidaCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Paciente.
+     * Allows you to perform aggregations operations on a PersonaAtendida.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PacienteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {PersonaAtendidaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3070,13 +3309,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PacienteAggregateArgs>(args: Subset<T, PacienteAggregateArgs>): Prisma.PrismaPromise<GetPacienteAggregateType<T>>
+    aggregate<T extends PersonaAtendidaAggregateArgs>(args: Subset<T, PersonaAtendidaAggregateArgs>): Prisma.PrismaPromise<GetPersonaAtendidaAggregateType<T>>
 
     /**
-     * Group by Paciente.
+     * Group by PersonaAtendida.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PacienteGroupByArgs} args - Group by arguments.
+     * @param {PersonaAtendidaGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3091,14 +3330,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PacienteGroupByArgs,
+      T extends PersonaAtendidaGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PacienteGroupByArgs['orderBy'] }
-        : { orderBy?: PacienteGroupByArgs['orderBy'] },
+        ? { orderBy: PersonaAtendidaGroupByArgs['orderBy'] }
+        : { orderBy?: PersonaAtendidaGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3147,23 +3386,24 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PacienteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPacienteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, PersonaAtendidaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPersonaAtendidaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Paciente model
+   * Fields of the PersonaAtendida model
    */
-  readonly fields: PacienteFieldRefs;
+  readonly fields: PersonaAtendidaFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Paciente.
+   * The delegate class that acts as a "Promise-like" for PersonaAtendida.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PacienteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PersonaAtendidaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    citas<T extends Paciente$citasArgs<ExtArgs> = {}>(args?: Subset<T, Paciente$citasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CitaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    episodios<T extends Paciente$episodiosArgs<ExtArgs> = {}>(args?: Subset<T, Paciente$episodiosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EpisodioAtencionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    citas<T extends PersonaAtendida$citasArgs<ExtArgs> = {}>(args?: Subset<T, PersonaAtendida$citasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CitaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    episodios<T extends PersonaAtendida$episodiosArgs<ExtArgs> = {}>(args?: Subset<T, PersonaAtendida$episodiosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EpisodioAtencionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    consentimientos<T extends PersonaAtendida$consentimientosArgs<ExtArgs> = {}>(args?: Subset<T, PersonaAtendida$consentimientosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3190,368 +3430,371 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Paciente model
+   * Fields of the PersonaAtendida model
    */
-  interface PacienteFieldRefs {
-    readonly id: FieldRef<"Paciente", 'Int'>
-    readonly tipoDocumento: FieldRef<"Paciente", 'String'>
-    readonly numeroDocumento: FieldRef<"Paciente", 'String'>
-    readonly nombres: FieldRef<"Paciente", 'String'>
-    readonly apellidos: FieldRef<"Paciente", 'String'>
-    readonly fechaNacimiento: FieldRef<"Paciente", 'DateTime'>
-    readonly sexo: FieldRef<"Paciente", 'String'>
-    readonly correo: FieldRef<"Paciente", 'String'>
-    readonly telefono: FieldRef<"Paciente", 'String'>
-    readonly direccion: FieldRef<"Paciente", 'String'>
-    readonly estado: FieldRef<"Paciente", 'Boolean'>
-    readonly createdAt: FieldRef<"Paciente", 'DateTime'>
-    readonly updatedAt: FieldRef<"Paciente", 'DateTime'>
+  interface PersonaAtendidaFieldRefs {
+    readonly id: FieldRef<"PersonaAtendida", 'Int'>
+    readonly tipoDocumento: FieldRef<"PersonaAtendida", 'String'>
+    readonly numeroDocumento: FieldRef<"PersonaAtendida", 'String'>
+    readonly nombres: FieldRef<"PersonaAtendida", 'String'>
+    readonly apellidos: FieldRef<"PersonaAtendida", 'String'>
+    readonly fechaNacimiento: FieldRef<"PersonaAtendida", 'DateTime'>
+    readonly sexo: FieldRef<"PersonaAtendida", 'String'>
+    readonly correo: FieldRef<"PersonaAtendida", 'String'>
+    readonly telefono: FieldRef<"PersonaAtendida", 'String'>
+    readonly direccion: FieldRef<"PersonaAtendida", 'String'>
+    readonly contactoEmergencia: FieldRef<"PersonaAtendida", 'String'>
+    readonly alergias: FieldRef<"PersonaAtendida", 'String'>
+    readonly antecedentesResumen: FieldRef<"PersonaAtendida", 'String'>
+    readonly estado: FieldRef<"PersonaAtendida", 'String'>
+    readonly createdAt: FieldRef<"PersonaAtendida", 'DateTime'>
+    readonly updatedAt: FieldRef<"PersonaAtendida", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Paciente findUnique
+   * PersonaAtendida findUnique
    */
-  export type PacienteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * Filter, which Paciente to fetch.
+     * Filter, which PersonaAtendida to fetch.
      */
-    where: PacienteWhereUniqueInput
+    where: PersonaAtendidaWhereUniqueInput
   }
 
   /**
-   * Paciente findUniqueOrThrow
+   * PersonaAtendida findUniqueOrThrow
    */
-  export type PacienteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * Filter, which Paciente to fetch.
+     * Filter, which PersonaAtendida to fetch.
      */
-    where: PacienteWhereUniqueInput
+    where: PersonaAtendidaWhereUniqueInput
   }
 
   /**
-   * Paciente findFirst
+   * PersonaAtendida findFirst
    */
-  export type PacienteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * Filter, which Paciente to fetch.
+     * Filter, which PersonaAtendida to fetch.
      */
-    where?: PacienteWhereInput
+    where?: PersonaAtendidaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Pacientes to fetch.
+     * Determine the order of PersonaAtendidas to fetch.
      */
-    orderBy?: PacienteOrderByWithRelationInput | PacienteOrderByWithRelationInput[]
+    orderBy?: PersonaAtendidaOrderByWithRelationInput | PersonaAtendidaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Pacientes.
+     * Sets the position for searching for PersonaAtendidas.
      */
-    cursor?: PacienteWhereUniqueInput
+    cursor?: PersonaAtendidaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Pacientes from the position of the cursor.
+     * Take `±n` PersonaAtendidas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Pacientes.
+     * Skip the first `n` PersonaAtendidas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Pacientes.
+     * Filter by unique combinations of PersonaAtendidas.
      */
-    distinct?: PacienteScalarFieldEnum | PacienteScalarFieldEnum[]
+    distinct?: PersonaAtendidaScalarFieldEnum | PersonaAtendidaScalarFieldEnum[]
   }
 
   /**
-   * Paciente findFirstOrThrow
+   * PersonaAtendida findFirstOrThrow
    */
-  export type PacienteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * Filter, which Paciente to fetch.
+     * Filter, which PersonaAtendida to fetch.
      */
-    where?: PacienteWhereInput
+    where?: PersonaAtendidaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Pacientes to fetch.
+     * Determine the order of PersonaAtendidas to fetch.
      */
-    orderBy?: PacienteOrderByWithRelationInput | PacienteOrderByWithRelationInput[]
+    orderBy?: PersonaAtendidaOrderByWithRelationInput | PersonaAtendidaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Pacientes.
+     * Sets the position for searching for PersonaAtendidas.
      */
-    cursor?: PacienteWhereUniqueInput
+    cursor?: PersonaAtendidaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Pacientes from the position of the cursor.
+     * Take `±n` PersonaAtendidas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Pacientes.
+     * Skip the first `n` PersonaAtendidas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Pacientes.
+     * Filter by unique combinations of PersonaAtendidas.
      */
-    distinct?: PacienteScalarFieldEnum | PacienteScalarFieldEnum[]
+    distinct?: PersonaAtendidaScalarFieldEnum | PersonaAtendidaScalarFieldEnum[]
   }
 
   /**
-   * Paciente findMany
+   * PersonaAtendida findMany
    */
-  export type PacienteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * Filter, which Pacientes to fetch.
+     * Filter, which PersonaAtendidas to fetch.
      */
-    where?: PacienteWhereInput
+    where?: PersonaAtendidaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Pacientes to fetch.
+     * Determine the order of PersonaAtendidas to fetch.
      */
-    orderBy?: PacienteOrderByWithRelationInput | PacienteOrderByWithRelationInput[]
+    orderBy?: PersonaAtendidaOrderByWithRelationInput | PersonaAtendidaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Pacientes.
+     * Sets the position for listing PersonaAtendidas.
      */
-    cursor?: PacienteWhereUniqueInput
+    cursor?: PersonaAtendidaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Pacientes from the position of the cursor.
+     * Take `±n` PersonaAtendidas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Pacientes.
+     * Skip the first `n` PersonaAtendidas.
      */
     skip?: number
-    distinct?: PacienteScalarFieldEnum | PacienteScalarFieldEnum[]
+    distinct?: PersonaAtendidaScalarFieldEnum | PersonaAtendidaScalarFieldEnum[]
   }
 
   /**
-   * Paciente create
+   * PersonaAtendida create
    */
-  export type PacienteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * The data needed to create a Paciente.
+     * The data needed to create a PersonaAtendida.
      */
-    data: XOR<PacienteCreateInput, PacienteUncheckedCreateInput>
+    data: XOR<PersonaAtendidaCreateInput, PersonaAtendidaUncheckedCreateInput>
   }
 
   /**
-   * Paciente createMany
+   * PersonaAtendida createMany
    */
-  export type PacienteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Pacientes.
+     * The data used to create many PersonaAtendidas.
      */
-    data: PacienteCreateManyInput | PacienteCreateManyInput[]
+    data: PersonaAtendidaCreateManyInput | PersonaAtendidaCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Paciente update
+   * PersonaAtendida update
    */
-  export type PacienteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * The data needed to update a Paciente.
+     * The data needed to update a PersonaAtendida.
      */
-    data: XOR<PacienteUpdateInput, PacienteUncheckedUpdateInput>
+    data: XOR<PersonaAtendidaUpdateInput, PersonaAtendidaUncheckedUpdateInput>
     /**
-     * Choose, which Paciente to update.
+     * Choose, which PersonaAtendida to update.
      */
-    where: PacienteWhereUniqueInput
+    where: PersonaAtendidaWhereUniqueInput
   }
 
   /**
-   * Paciente updateMany
+   * PersonaAtendida updateMany
    */
-  export type PacienteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Pacientes.
+     * The data used to update PersonaAtendidas.
      */
-    data: XOR<PacienteUpdateManyMutationInput, PacienteUncheckedUpdateManyInput>
+    data: XOR<PersonaAtendidaUpdateManyMutationInput, PersonaAtendidaUncheckedUpdateManyInput>
     /**
-     * Filter which Pacientes to update
+     * Filter which PersonaAtendidas to update
      */
-    where?: PacienteWhereInput
+    where?: PersonaAtendidaWhereInput
     /**
-     * Limit how many Pacientes to update.
+     * Limit how many PersonaAtendidas to update.
      */
     limit?: number
   }
 
   /**
-   * Paciente upsert
+   * PersonaAtendida upsert
    */
-  export type PacienteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * The filter to search for the Paciente to update in case it exists.
+     * The filter to search for the PersonaAtendida to update in case it exists.
      */
-    where: PacienteWhereUniqueInput
+    where: PersonaAtendidaWhereUniqueInput
     /**
-     * In case the Paciente found by the `where` argument doesn't exist, create a new Paciente with this data.
+     * In case the PersonaAtendida found by the `where` argument doesn't exist, create a new PersonaAtendida with this data.
      */
-    create: XOR<PacienteCreateInput, PacienteUncheckedCreateInput>
+    create: XOR<PersonaAtendidaCreateInput, PersonaAtendidaUncheckedCreateInput>
     /**
-     * In case the Paciente was found with the provided `where` argument, update it with this data.
+     * In case the PersonaAtendida was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PacienteUpdateInput, PacienteUncheckedUpdateInput>
+    update: XOR<PersonaAtendidaUpdateInput, PersonaAtendidaUncheckedUpdateInput>
   }
 
   /**
-   * Paciente delete
+   * PersonaAtendida delete
    */
-  export type PacienteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the PersonaAtendida
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: PersonaAtendidaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the PersonaAtendida
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: PersonaAtendidaInclude<ExtArgs> | null
     /**
-     * Filter which Paciente to delete.
+     * Filter which PersonaAtendida to delete.
      */
-    where: PacienteWhereUniqueInput
+    where: PersonaAtendidaWhereUniqueInput
   }
 
   /**
-   * Paciente deleteMany
+   * PersonaAtendida deleteMany
    */
-  export type PacienteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendidaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Pacientes to delete
+     * Filter which PersonaAtendidas to delete
      */
-    where?: PacienteWhereInput
+    where?: PersonaAtendidaWhereInput
     /**
-     * Limit how many Pacientes to delete.
+     * Limit how many PersonaAtendidas to delete.
      */
     limit?: number
   }
 
   /**
-   * Paciente.citas
+   * PersonaAtendida.citas
    */
-  export type Paciente$citasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendida$citasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Cita
      */
@@ -3573,9 +3816,9 @@ export namespace Prisma {
   }
 
   /**
-   * Paciente.episodios
+   * PersonaAtendida.episodios
    */
-  export type Paciente$episodiosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendida$episodiosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the EpisodioAtencion
      */
@@ -3597,21 +3840,45 @@ export namespace Prisma {
   }
 
   /**
-   * Paciente without action
+   * PersonaAtendida.consentimientos
    */
-  export type PacienteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PersonaAtendida$consentimientosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Paciente
+     * Select specific fields to fetch from the Consentimiento
      */
-    select?: PacienteSelect<ExtArgs> | null
+    select?: ConsentimientoSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Paciente
+     * Omit specific fields from the Consentimiento
      */
-    omit?: PacienteOmit<ExtArgs> | null
+    omit?: ConsentimientoOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PacienteInclude<ExtArgs> | null
+    include?: ConsentimientoInclude<ExtArgs> | null
+    where?: ConsentimientoWhereInput
+    orderBy?: ConsentimientoOrderByWithRelationInput | ConsentimientoOrderByWithRelationInput[]
+    cursor?: ConsentimientoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConsentimientoScalarFieldEnum | ConsentimientoScalarFieldEnum[]
+  }
+
+  /**
+   * PersonaAtendida without action
+   */
+  export type PersonaAtendidaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonaAtendida
+     */
+    select?: PersonaAtendidaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonaAtendida
+     */
+    omit?: PersonaAtendidaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonaAtendidaInclude<ExtArgs> | null
   }
 
 
@@ -3639,33 +3906,42 @@ export namespace Prisma {
     id: number | null
     nombres: string | null
     apellidos: string | null
-    registroMedico: string | null
+    registroProfesional: string | null
     especialidad: string | null
     correo: string | null
     telefono: string | null
     agendaHabilitada: boolean | null
+    estado: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ProfesionalMaxAggregateOutputType = {
     id: number | null
     nombres: string | null
     apellidos: string | null
-    registroMedico: string | null
+    registroProfesional: string | null
     especialidad: string | null
     correo: string | null
     telefono: string | null
     agendaHabilitada: boolean | null
+    estado: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ProfesionalCountAggregateOutputType = {
     id: number
     nombres: number
     apellidos: number
-    registroMedico: number
+    registroProfesional: number
     especialidad: number
     correo: number
     telefono: number
     agendaHabilitada: number
+    estado: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -3682,33 +3958,42 @@ export namespace Prisma {
     id?: true
     nombres?: true
     apellidos?: true
-    registroMedico?: true
+    registroProfesional?: true
     especialidad?: true
     correo?: true
     telefono?: true
     agendaHabilitada?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ProfesionalMaxAggregateInputType = {
     id?: true
     nombres?: true
     apellidos?: true
-    registroMedico?: true
+    registroProfesional?: true
     especialidad?: true
     correo?: true
     telefono?: true
     agendaHabilitada?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ProfesionalCountAggregateInputType = {
     id?: true
     nombres?: true
     apellidos?: true
-    registroMedico?: true
+    registroProfesional?: true
     especialidad?: true
     correo?: true
     telefono?: true
     agendaHabilitada?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -3802,11 +4087,14 @@ export namespace Prisma {
     id: number
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo: string | null
     telefono: string | null
     agendaHabilitada: boolean
+    estado: string
+    createdAt: Date
+    updatedAt: Date
     _count: ProfesionalCountAggregateOutputType | null
     _avg: ProfesionalAvgAggregateOutputType | null
     _sum: ProfesionalSumAggregateOutputType | null
@@ -3832,14 +4120,17 @@ export namespace Prisma {
     id?: boolean
     nombres?: boolean
     apellidos?: boolean
-    registroMedico?: boolean
+    registroProfesional?: boolean
     especialidad?: boolean
     correo?: boolean
     telefono?: boolean
     agendaHabilitada?: boolean
-    bloquesAgenda?: boolean | Profesional$bloquesAgendaArgs<ExtArgs>
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bloques?: boolean | Profesional$bloquesArgs<ExtArgs>
     citas?: boolean | Profesional$citasArgs<ExtArgs>
-    notas?: boolean | Profesional$notasArgs<ExtArgs>
+    notasClinicas?: boolean | Profesional$notasClinicasArgs<ExtArgs>
     _count?: boolean | ProfesionalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profesional"]>
 
@@ -3849,37 +4140,43 @@ export namespace Prisma {
     id?: boolean
     nombres?: boolean
     apellidos?: boolean
-    registroMedico?: boolean
+    registroProfesional?: boolean
     especialidad?: boolean
     correo?: boolean
     telefono?: boolean
     agendaHabilitada?: boolean
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type ProfesionalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombres" | "apellidos" | "registroMedico" | "especialidad" | "correo" | "telefono" | "agendaHabilitada", ExtArgs["result"]["profesional"]>
+  export type ProfesionalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombres" | "apellidos" | "registroProfesional" | "especialidad" | "correo" | "telefono" | "agendaHabilitada" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["profesional"]>
   export type ProfesionalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    bloquesAgenda?: boolean | Profesional$bloquesAgendaArgs<ExtArgs>
+    bloques?: boolean | Profesional$bloquesArgs<ExtArgs>
     citas?: boolean | Profesional$citasArgs<ExtArgs>
-    notas?: boolean | Profesional$notasArgs<ExtArgs>
+    notasClinicas?: boolean | Profesional$notasClinicasArgs<ExtArgs>
     _count?: boolean | ProfesionalCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $ProfesionalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Profesional"
     objects: {
-      bloquesAgenda: Prisma.$BloqueAgendaPayload<ExtArgs>[]
+      bloques: Prisma.$BloqueAgendaPayload<ExtArgs>[]
       citas: Prisma.$CitaPayload<ExtArgs>[]
-      notas: Prisma.$NotaClinicaPayload<ExtArgs>[]
+      notasClinicas: Prisma.$NotaClinicaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nombres: string
       apellidos: string
-      registroMedico: string
+      registroProfesional: string
       especialidad: string
-      correo: string
+      correo: string | null
       telefono: string | null
       agendaHabilitada: boolean
+      estado: string
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["profesional"]>
     composites: {}
   }
@@ -4220,9 +4517,9 @@ export namespace Prisma {
    */
   export interface Prisma__ProfesionalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    bloquesAgenda<T extends Profesional$bloquesAgendaArgs<ExtArgs> = {}>(args?: Subset<T, Profesional$bloquesAgendaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BloqueAgendaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bloques<T extends Profesional$bloquesArgs<ExtArgs> = {}>(args?: Subset<T, Profesional$bloquesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BloqueAgendaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     citas<T extends Profesional$citasArgs<ExtArgs> = {}>(args?: Subset<T, Profesional$citasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CitaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    notas<T extends Profesional$notasArgs<ExtArgs> = {}>(args?: Subset<T, Profesional$notasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaClinicaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notasClinicas<T extends Profesional$notasClinicasArgs<ExtArgs> = {}>(args?: Subset<T, Profesional$notasClinicasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaClinicaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4255,11 +4552,14 @@ export namespace Prisma {
     readonly id: FieldRef<"Profesional", 'Int'>
     readonly nombres: FieldRef<"Profesional", 'String'>
     readonly apellidos: FieldRef<"Profesional", 'String'>
-    readonly registroMedico: FieldRef<"Profesional", 'String'>
+    readonly registroProfesional: FieldRef<"Profesional", 'String'>
     readonly especialidad: FieldRef<"Profesional", 'String'>
     readonly correo: FieldRef<"Profesional", 'String'>
     readonly telefono: FieldRef<"Profesional", 'String'>
     readonly agendaHabilitada: FieldRef<"Profesional", 'Boolean'>
+    readonly estado: FieldRef<"Profesional", 'String'>
+    readonly createdAt: FieldRef<"Profesional", 'DateTime'>
+    readonly updatedAt: FieldRef<"Profesional", 'DateTime'>
   }
     
 
@@ -4603,9 +4903,9 @@ export namespace Prisma {
   }
 
   /**
-   * Profesional.bloquesAgenda
+   * Profesional.bloques
    */
-  export type Profesional$bloquesAgendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Profesional$bloquesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BloqueAgenda
      */
@@ -4651,9 +4951,9 @@ export namespace Prisma {
   }
 
   /**
-   * Profesional.notas
+   * Profesional.notasClinicas
    */
-  export type Profesional$notasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Profesional$notasClinicasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the NotaClinica
      */
@@ -4718,7 +5018,11 @@ export namespace Prisma {
     nombre: string | null
     tipo: string | null
     direccion: string | null
-    estado: boolean | null
+    telefono: string | null
+    horarioReferencia: string | null
+    estado: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UnidadAtencionMaxAggregateOutputType = {
@@ -4726,7 +5030,11 @@ export namespace Prisma {
     nombre: string | null
     tipo: string | null
     direccion: string | null
-    estado: boolean | null
+    telefono: string | null
+    horarioReferencia: string | null
+    estado: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UnidadAtencionCountAggregateOutputType = {
@@ -4734,7 +5042,11 @@ export namespace Prisma {
     nombre: number
     tipo: number
     direccion: number
+    telefono: number
+    horarioReferencia: number
     estado: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -4752,7 +5064,11 @@ export namespace Prisma {
     nombre?: true
     tipo?: true
     direccion?: true
+    telefono?: true
+    horarioReferencia?: true
     estado?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UnidadAtencionMaxAggregateInputType = {
@@ -4760,7 +5076,11 @@ export namespace Prisma {
     nombre?: true
     tipo?: true
     direccion?: true
+    telefono?: true
+    horarioReferencia?: true
     estado?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UnidadAtencionCountAggregateInputType = {
@@ -4768,7 +5088,11 @@ export namespace Prisma {
     nombre?: true
     tipo?: true
     direccion?: true
+    telefono?: true
+    horarioReferencia?: true
     estado?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -4862,8 +5186,12 @@ export namespace Prisma {
     id: number
     nombre: string
     tipo: string
-    direccion: string
-    estado: boolean
+    direccion: string | null
+    telefono: string | null
+    horarioReferencia: string | null
+    estado: string
+    createdAt: Date
+    updatedAt: Date
     _count: UnidadAtencionCountAggregateOutputType | null
     _avg: UnidadAtencionAvgAggregateOutputType | null
     _sum: UnidadAtencionSumAggregateOutputType | null
@@ -4890,8 +5218,12 @@ export namespace Prisma {
     nombre?: boolean
     tipo?: boolean
     direccion?: boolean
+    telefono?: boolean
+    horarioReferencia?: boolean
     estado?: boolean
-    bloquesAgenda?: boolean | UnidadAtencion$bloquesAgendaArgs<ExtArgs>
+    createdAt?: boolean
+    updatedAt?: boolean
+    bloques?: boolean | UnidadAtencion$bloquesArgs<ExtArgs>
     citas?: boolean | UnidadAtencion$citasArgs<ExtArgs>
     _count?: boolean | UnidadAtencionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unidadAtencion"]>
@@ -4903,12 +5235,16 @@ export namespace Prisma {
     nombre?: boolean
     tipo?: boolean
     direccion?: boolean
+    telefono?: boolean
+    horarioReferencia?: boolean
     estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UnidadAtencionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "tipo" | "direccion" | "estado", ExtArgs["result"]["unidadAtencion"]>
+  export type UnidadAtencionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "tipo" | "direccion" | "telefono" | "horarioReferencia" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["unidadAtencion"]>
   export type UnidadAtencionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    bloquesAgenda?: boolean | UnidadAtencion$bloquesAgendaArgs<ExtArgs>
+    bloques?: boolean | UnidadAtencion$bloquesArgs<ExtArgs>
     citas?: boolean | UnidadAtencion$citasArgs<ExtArgs>
     _count?: boolean | UnidadAtencionCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4916,15 +5252,19 @@ export namespace Prisma {
   export type $UnidadAtencionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UnidadAtencion"
     objects: {
-      bloquesAgenda: Prisma.$BloqueAgendaPayload<ExtArgs>[]
+      bloques: Prisma.$BloqueAgendaPayload<ExtArgs>[]
       citas: Prisma.$CitaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nombre: string
       tipo: string
-      direccion: string
-      estado: boolean
+      direccion: string | null
+      telefono: string | null
+      horarioReferencia: string | null
+      estado: string
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["unidadAtencion"]>
     composites: {}
   }
@@ -5265,7 +5605,7 @@ export namespace Prisma {
    */
   export interface Prisma__UnidadAtencionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    bloquesAgenda<T extends UnidadAtencion$bloquesAgendaArgs<ExtArgs> = {}>(args?: Subset<T, UnidadAtencion$bloquesAgendaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BloqueAgendaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bloques<T extends UnidadAtencion$bloquesArgs<ExtArgs> = {}>(args?: Subset<T, UnidadAtencion$bloquesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BloqueAgendaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     citas<T extends UnidadAtencion$citasArgs<ExtArgs> = {}>(args?: Subset<T, UnidadAtencion$citasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CitaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5300,7 +5640,11 @@ export namespace Prisma {
     readonly nombre: FieldRef<"UnidadAtencion", 'String'>
     readonly tipo: FieldRef<"UnidadAtencion", 'String'>
     readonly direccion: FieldRef<"UnidadAtencion", 'String'>
-    readonly estado: FieldRef<"UnidadAtencion", 'Boolean'>
+    readonly telefono: FieldRef<"UnidadAtencion", 'String'>
+    readonly horarioReferencia: FieldRef<"UnidadAtencion", 'String'>
+    readonly estado: FieldRef<"UnidadAtencion", 'String'>
+    readonly createdAt: FieldRef<"UnidadAtencion", 'DateTime'>
+    readonly updatedAt: FieldRef<"UnidadAtencion", 'DateTime'>
   }
     
 
@@ -5644,9 +5988,9 @@ export namespace Prisma {
   }
 
   /**
-   * UnidadAtencion.bloquesAgenda
+   * UnidadAtencion.bloques
    */
-  export type UnidadAtencion$bloquesAgendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnidadAtencion$bloquesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BloqueAgenda
      */
@@ -5724,92 +6068,104 @@ export namespace Prisma {
 
   export type BloqueAgendaAvgAggregateOutputType = {
     id: number | null
-    capacidad: number | null
     profesionalId: number | null
     unidadId: number | null
+    capacidad: number | null
   }
 
   export type BloqueAgendaSumAggregateOutputType = {
     id: number | null
-    capacidad: number | null
     profesionalId: number | null
     unidadId: number | null
+    capacidad: number | null
   }
 
   export type BloqueAgendaMinAggregateOutputType = {
     id: number | null
-    fechaInicio: Date | null
-    fechaFin: Date | null
-    capacidad: number | null
-    estado: string | null
     profesionalId: number | null
     unidadId: number | null
+    inicio: Date | null
+    fin: Date | null
+    capacidad: number | null
+    estado: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type BloqueAgendaMaxAggregateOutputType = {
     id: number | null
-    fechaInicio: Date | null
-    fechaFin: Date | null
-    capacidad: number | null
-    estado: string | null
     profesionalId: number | null
     unidadId: number | null
+    inicio: Date | null
+    fin: Date | null
+    capacidad: number | null
+    estado: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type BloqueAgendaCountAggregateOutputType = {
     id: number
-    fechaInicio: number
-    fechaFin: number
-    capacidad: number
-    estado: number
     profesionalId: number
     unidadId: number
+    inicio: number
+    fin: number
+    capacidad: number
+    estado: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
   export type BloqueAgendaAvgAggregateInputType = {
     id?: true
-    capacidad?: true
     profesionalId?: true
     unidadId?: true
+    capacidad?: true
   }
 
   export type BloqueAgendaSumAggregateInputType = {
     id?: true
-    capacidad?: true
     profesionalId?: true
     unidadId?: true
+    capacidad?: true
   }
 
   export type BloqueAgendaMinAggregateInputType = {
     id?: true
-    fechaInicio?: true
-    fechaFin?: true
-    capacidad?: true
-    estado?: true
     profesionalId?: true
     unidadId?: true
+    inicio?: true
+    fin?: true
+    capacidad?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type BloqueAgendaMaxAggregateInputType = {
     id?: true
-    fechaInicio?: true
-    fechaFin?: true
-    capacidad?: true
-    estado?: true
     profesionalId?: true
     unidadId?: true
+    inicio?: true
+    fin?: true
+    capacidad?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type BloqueAgendaCountAggregateInputType = {
     id?: true
-    fechaInicio?: true
-    fechaFin?: true
-    capacidad?: true
-    estado?: true
     profesionalId?: true
     unidadId?: true
+    inicio?: true
+    fin?: true
+    capacidad?: true
+    estado?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -5901,12 +6257,14 @@ export namespace Prisma {
 
   export type BloqueAgendaGroupByOutputType = {
     id: number
-    fechaInicio: Date
-    fechaFin: Date
-    capacidad: number
-    estado: string
     profesionalId: number
     unidadId: number
+    inicio: Date
+    fin: Date
+    capacidad: number
+    estado: string
+    createdAt: Date
+    updatedAt: Date
     _count: BloqueAgendaCountAggregateOutputType | null
     _avg: BloqueAgendaAvgAggregateOutputType | null
     _sum: BloqueAgendaSumAggregateOutputType | null
@@ -5930,12 +6288,14 @@ export namespace Prisma {
 
   export type BloqueAgendaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    fechaInicio?: boolean
-    fechaFin?: boolean
-    capacidad?: boolean
-    estado?: boolean
     profesionalId?: boolean
     unidadId?: boolean
+    inicio?: boolean
+    fin?: boolean
+    capacidad?: boolean
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     profesional?: boolean | ProfesionalDefaultArgs<ExtArgs>
     unidad?: boolean | UnidadAtencionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bloqueAgenda"]>
@@ -5944,15 +6304,17 @@ export namespace Prisma {
 
   export type BloqueAgendaSelectScalar = {
     id?: boolean
-    fechaInicio?: boolean
-    fechaFin?: boolean
-    capacidad?: boolean
-    estado?: boolean
     profesionalId?: boolean
     unidadId?: boolean
+    inicio?: boolean
+    fin?: boolean
+    capacidad?: boolean
+    estado?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type BloqueAgendaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fechaInicio" | "fechaFin" | "capacidad" | "estado" | "profesionalId" | "unidadId", ExtArgs["result"]["bloqueAgenda"]>
+  export type BloqueAgendaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "profesionalId" | "unidadId" | "inicio" | "fin" | "capacidad" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["bloqueAgenda"]>
   export type BloqueAgendaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profesional?: boolean | ProfesionalDefaultArgs<ExtArgs>
     unidad?: boolean | UnidadAtencionDefaultArgs<ExtArgs>
@@ -5966,12 +6328,14 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      fechaInicio: Date
-      fechaFin: Date
-      capacidad: number
-      estado: string
       profesionalId: number
       unidadId: number
+      inicio: Date
+      fin: Date
+      capacidad: number
+      estado: string
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["bloqueAgenda"]>
     composites: {}
   }
@@ -6344,12 +6708,14 @@ export namespace Prisma {
    */
   interface BloqueAgendaFieldRefs {
     readonly id: FieldRef<"BloqueAgenda", 'Int'>
-    readonly fechaInicio: FieldRef<"BloqueAgenda", 'DateTime'>
-    readonly fechaFin: FieldRef<"BloqueAgenda", 'DateTime'>
-    readonly capacidad: FieldRef<"BloqueAgenda", 'Int'>
-    readonly estado: FieldRef<"BloqueAgenda", 'String'>
     readonly profesionalId: FieldRef<"BloqueAgenda", 'Int'>
     readonly unidadId: FieldRef<"BloqueAgenda", 'Int'>
+    readonly inicio: FieldRef<"BloqueAgenda", 'DateTime'>
+    readonly fin: FieldRef<"BloqueAgenda", 'DateTime'>
+    readonly capacidad: FieldRef<"BloqueAgenda", 'Int'>
+    readonly estado: FieldRef<"BloqueAgenda", 'String'>
+    readonly createdAt: FieldRef<"BloqueAgenda", 'DateTime'>
+    readonly updatedAt: FieldRef<"BloqueAgenda", 'DateTime'>
   }
     
 
@@ -6725,104 +7091,128 @@ export namespace Prisma {
 
   export type CitaAvgAggregateOutputType = {
     id: number | null
-    pacienteId: number | null
+    personaId: number | null
     profesionalId: number | null
     unidadId: number | null
   }
 
   export type CitaSumAggregateOutputType = {
     id: number | null
-    pacienteId: number | null
+    personaId: number | null
     profesionalId: number | null
     unidadId: number | null
   }
 
   export type CitaMinAggregateOutputType = {
     id: number | null
-    fechaInicio: Date | null
-    fechaFin: Date | null
-    motivo: string | null
-    estado: string | null
-    canal: string | null
-    pacienteId: number | null
+    personaId: number | null
     profesionalId: number | null
     unidadId: number | null
+    inicio: Date | null
+    fin: Date | null
+    motivo: string | null
+    canal: string | null
+    estado: string | null
+    observaciones: string | null
+    historialCambios: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type CitaMaxAggregateOutputType = {
     id: number | null
-    fechaInicio: Date | null
-    fechaFin: Date | null
-    motivo: string | null
-    estado: string | null
-    canal: string | null
-    pacienteId: number | null
+    personaId: number | null
     profesionalId: number | null
     unidadId: number | null
+    inicio: Date | null
+    fin: Date | null
+    motivo: string | null
+    canal: string | null
+    estado: string | null
+    observaciones: string | null
+    historialCambios: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type CitaCountAggregateOutputType = {
     id: number
-    fechaInicio: number
-    fechaFin: number
-    motivo: number
-    estado: number
-    canal: number
-    pacienteId: number
+    personaId: number
     profesionalId: number
     unidadId: number
+    inicio: number
+    fin: number
+    motivo: number
+    canal: number
+    estado: number
+    observaciones: number
+    historialCambios: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
   export type CitaAvgAggregateInputType = {
     id?: true
-    pacienteId?: true
+    personaId?: true
     profesionalId?: true
     unidadId?: true
   }
 
   export type CitaSumAggregateInputType = {
     id?: true
-    pacienteId?: true
+    personaId?: true
     profesionalId?: true
     unidadId?: true
   }
 
   export type CitaMinAggregateInputType = {
     id?: true
-    fechaInicio?: true
-    fechaFin?: true
-    motivo?: true
-    estado?: true
-    canal?: true
-    pacienteId?: true
+    personaId?: true
     profesionalId?: true
     unidadId?: true
+    inicio?: true
+    fin?: true
+    motivo?: true
+    canal?: true
+    estado?: true
+    observaciones?: true
+    historialCambios?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type CitaMaxAggregateInputType = {
     id?: true
-    fechaInicio?: true
-    fechaFin?: true
-    motivo?: true
-    estado?: true
-    canal?: true
-    pacienteId?: true
+    personaId?: true
     profesionalId?: true
     unidadId?: true
+    inicio?: true
+    fin?: true
+    motivo?: true
+    canal?: true
+    estado?: true
+    observaciones?: true
+    historialCambios?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type CitaCountAggregateInputType = {
     id?: true
-    fechaInicio?: true
-    fechaFin?: true
-    motivo?: true
-    estado?: true
-    canal?: true
-    pacienteId?: true
+    personaId?: true
     profesionalId?: true
     unidadId?: true
+    inicio?: true
+    fin?: true
+    motivo?: true
+    canal?: true
+    estado?: true
+    observaciones?: true
+    historialCambios?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -6914,14 +7304,18 @@ export namespace Prisma {
 
   export type CitaGroupByOutputType = {
     id: number
-    fechaInicio: Date
-    fechaFin: Date
-    motivo: string
-    estado: string
-    canal: string
-    pacienteId: number
+    personaId: number
     profesionalId: number
     unidadId: number
+    inicio: Date
+    fin: Date
+    motivo: string
+    canal: string
+    estado: string
+    observaciones: string | null
+    historialCambios: string | null
+    createdAt: Date
+    updatedAt: Date
     _count: CitaCountAggregateOutputType | null
     _avg: CitaAvgAggregateOutputType | null
     _sum: CitaSumAggregateOutputType | null
@@ -6945,15 +7339,19 @@ export namespace Prisma {
 
   export type CitaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    fechaInicio?: boolean
-    fechaFin?: boolean
-    motivo?: boolean
-    estado?: boolean
-    canal?: boolean
-    pacienteId?: boolean
+    personaId?: boolean
     profesionalId?: boolean
     unidadId?: boolean
-    paciente?: boolean | PacienteDefaultArgs<ExtArgs>
+    inicio?: boolean
+    fin?: boolean
+    motivo?: boolean
+    canal?: boolean
+    estado?: boolean
+    observaciones?: boolean
+    historialCambios?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    persona?: boolean | PersonaAtendidaDefaultArgs<ExtArgs>
     profesional?: boolean | ProfesionalDefaultArgs<ExtArgs>
     unidad?: boolean | UnidadAtencionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cita"]>
@@ -6962,19 +7360,23 @@ export namespace Prisma {
 
   export type CitaSelectScalar = {
     id?: boolean
-    fechaInicio?: boolean
-    fechaFin?: boolean
-    motivo?: boolean
-    estado?: boolean
-    canal?: boolean
-    pacienteId?: boolean
+    personaId?: boolean
     profesionalId?: boolean
     unidadId?: boolean
+    inicio?: boolean
+    fin?: boolean
+    motivo?: boolean
+    canal?: boolean
+    estado?: boolean
+    observaciones?: boolean
+    historialCambios?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type CitaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fechaInicio" | "fechaFin" | "motivo" | "estado" | "canal" | "pacienteId" | "profesionalId" | "unidadId", ExtArgs["result"]["cita"]>
+  export type CitaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaId" | "profesionalId" | "unidadId" | "inicio" | "fin" | "motivo" | "canal" | "estado" | "observaciones" | "historialCambios" | "createdAt" | "updatedAt", ExtArgs["result"]["cita"]>
   export type CitaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    paciente?: boolean | PacienteDefaultArgs<ExtArgs>
+    persona?: boolean | PersonaAtendidaDefaultArgs<ExtArgs>
     profesional?: boolean | ProfesionalDefaultArgs<ExtArgs>
     unidad?: boolean | UnidadAtencionDefaultArgs<ExtArgs>
   }
@@ -6982,20 +7384,24 @@ export namespace Prisma {
   export type $CitaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Cita"
     objects: {
-      paciente: Prisma.$PacientePayload<ExtArgs>
+      persona: Prisma.$PersonaAtendidaPayload<ExtArgs>
       profesional: Prisma.$ProfesionalPayload<ExtArgs>
       unidad: Prisma.$UnidadAtencionPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      fechaInicio: Date
-      fechaFin: Date
-      motivo: string
-      estado: string
-      canal: string
-      pacienteId: number
+      personaId: number
       profesionalId: number
       unidadId: number
+      inicio: Date
+      fin: Date
+      motivo: string
+      canal: string
+      estado: string
+      observaciones: string | null
+      historialCambios: string | null
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["cita"]>
     composites: {}
   }
@@ -7336,7 +7742,7 @@ export namespace Prisma {
    */
   export interface Prisma__CitaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    paciente<T extends PacienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PacienteDefaultArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    persona<T extends PersonaAtendidaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PersonaAtendidaDefaultArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     profesional<T extends ProfesionalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfesionalDefaultArgs<ExtArgs>>): Prisma__ProfesionalClient<$Result.GetResult<Prisma.$ProfesionalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     unidad<T extends UnidadAtencionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnidadAtencionDefaultArgs<ExtArgs>>): Prisma__UnidadAtencionClient<$Result.GetResult<Prisma.$UnidadAtencionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -7369,14 +7775,18 @@ export namespace Prisma {
    */
   interface CitaFieldRefs {
     readonly id: FieldRef<"Cita", 'Int'>
-    readonly fechaInicio: FieldRef<"Cita", 'DateTime'>
-    readonly fechaFin: FieldRef<"Cita", 'DateTime'>
-    readonly motivo: FieldRef<"Cita", 'String'>
-    readonly estado: FieldRef<"Cita", 'String'>
-    readonly canal: FieldRef<"Cita", 'String'>
-    readonly pacienteId: FieldRef<"Cita", 'Int'>
+    readonly personaId: FieldRef<"Cita", 'Int'>
     readonly profesionalId: FieldRef<"Cita", 'Int'>
     readonly unidadId: FieldRef<"Cita", 'Int'>
+    readonly inicio: FieldRef<"Cita", 'DateTime'>
+    readonly fin: FieldRef<"Cita", 'DateTime'>
+    readonly motivo: FieldRef<"Cita", 'String'>
+    readonly canal: FieldRef<"Cita", 'String'>
+    readonly estado: FieldRef<"Cita", 'String'>
+    readonly observaciones: FieldRef<"Cita", 'String'>
+    readonly historialCambios: FieldRef<"Cita", 'String'>
+    readonly createdAt: FieldRef<"Cita", 'DateTime'>
+    readonly updatedAt: FieldRef<"Cita", 'DateTime'>
   }
     
 
@@ -7752,72 +8162,90 @@ export namespace Prisma {
 
   export type EpisodioAtencionAvgAggregateOutputType = {
     id: number | null
-    pacienteId: number | null
+    personaId: number | null
   }
 
   export type EpisodioAtencionSumAggregateOutputType = {
     id: number | null
-    pacienteId: number | null
+    personaId: number | null
   }
 
   export type EpisodioAtencionMinAggregateOutputType = {
     id: number | null
+    personaId: number | null
+    fechaApertura: Date | null
     motivo: string | null
-    fecha: Date | null
+    tipo: string | null
     estado: string | null
-    pacienteId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type EpisodioAtencionMaxAggregateOutputType = {
     id: number | null
+    personaId: number | null
+    fechaApertura: Date | null
     motivo: string | null
-    fecha: Date | null
+    tipo: string | null
     estado: string | null
-    pacienteId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type EpisodioAtencionCountAggregateOutputType = {
     id: number
+    personaId: number
+    fechaApertura: number
     motivo: number
-    fecha: number
+    tipo: number
     estado: number
-    pacienteId: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
   export type EpisodioAtencionAvgAggregateInputType = {
     id?: true
-    pacienteId?: true
+    personaId?: true
   }
 
   export type EpisodioAtencionSumAggregateInputType = {
     id?: true
-    pacienteId?: true
+    personaId?: true
   }
 
   export type EpisodioAtencionMinAggregateInputType = {
     id?: true
+    personaId?: true
+    fechaApertura?: true
     motivo?: true
-    fecha?: true
+    tipo?: true
     estado?: true
-    pacienteId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type EpisodioAtencionMaxAggregateInputType = {
     id?: true
+    personaId?: true
+    fechaApertura?: true
     motivo?: true
-    fecha?: true
+    tipo?: true
     estado?: true
-    pacienteId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type EpisodioAtencionCountAggregateInputType = {
     id?: true
+    personaId?: true
+    fechaApertura?: true
     motivo?: true
-    fecha?: true
+    tipo?: true
     estado?: true
-    pacienteId?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -7909,10 +8337,13 @@ export namespace Prisma {
 
   export type EpisodioAtencionGroupByOutputType = {
     id: number
+    personaId: number
+    fechaApertura: Date
     motivo: string
-    fecha: Date
+    tipo: string
     estado: string
-    pacienteId: number
+    createdAt: Date
+    updatedAt: Date
     _count: EpisodioAtencionCountAggregateOutputType | null
     _avg: EpisodioAtencionAvgAggregateOutputType | null
     _sum: EpisodioAtencionSumAggregateOutputType | null
@@ -7936,12 +8367,16 @@ export namespace Prisma {
 
   export type EpisodioAtencionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    personaId?: boolean
+    fechaApertura?: boolean
     motivo?: boolean
-    fecha?: boolean
+    tipo?: boolean
     estado?: boolean
-    pacienteId?: boolean
-    paciente?: boolean | PacienteDefaultArgs<ExtArgs>
-    notas?: boolean | EpisodioAtencion$notasArgs<ExtArgs>
+    createdAt?: boolean
+    updatedAt?: boolean
+    persona?: boolean | PersonaAtendidaDefaultArgs<ExtArgs>
+    notasClinicas?: boolean | EpisodioAtencion$notasClinicasArgs<ExtArgs>
+    diagnosticos?: boolean | EpisodioAtencion$diagnosticosArgs<ExtArgs>
     _count?: boolean | EpisodioAtencionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["episodioAtencion"]>
 
@@ -7949,31 +8384,39 @@ export namespace Prisma {
 
   export type EpisodioAtencionSelectScalar = {
     id?: boolean
+    personaId?: boolean
+    fechaApertura?: boolean
     motivo?: boolean
-    fecha?: boolean
+    tipo?: boolean
     estado?: boolean
-    pacienteId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type EpisodioAtencionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "motivo" | "fecha" | "estado" | "pacienteId", ExtArgs["result"]["episodioAtencion"]>
+  export type EpisodioAtencionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaId" | "fechaApertura" | "motivo" | "tipo" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["episodioAtencion"]>
   export type EpisodioAtencionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    paciente?: boolean | PacienteDefaultArgs<ExtArgs>
-    notas?: boolean | EpisodioAtencion$notasArgs<ExtArgs>
+    persona?: boolean | PersonaAtendidaDefaultArgs<ExtArgs>
+    notasClinicas?: boolean | EpisodioAtencion$notasClinicasArgs<ExtArgs>
+    diagnosticos?: boolean | EpisodioAtencion$diagnosticosArgs<ExtArgs>
     _count?: boolean | EpisodioAtencionCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $EpisodioAtencionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "EpisodioAtencion"
     objects: {
-      paciente: Prisma.$PacientePayload<ExtArgs>
-      notas: Prisma.$NotaClinicaPayload<ExtArgs>[]
+      persona: Prisma.$PersonaAtendidaPayload<ExtArgs>
+      notasClinicas: Prisma.$NotaClinicaPayload<ExtArgs>[]
+      diagnosticos: Prisma.$DiagnosticoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      personaId: number
+      fechaApertura: Date
       motivo: string
-      fecha: Date
+      tipo: string
       estado: string
-      pacienteId: number
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["episodioAtencion"]>
     composites: {}
   }
@@ -8314,8 +8757,9 @@ export namespace Prisma {
    */
   export interface Prisma__EpisodioAtencionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    paciente<T extends PacienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PacienteDefaultArgs<ExtArgs>>): Prisma__PacienteClient<$Result.GetResult<Prisma.$PacientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    notas<T extends EpisodioAtencion$notasArgs<ExtArgs> = {}>(args?: Subset<T, EpisodioAtencion$notasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaClinicaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    persona<T extends PersonaAtendidaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PersonaAtendidaDefaultArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    notasClinicas<T extends EpisodioAtencion$notasClinicasArgs<ExtArgs> = {}>(args?: Subset<T, EpisodioAtencion$notasClinicasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotaClinicaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    diagnosticos<T extends EpisodioAtencion$diagnosticosArgs<ExtArgs> = {}>(args?: Subset<T, EpisodioAtencion$diagnosticosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8346,10 +8790,13 @@ export namespace Prisma {
    */
   interface EpisodioAtencionFieldRefs {
     readonly id: FieldRef<"EpisodioAtencion", 'Int'>
+    readonly personaId: FieldRef<"EpisodioAtencion", 'Int'>
+    readonly fechaApertura: FieldRef<"EpisodioAtencion", 'DateTime'>
     readonly motivo: FieldRef<"EpisodioAtencion", 'String'>
-    readonly fecha: FieldRef<"EpisodioAtencion", 'DateTime'>
+    readonly tipo: FieldRef<"EpisodioAtencion", 'String'>
     readonly estado: FieldRef<"EpisodioAtencion", 'String'>
-    readonly pacienteId: FieldRef<"EpisodioAtencion", 'Int'>
+    readonly createdAt: FieldRef<"EpisodioAtencion", 'DateTime'>
+    readonly updatedAt: FieldRef<"EpisodioAtencion", 'DateTime'>
   }
     
 
@@ -8693,9 +9140,9 @@ export namespace Prisma {
   }
 
   /**
-   * EpisodioAtencion.notas
+   * EpisodioAtencion.notasClinicas
    */
-  export type EpisodioAtencion$notasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EpisodioAtencion$notasClinicasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the NotaClinica
      */
@@ -8714,6 +9161,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotaClinicaScalarFieldEnum | NotaClinicaScalarFieldEnum[]
+  }
+
+  /**
+   * EpisodioAtencion.diagnosticos
+   */
+  export type EpisodioAtencion$diagnosticosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    where?: DiagnosticoWhereInput
+    orderBy?: DiagnosticoOrderByWithRelationInput | DiagnosticoOrderByWithRelationInput[]
+    cursor?: DiagnosticoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DiagnosticoScalarFieldEnum | DiagnosticoScalarFieldEnum[]
   }
 
   /**
@@ -8761,35 +9232,44 @@ export namespace Prisma {
 
   export type NotaClinicaMinAggregateOutputType = {
     id: number | null
+    episodioId: number | null
+    profesionalId: number | null
+    fecha: Date | null
     subjetivo: string | null
     objetivo: string | null
     analisis: string | null
     plan: string | null
-    fecha: Date | null
-    episodioId: number | null
-    profesionalId: number | null
+    adjuntos: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type NotaClinicaMaxAggregateOutputType = {
     id: number | null
+    episodioId: number | null
+    profesionalId: number | null
+    fecha: Date | null
     subjetivo: string | null
     objetivo: string | null
     analisis: string | null
     plan: string | null
-    fecha: Date | null
-    episodioId: number | null
-    profesionalId: number | null
+    adjuntos: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type NotaClinicaCountAggregateOutputType = {
     id: number
+    episodioId: number
+    profesionalId: number
+    fecha: number
     subjetivo: number
     objetivo: number
     analisis: number
     plan: number
-    fecha: number
-    episodioId: number
-    profesionalId: number
+    adjuntos: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -8808,35 +9288,44 @@ export namespace Prisma {
 
   export type NotaClinicaMinAggregateInputType = {
     id?: true
+    episodioId?: true
+    profesionalId?: true
+    fecha?: true
     subjetivo?: true
     objetivo?: true
     analisis?: true
     plan?: true
-    fecha?: true
-    episodioId?: true
-    profesionalId?: true
+    adjuntos?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type NotaClinicaMaxAggregateInputType = {
     id?: true
+    episodioId?: true
+    profesionalId?: true
+    fecha?: true
     subjetivo?: true
     objetivo?: true
     analisis?: true
     plan?: true
-    fecha?: true
-    episodioId?: true
-    profesionalId?: true
+    adjuntos?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type NotaClinicaCountAggregateInputType = {
     id?: true
+    episodioId?: true
+    profesionalId?: true
+    fecha?: true
     subjetivo?: true
     objetivo?: true
     analisis?: true
     plan?: true
-    fecha?: true
-    episodioId?: true
-    profesionalId?: true
+    adjuntos?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -8928,13 +9417,16 @@ export namespace Prisma {
 
   export type NotaClinicaGroupByOutputType = {
     id: number
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
-    fecha: Date
     episodioId: number
     profesionalId: number
+    fecha: Date
+    subjetivo: string | null
+    objetivo: string | null
+    analisis: string | null
+    plan: string | null
+    adjuntos: string | null
+    createdAt: Date
+    updatedAt: Date
     _count: NotaClinicaCountAggregateOutputType | null
     _avg: NotaClinicaAvgAggregateOutputType | null
     _sum: NotaClinicaSumAggregateOutputType | null
@@ -8958,13 +9450,16 @@ export namespace Prisma {
 
   export type NotaClinicaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    episodioId?: boolean
+    profesionalId?: boolean
+    fecha?: boolean
     subjetivo?: boolean
     objetivo?: boolean
     analisis?: boolean
     plan?: boolean
-    fecha?: boolean
-    episodioId?: boolean
-    profesionalId?: boolean
+    adjuntos?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     episodio?: boolean | EpisodioAtencionDefaultArgs<ExtArgs>
     profesional?: boolean | ProfesionalDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notaClinica"]>
@@ -8973,16 +9468,19 @@ export namespace Prisma {
 
   export type NotaClinicaSelectScalar = {
     id?: boolean
+    episodioId?: boolean
+    profesionalId?: boolean
+    fecha?: boolean
     subjetivo?: boolean
     objetivo?: boolean
     analisis?: boolean
     plan?: boolean
-    fecha?: boolean
-    episodioId?: boolean
-    profesionalId?: boolean
+    adjuntos?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type NotaClinicaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subjetivo" | "objetivo" | "analisis" | "plan" | "fecha" | "episodioId" | "profesionalId", ExtArgs["result"]["notaClinica"]>
+  export type NotaClinicaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "episodioId" | "profesionalId" | "fecha" | "subjetivo" | "objetivo" | "analisis" | "plan" | "adjuntos" | "createdAt" | "updatedAt", ExtArgs["result"]["notaClinica"]>
   export type NotaClinicaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     episodio?: boolean | EpisodioAtencionDefaultArgs<ExtArgs>
     profesional?: boolean | ProfesionalDefaultArgs<ExtArgs>
@@ -8996,13 +9494,16 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      subjetivo: string
-      objetivo: string
-      analisis: string
-      plan: string
-      fecha: Date
       episodioId: number
       profesionalId: number
+      fecha: Date
+      subjetivo: string | null
+      objetivo: string | null
+      analisis: string | null
+      plan: string | null
+      adjuntos: string | null
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["notaClinica"]>
     composites: {}
   }
@@ -9375,13 +9876,16 @@ export namespace Prisma {
    */
   interface NotaClinicaFieldRefs {
     readonly id: FieldRef<"NotaClinica", 'Int'>
+    readonly episodioId: FieldRef<"NotaClinica", 'Int'>
+    readonly profesionalId: FieldRef<"NotaClinica", 'Int'>
+    readonly fecha: FieldRef<"NotaClinica", 'DateTime'>
     readonly subjetivo: FieldRef<"NotaClinica", 'String'>
     readonly objetivo: FieldRef<"NotaClinica", 'String'>
     readonly analisis: FieldRef<"NotaClinica", 'String'>
     readonly plan: FieldRef<"NotaClinica", 'String'>
-    readonly fecha: FieldRef<"NotaClinica", 'DateTime'>
-    readonly episodioId: FieldRef<"NotaClinica", 'Int'>
-    readonly profesionalId: FieldRef<"NotaClinica", 'Int'>
+    readonly adjuntos: FieldRef<"NotaClinica", 'String'>
+    readonly createdAt: FieldRef<"NotaClinica", 'DateTime'>
+    readonly updatedAt: FieldRef<"NotaClinica", 'DateTime'>
   }
     
 
@@ -9744,6 +10248,2006 @@ export namespace Prisma {
 
 
   /**
+   * Model Diagnostico
+   */
+
+  export type AggregateDiagnostico = {
+    _count: DiagnosticoCountAggregateOutputType | null
+    _avg: DiagnosticoAvgAggregateOutputType | null
+    _sum: DiagnosticoSumAggregateOutputType | null
+    _min: DiagnosticoMinAggregateOutputType | null
+    _max: DiagnosticoMaxAggregateOutputType | null
+  }
+
+  export type DiagnosticoAvgAggregateOutputType = {
+    id: number | null
+    episodioId: number | null
+  }
+
+  export type DiagnosticoSumAggregateOutputType = {
+    id: number | null
+    episodioId: number | null
+  }
+
+  export type DiagnosticoMinAggregateOutputType = {
+    id: number | null
+    episodioId: number | null
+    codigo: string | null
+    descripcion: string | null
+    tipo: string | null
+    principal: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DiagnosticoMaxAggregateOutputType = {
+    id: number | null
+    episodioId: number | null
+    codigo: string | null
+    descripcion: string | null
+    tipo: string | null
+    principal: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DiagnosticoCountAggregateOutputType = {
+    id: number
+    episodioId: number
+    codigo: number
+    descripcion: number
+    tipo: number
+    principal: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DiagnosticoAvgAggregateInputType = {
+    id?: true
+    episodioId?: true
+  }
+
+  export type DiagnosticoSumAggregateInputType = {
+    id?: true
+    episodioId?: true
+  }
+
+  export type DiagnosticoMinAggregateInputType = {
+    id?: true
+    episodioId?: true
+    codigo?: true
+    descripcion?: true
+    tipo?: true
+    principal?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DiagnosticoMaxAggregateInputType = {
+    id?: true
+    episodioId?: true
+    codigo?: true
+    descripcion?: true
+    tipo?: true
+    principal?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DiagnosticoCountAggregateInputType = {
+    id?: true
+    episodioId?: true
+    codigo?: true
+    descripcion?: true
+    tipo?: true
+    principal?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DiagnosticoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Diagnostico to aggregate.
+     */
+    where?: DiagnosticoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Diagnosticos to fetch.
+     */
+    orderBy?: DiagnosticoOrderByWithRelationInput | DiagnosticoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DiagnosticoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Diagnosticos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Diagnosticos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Diagnosticos
+    **/
+    _count?: true | DiagnosticoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DiagnosticoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DiagnosticoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DiagnosticoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DiagnosticoMaxAggregateInputType
+  }
+
+  export type GetDiagnosticoAggregateType<T extends DiagnosticoAggregateArgs> = {
+        [P in keyof T & keyof AggregateDiagnostico]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDiagnostico[P]>
+      : GetScalarType<T[P], AggregateDiagnostico[P]>
+  }
+
+
+
+
+  export type DiagnosticoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiagnosticoWhereInput
+    orderBy?: DiagnosticoOrderByWithAggregationInput | DiagnosticoOrderByWithAggregationInput[]
+    by: DiagnosticoScalarFieldEnum[] | DiagnosticoScalarFieldEnum
+    having?: DiagnosticoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DiagnosticoCountAggregateInputType | true
+    _avg?: DiagnosticoAvgAggregateInputType
+    _sum?: DiagnosticoSumAggregateInputType
+    _min?: DiagnosticoMinAggregateInputType
+    _max?: DiagnosticoMaxAggregateInputType
+  }
+
+  export type DiagnosticoGroupByOutputType = {
+    id: number
+    episodioId: number
+    codigo: string
+    descripcion: string
+    tipo: string
+    principal: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DiagnosticoCountAggregateOutputType | null
+    _avg: DiagnosticoAvgAggregateOutputType | null
+    _sum: DiagnosticoSumAggregateOutputType | null
+    _min: DiagnosticoMinAggregateOutputType | null
+    _max: DiagnosticoMaxAggregateOutputType | null
+  }
+
+  type GetDiagnosticoGroupByPayload<T extends DiagnosticoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DiagnosticoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DiagnosticoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DiagnosticoGroupByOutputType[P]>
+            : GetScalarType<T[P], DiagnosticoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DiagnosticoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    episodioId?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+    tipo?: boolean
+    principal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    episodio?: boolean | EpisodioAtencionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["diagnostico"]>
+
+
+
+  export type DiagnosticoSelectScalar = {
+    id?: boolean
+    episodioId?: boolean
+    codigo?: boolean
+    descripcion?: boolean
+    tipo?: boolean
+    principal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DiagnosticoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "episodioId" | "codigo" | "descripcion" | "tipo" | "principal" | "createdAt" | "updatedAt", ExtArgs["result"]["diagnostico"]>
+  export type DiagnosticoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    episodio?: boolean | EpisodioAtencionDefaultArgs<ExtArgs>
+  }
+
+  export type $DiagnosticoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Diagnostico"
+    objects: {
+      episodio: Prisma.$EpisodioAtencionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      episodioId: number
+      codigo: string
+      descripcion: string
+      tipo: string
+      principal: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["diagnostico"]>
+    composites: {}
+  }
+
+  type DiagnosticoGetPayload<S extends boolean | null | undefined | DiagnosticoDefaultArgs> = $Result.GetResult<Prisma.$DiagnosticoPayload, S>
+
+  type DiagnosticoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DiagnosticoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DiagnosticoCountAggregateInputType | true
+    }
+
+  export interface DiagnosticoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Diagnostico'], meta: { name: 'Diagnostico' } }
+    /**
+     * Find zero or one Diagnostico that matches the filter.
+     * @param {DiagnosticoFindUniqueArgs} args - Arguments to find a Diagnostico
+     * @example
+     * // Get one Diagnostico
+     * const diagnostico = await prisma.diagnostico.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DiagnosticoFindUniqueArgs>(args: SelectSubset<T, DiagnosticoFindUniqueArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Diagnostico that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DiagnosticoFindUniqueOrThrowArgs} args - Arguments to find a Diagnostico
+     * @example
+     * // Get one Diagnostico
+     * const diagnostico = await prisma.diagnostico.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DiagnosticoFindUniqueOrThrowArgs>(args: SelectSubset<T, DiagnosticoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Diagnostico that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiagnosticoFindFirstArgs} args - Arguments to find a Diagnostico
+     * @example
+     * // Get one Diagnostico
+     * const diagnostico = await prisma.diagnostico.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DiagnosticoFindFirstArgs>(args?: SelectSubset<T, DiagnosticoFindFirstArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Diagnostico that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiagnosticoFindFirstOrThrowArgs} args - Arguments to find a Diagnostico
+     * @example
+     * // Get one Diagnostico
+     * const diagnostico = await prisma.diagnostico.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DiagnosticoFindFirstOrThrowArgs>(args?: SelectSubset<T, DiagnosticoFindFirstOrThrowArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Diagnosticos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiagnosticoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Diagnosticos
+     * const diagnosticos = await prisma.diagnostico.findMany()
+     * 
+     * // Get first 10 Diagnosticos
+     * const diagnosticos = await prisma.diagnostico.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const diagnosticoWithIdOnly = await prisma.diagnostico.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DiagnosticoFindManyArgs>(args?: SelectSubset<T, DiagnosticoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Diagnostico.
+     * @param {DiagnosticoCreateArgs} args - Arguments to create a Diagnostico.
+     * @example
+     * // Create one Diagnostico
+     * const Diagnostico = await prisma.diagnostico.create({
+     *   data: {
+     *     // ... data to create a Diagnostico
+     *   }
+     * })
+     * 
+     */
+    create<T extends DiagnosticoCreateArgs>(args: SelectSubset<T, DiagnosticoCreateArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Diagnosticos.
+     * @param {DiagnosticoCreateManyArgs} args - Arguments to create many Diagnosticos.
+     * @example
+     * // Create many Diagnosticos
+     * const diagnostico = await prisma.diagnostico.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DiagnosticoCreateManyArgs>(args?: SelectSubset<T, DiagnosticoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Diagnostico.
+     * @param {DiagnosticoDeleteArgs} args - Arguments to delete one Diagnostico.
+     * @example
+     * // Delete one Diagnostico
+     * const Diagnostico = await prisma.diagnostico.delete({
+     *   where: {
+     *     // ... filter to delete one Diagnostico
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DiagnosticoDeleteArgs>(args: SelectSubset<T, DiagnosticoDeleteArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Diagnostico.
+     * @param {DiagnosticoUpdateArgs} args - Arguments to update one Diagnostico.
+     * @example
+     * // Update one Diagnostico
+     * const diagnostico = await prisma.diagnostico.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DiagnosticoUpdateArgs>(args: SelectSubset<T, DiagnosticoUpdateArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Diagnosticos.
+     * @param {DiagnosticoDeleteManyArgs} args - Arguments to filter Diagnosticos to delete.
+     * @example
+     * // Delete a few Diagnosticos
+     * const { count } = await prisma.diagnostico.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DiagnosticoDeleteManyArgs>(args?: SelectSubset<T, DiagnosticoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Diagnosticos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiagnosticoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Diagnosticos
+     * const diagnostico = await prisma.diagnostico.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DiagnosticoUpdateManyArgs>(args: SelectSubset<T, DiagnosticoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Diagnostico.
+     * @param {DiagnosticoUpsertArgs} args - Arguments to update or create a Diagnostico.
+     * @example
+     * // Update or create a Diagnostico
+     * const diagnostico = await prisma.diagnostico.upsert({
+     *   create: {
+     *     // ... data to create a Diagnostico
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Diagnostico we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DiagnosticoUpsertArgs>(args: SelectSubset<T, DiagnosticoUpsertArgs<ExtArgs>>): Prisma__DiagnosticoClient<$Result.GetResult<Prisma.$DiagnosticoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Diagnosticos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiagnosticoCountArgs} args - Arguments to filter Diagnosticos to count.
+     * @example
+     * // Count the number of Diagnosticos
+     * const count = await prisma.diagnostico.count({
+     *   where: {
+     *     // ... the filter for the Diagnosticos we want to count
+     *   }
+     * })
+    **/
+    count<T extends DiagnosticoCountArgs>(
+      args?: Subset<T, DiagnosticoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DiagnosticoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Diagnostico.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiagnosticoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DiagnosticoAggregateArgs>(args: Subset<T, DiagnosticoAggregateArgs>): Prisma.PrismaPromise<GetDiagnosticoAggregateType<T>>
+
+    /**
+     * Group by Diagnostico.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DiagnosticoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DiagnosticoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DiagnosticoGroupByArgs['orderBy'] }
+        : { orderBy?: DiagnosticoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DiagnosticoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDiagnosticoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Diagnostico model
+   */
+  readonly fields: DiagnosticoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Diagnostico.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DiagnosticoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    episodio<T extends EpisodioAtencionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EpisodioAtencionDefaultArgs<ExtArgs>>): Prisma__EpisodioAtencionClient<$Result.GetResult<Prisma.$EpisodioAtencionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Diagnostico model
+   */
+  interface DiagnosticoFieldRefs {
+    readonly id: FieldRef<"Diagnostico", 'Int'>
+    readonly episodioId: FieldRef<"Diagnostico", 'Int'>
+    readonly codigo: FieldRef<"Diagnostico", 'String'>
+    readonly descripcion: FieldRef<"Diagnostico", 'String'>
+    readonly tipo: FieldRef<"Diagnostico", 'String'>
+    readonly principal: FieldRef<"Diagnostico", 'Boolean'>
+    readonly createdAt: FieldRef<"Diagnostico", 'DateTime'>
+    readonly updatedAt: FieldRef<"Diagnostico", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Diagnostico findUnique
+   */
+  export type DiagnosticoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * Filter, which Diagnostico to fetch.
+     */
+    where: DiagnosticoWhereUniqueInput
+  }
+
+  /**
+   * Diagnostico findUniqueOrThrow
+   */
+  export type DiagnosticoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * Filter, which Diagnostico to fetch.
+     */
+    where: DiagnosticoWhereUniqueInput
+  }
+
+  /**
+   * Diagnostico findFirst
+   */
+  export type DiagnosticoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * Filter, which Diagnostico to fetch.
+     */
+    where?: DiagnosticoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Diagnosticos to fetch.
+     */
+    orderBy?: DiagnosticoOrderByWithRelationInput | DiagnosticoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Diagnosticos.
+     */
+    cursor?: DiagnosticoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Diagnosticos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Diagnosticos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Diagnosticos.
+     */
+    distinct?: DiagnosticoScalarFieldEnum | DiagnosticoScalarFieldEnum[]
+  }
+
+  /**
+   * Diagnostico findFirstOrThrow
+   */
+  export type DiagnosticoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * Filter, which Diagnostico to fetch.
+     */
+    where?: DiagnosticoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Diagnosticos to fetch.
+     */
+    orderBy?: DiagnosticoOrderByWithRelationInput | DiagnosticoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Diagnosticos.
+     */
+    cursor?: DiagnosticoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Diagnosticos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Diagnosticos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Diagnosticos.
+     */
+    distinct?: DiagnosticoScalarFieldEnum | DiagnosticoScalarFieldEnum[]
+  }
+
+  /**
+   * Diagnostico findMany
+   */
+  export type DiagnosticoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * Filter, which Diagnosticos to fetch.
+     */
+    where?: DiagnosticoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Diagnosticos to fetch.
+     */
+    orderBy?: DiagnosticoOrderByWithRelationInput | DiagnosticoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Diagnosticos.
+     */
+    cursor?: DiagnosticoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Diagnosticos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Diagnosticos.
+     */
+    skip?: number
+    distinct?: DiagnosticoScalarFieldEnum | DiagnosticoScalarFieldEnum[]
+  }
+
+  /**
+   * Diagnostico create
+   */
+  export type DiagnosticoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Diagnostico.
+     */
+    data: XOR<DiagnosticoCreateInput, DiagnosticoUncheckedCreateInput>
+  }
+
+  /**
+   * Diagnostico createMany
+   */
+  export type DiagnosticoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Diagnosticos.
+     */
+    data: DiagnosticoCreateManyInput | DiagnosticoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Diagnostico update
+   */
+  export type DiagnosticoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Diagnostico.
+     */
+    data: XOR<DiagnosticoUpdateInput, DiagnosticoUncheckedUpdateInput>
+    /**
+     * Choose, which Diagnostico to update.
+     */
+    where: DiagnosticoWhereUniqueInput
+  }
+
+  /**
+   * Diagnostico updateMany
+   */
+  export type DiagnosticoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Diagnosticos.
+     */
+    data: XOR<DiagnosticoUpdateManyMutationInput, DiagnosticoUncheckedUpdateManyInput>
+    /**
+     * Filter which Diagnosticos to update
+     */
+    where?: DiagnosticoWhereInput
+    /**
+     * Limit how many Diagnosticos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Diagnostico upsert
+   */
+  export type DiagnosticoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Diagnostico to update in case it exists.
+     */
+    where: DiagnosticoWhereUniqueInput
+    /**
+     * In case the Diagnostico found by the `where` argument doesn't exist, create a new Diagnostico with this data.
+     */
+    create: XOR<DiagnosticoCreateInput, DiagnosticoUncheckedCreateInput>
+    /**
+     * In case the Diagnostico was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DiagnosticoUpdateInput, DiagnosticoUncheckedUpdateInput>
+  }
+
+  /**
+   * Diagnostico delete
+   */
+  export type DiagnosticoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+    /**
+     * Filter which Diagnostico to delete.
+     */
+    where: DiagnosticoWhereUniqueInput
+  }
+
+  /**
+   * Diagnostico deleteMany
+   */
+  export type DiagnosticoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Diagnosticos to delete
+     */
+    where?: DiagnosticoWhereInput
+    /**
+     * Limit how many Diagnosticos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Diagnostico without action
+   */
+  export type DiagnosticoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Diagnostico
+     */
+    select?: DiagnosticoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Diagnostico
+     */
+    omit?: DiagnosticoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Consentimiento
+   */
+
+  export type AggregateConsentimiento = {
+    _count: ConsentimientoCountAggregateOutputType | null
+    _avg: ConsentimientoAvgAggregateOutputType | null
+    _sum: ConsentimientoSumAggregateOutputType | null
+    _min: ConsentimientoMinAggregateOutputType | null
+    _max: ConsentimientoMaxAggregateOutputType | null
+  }
+
+  export type ConsentimientoAvgAggregateOutputType = {
+    id: number | null
+    personaId: number | null
+  }
+
+  export type ConsentimientoSumAggregateOutputType = {
+    id: number | null
+    personaId: number | null
+  }
+
+  export type ConsentimientoMinAggregateOutputType = {
+    id: number | null
+    personaId: number | null
+    tipoProcedimiento: string | null
+    fecha: Date | null
+    metodo: string | null
+    archivoId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConsentimientoMaxAggregateOutputType = {
+    id: number | null
+    personaId: number | null
+    tipoProcedimiento: string | null
+    fecha: Date | null
+    metodo: string | null
+    archivoId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConsentimientoCountAggregateOutputType = {
+    id: number
+    personaId: number
+    tipoProcedimiento: number
+    fecha: number
+    metodo: number
+    archivoId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ConsentimientoAvgAggregateInputType = {
+    id?: true
+    personaId?: true
+  }
+
+  export type ConsentimientoSumAggregateInputType = {
+    id?: true
+    personaId?: true
+  }
+
+  export type ConsentimientoMinAggregateInputType = {
+    id?: true
+    personaId?: true
+    tipoProcedimiento?: true
+    fecha?: true
+    metodo?: true
+    archivoId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConsentimientoMaxAggregateInputType = {
+    id?: true
+    personaId?: true
+    tipoProcedimiento?: true
+    fecha?: true
+    metodo?: true
+    archivoId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConsentimientoCountAggregateInputType = {
+    id?: true
+    personaId?: true
+    tipoProcedimiento?: true
+    fecha?: true
+    metodo?: true
+    archivoId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ConsentimientoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Consentimiento to aggregate.
+     */
+    where?: ConsentimientoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Consentimientos to fetch.
+     */
+    orderBy?: ConsentimientoOrderByWithRelationInput | ConsentimientoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConsentimientoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Consentimientos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Consentimientos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Consentimientos
+    **/
+    _count?: true | ConsentimientoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ConsentimientoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ConsentimientoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConsentimientoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConsentimientoMaxAggregateInputType
+  }
+
+  export type GetConsentimientoAggregateType<T extends ConsentimientoAggregateArgs> = {
+        [P in keyof T & keyof AggregateConsentimiento]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConsentimiento[P]>
+      : GetScalarType<T[P], AggregateConsentimiento[P]>
+  }
+
+
+
+
+  export type ConsentimientoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConsentimientoWhereInput
+    orderBy?: ConsentimientoOrderByWithAggregationInput | ConsentimientoOrderByWithAggregationInput[]
+    by: ConsentimientoScalarFieldEnum[] | ConsentimientoScalarFieldEnum
+    having?: ConsentimientoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConsentimientoCountAggregateInputType | true
+    _avg?: ConsentimientoAvgAggregateInputType
+    _sum?: ConsentimientoSumAggregateInputType
+    _min?: ConsentimientoMinAggregateInputType
+    _max?: ConsentimientoMaxAggregateInputType
+  }
+
+  export type ConsentimientoGroupByOutputType = {
+    id: number
+    personaId: number
+    tipoProcedimiento: string
+    fecha: Date
+    metodo: string
+    archivoId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ConsentimientoCountAggregateOutputType | null
+    _avg: ConsentimientoAvgAggregateOutputType | null
+    _sum: ConsentimientoSumAggregateOutputType | null
+    _min: ConsentimientoMinAggregateOutputType | null
+    _max: ConsentimientoMaxAggregateOutputType | null
+  }
+
+  type GetConsentimientoGroupByPayload<T extends ConsentimientoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConsentimientoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConsentimientoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConsentimientoGroupByOutputType[P]>
+            : GetScalarType<T[P], ConsentimientoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConsentimientoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    personaId?: boolean
+    tipoProcedimiento?: boolean
+    fecha?: boolean
+    metodo?: boolean
+    archivoId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    persona?: boolean | PersonaAtendidaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["consentimiento"]>
+
+
+
+  export type ConsentimientoSelectScalar = {
+    id?: boolean
+    personaId?: boolean
+    tipoProcedimiento?: boolean
+    fecha?: boolean
+    metodo?: boolean
+    archivoId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ConsentimientoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaId" | "tipoProcedimiento" | "fecha" | "metodo" | "archivoId" | "createdAt" | "updatedAt", ExtArgs["result"]["consentimiento"]>
+  export type ConsentimientoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    persona?: boolean | PersonaAtendidaDefaultArgs<ExtArgs>
+  }
+
+  export type $ConsentimientoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Consentimiento"
+    objects: {
+      persona: Prisma.$PersonaAtendidaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      personaId: number
+      tipoProcedimiento: string
+      fecha: Date
+      metodo: string
+      archivoId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["consentimiento"]>
+    composites: {}
+  }
+
+  type ConsentimientoGetPayload<S extends boolean | null | undefined | ConsentimientoDefaultArgs> = $Result.GetResult<Prisma.$ConsentimientoPayload, S>
+
+  type ConsentimientoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConsentimientoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConsentimientoCountAggregateInputType | true
+    }
+
+  export interface ConsentimientoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Consentimiento'], meta: { name: 'Consentimiento' } }
+    /**
+     * Find zero or one Consentimiento that matches the filter.
+     * @param {ConsentimientoFindUniqueArgs} args - Arguments to find a Consentimiento
+     * @example
+     * // Get one Consentimiento
+     * const consentimiento = await prisma.consentimiento.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConsentimientoFindUniqueArgs>(args: SelectSubset<T, ConsentimientoFindUniqueArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Consentimiento that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConsentimientoFindUniqueOrThrowArgs} args - Arguments to find a Consentimiento
+     * @example
+     * // Get one Consentimiento
+     * const consentimiento = await prisma.consentimiento.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConsentimientoFindUniqueOrThrowArgs>(args: SelectSubset<T, ConsentimientoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Consentimiento that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConsentimientoFindFirstArgs} args - Arguments to find a Consentimiento
+     * @example
+     * // Get one Consentimiento
+     * const consentimiento = await prisma.consentimiento.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConsentimientoFindFirstArgs>(args?: SelectSubset<T, ConsentimientoFindFirstArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Consentimiento that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConsentimientoFindFirstOrThrowArgs} args - Arguments to find a Consentimiento
+     * @example
+     * // Get one Consentimiento
+     * const consentimiento = await prisma.consentimiento.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConsentimientoFindFirstOrThrowArgs>(args?: SelectSubset<T, ConsentimientoFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Consentimientos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConsentimientoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Consentimientos
+     * const consentimientos = await prisma.consentimiento.findMany()
+     * 
+     * // Get first 10 Consentimientos
+     * const consentimientos = await prisma.consentimiento.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const consentimientoWithIdOnly = await prisma.consentimiento.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConsentimientoFindManyArgs>(args?: SelectSubset<T, ConsentimientoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Consentimiento.
+     * @param {ConsentimientoCreateArgs} args - Arguments to create a Consentimiento.
+     * @example
+     * // Create one Consentimiento
+     * const Consentimiento = await prisma.consentimiento.create({
+     *   data: {
+     *     // ... data to create a Consentimiento
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConsentimientoCreateArgs>(args: SelectSubset<T, ConsentimientoCreateArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Consentimientos.
+     * @param {ConsentimientoCreateManyArgs} args - Arguments to create many Consentimientos.
+     * @example
+     * // Create many Consentimientos
+     * const consentimiento = await prisma.consentimiento.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConsentimientoCreateManyArgs>(args?: SelectSubset<T, ConsentimientoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Consentimiento.
+     * @param {ConsentimientoDeleteArgs} args - Arguments to delete one Consentimiento.
+     * @example
+     * // Delete one Consentimiento
+     * const Consentimiento = await prisma.consentimiento.delete({
+     *   where: {
+     *     // ... filter to delete one Consentimiento
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConsentimientoDeleteArgs>(args: SelectSubset<T, ConsentimientoDeleteArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Consentimiento.
+     * @param {ConsentimientoUpdateArgs} args - Arguments to update one Consentimiento.
+     * @example
+     * // Update one Consentimiento
+     * const consentimiento = await prisma.consentimiento.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConsentimientoUpdateArgs>(args: SelectSubset<T, ConsentimientoUpdateArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Consentimientos.
+     * @param {ConsentimientoDeleteManyArgs} args - Arguments to filter Consentimientos to delete.
+     * @example
+     * // Delete a few Consentimientos
+     * const { count } = await prisma.consentimiento.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConsentimientoDeleteManyArgs>(args?: SelectSubset<T, ConsentimientoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Consentimientos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConsentimientoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Consentimientos
+     * const consentimiento = await prisma.consentimiento.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConsentimientoUpdateManyArgs>(args: SelectSubset<T, ConsentimientoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Consentimiento.
+     * @param {ConsentimientoUpsertArgs} args - Arguments to update or create a Consentimiento.
+     * @example
+     * // Update or create a Consentimiento
+     * const consentimiento = await prisma.consentimiento.upsert({
+     *   create: {
+     *     // ... data to create a Consentimiento
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Consentimiento we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConsentimientoUpsertArgs>(args: SelectSubset<T, ConsentimientoUpsertArgs<ExtArgs>>): Prisma__ConsentimientoClient<$Result.GetResult<Prisma.$ConsentimientoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Consentimientos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConsentimientoCountArgs} args - Arguments to filter Consentimientos to count.
+     * @example
+     * // Count the number of Consentimientos
+     * const count = await prisma.consentimiento.count({
+     *   where: {
+     *     // ... the filter for the Consentimientos we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConsentimientoCountArgs>(
+      args?: Subset<T, ConsentimientoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConsentimientoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Consentimiento.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConsentimientoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConsentimientoAggregateArgs>(args: Subset<T, ConsentimientoAggregateArgs>): Prisma.PrismaPromise<GetConsentimientoAggregateType<T>>
+
+    /**
+     * Group by Consentimiento.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConsentimientoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConsentimientoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConsentimientoGroupByArgs['orderBy'] }
+        : { orderBy?: ConsentimientoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConsentimientoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConsentimientoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Consentimiento model
+   */
+  readonly fields: ConsentimientoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Consentimiento.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConsentimientoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    persona<T extends PersonaAtendidaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PersonaAtendidaDefaultArgs<ExtArgs>>): Prisma__PersonaAtendidaClient<$Result.GetResult<Prisma.$PersonaAtendidaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Consentimiento model
+   */
+  interface ConsentimientoFieldRefs {
+    readonly id: FieldRef<"Consentimiento", 'Int'>
+    readonly personaId: FieldRef<"Consentimiento", 'Int'>
+    readonly tipoProcedimiento: FieldRef<"Consentimiento", 'String'>
+    readonly fecha: FieldRef<"Consentimiento", 'DateTime'>
+    readonly metodo: FieldRef<"Consentimiento", 'String'>
+    readonly archivoId: FieldRef<"Consentimiento", 'String'>
+    readonly createdAt: FieldRef<"Consentimiento", 'DateTime'>
+    readonly updatedAt: FieldRef<"Consentimiento", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Consentimiento findUnique
+   */
+  export type ConsentimientoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * Filter, which Consentimiento to fetch.
+     */
+    where: ConsentimientoWhereUniqueInput
+  }
+
+  /**
+   * Consentimiento findUniqueOrThrow
+   */
+  export type ConsentimientoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * Filter, which Consentimiento to fetch.
+     */
+    where: ConsentimientoWhereUniqueInput
+  }
+
+  /**
+   * Consentimiento findFirst
+   */
+  export type ConsentimientoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * Filter, which Consentimiento to fetch.
+     */
+    where?: ConsentimientoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Consentimientos to fetch.
+     */
+    orderBy?: ConsentimientoOrderByWithRelationInput | ConsentimientoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Consentimientos.
+     */
+    cursor?: ConsentimientoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Consentimientos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Consentimientos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Consentimientos.
+     */
+    distinct?: ConsentimientoScalarFieldEnum | ConsentimientoScalarFieldEnum[]
+  }
+
+  /**
+   * Consentimiento findFirstOrThrow
+   */
+  export type ConsentimientoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * Filter, which Consentimiento to fetch.
+     */
+    where?: ConsentimientoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Consentimientos to fetch.
+     */
+    orderBy?: ConsentimientoOrderByWithRelationInput | ConsentimientoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Consentimientos.
+     */
+    cursor?: ConsentimientoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Consentimientos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Consentimientos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Consentimientos.
+     */
+    distinct?: ConsentimientoScalarFieldEnum | ConsentimientoScalarFieldEnum[]
+  }
+
+  /**
+   * Consentimiento findMany
+   */
+  export type ConsentimientoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * Filter, which Consentimientos to fetch.
+     */
+    where?: ConsentimientoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Consentimientos to fetch.
+     */
+    orderBy?: ConsentimientoOrderByWithRelationInput | ConsentimientoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Consentimientos.
+     */
+    cursor?: ConsentimientoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Consentimientos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Consentimientos.
+     */
+    skip?: number
+    distinct?: ConsentimientoScalarFieldEnum | ConsentimientoScalarFieldEnum[]
+  }
+
+  /**
+   * Consentimiento create
+   */
+  export type ConsentimientoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Consentimiento.
+     */
+    data: XOR<ConsentimientoCreateInput, ConsentimientoUncheckedCreateInput>
+  }
+
+  /**
+   * Consentimiento createMany
+   */
+  export type ConsentimientoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Consentimientos.
+     */
+    data: ConsentimientoCreateManyInput | ConsentimientoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Consentimiento update
+   */
+  export type ConsentimientoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Consentimiento.
+     */
+    data: XOR<ConsentimientoUpdateInput, ConsentimientoUncheckedUpdateInput>
+    /**
+     * Choose, which Consentimiento to update.
+     */
+    where: ConsentimientoWhereUniqueInput
+  }
+
+  /**
+   * Consentimiento updateMany
+   */
+  export type ConsentimientoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Consentimientos.
+     */
+    data: XOR<ConsentimientoUpdateManyMutationInput, ConsentimientoUncheckedUpdateManyInput>
+    /**
+     * Filter which Consentimientos to update
+     */
+    where?: ConsentimientoWhereInput
+    /**
+     * Limit how many Consentimientos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Consentimiento upsert
+   */
+  export type ConsentimientoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Consentimiento to update in case it exists.
+     */
+    where: ConsentimientoWhereUniqueInput
+    /**
+     * In case the Consentimiento found by the `where` argument doesn't exist, create a new Consentimiento with this data.
+     */
+    create: XOR<ConsentimientoCreateInput, ConsentimientoUncheckedCreateInput>
+    /**
+     * In case the Consentimiento was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConsentimientoUpdateInput, ConsentimientoUncheckedUpdateInput>
+  }
+
+  /**
+   * Consentimiento delete
+   */
+  export type ConsentimientoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+    /**
+     * Filter which Consentimiento to delete.
+     */
+    where: ConsentimientoWhereUniqueInput
+  }
+
+  /**
+   * Consentimiento deleteMany
+   */
+  export type ConsentimientoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Consentimientos to delete
+     */
+    where?: ConsentimientoWhereInput
+    /**
+     * Limit how many Consentimientos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Consentimiento without action
+   */
+  export type ConsentimientoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consentimiento
+     */
+    select?: ConsentimientoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consentimiento
+     */
+    omit?: ConsentimientoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsentimientoInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9761,14 +12265,16 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     password: 'password',
-    role: 'role',
-    createdAt: 'createdAt'
+    rol: 'rol',
+    activo: 'activo',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
 
 
-  export const PacienteScalarFieldEnum: {
+  export const PersonaAtendidaScalarFieldEnum: {
     id: 'id',
     tipoDocumento: 'tipoDocumento',
     numeroDocumento: 'numeroDocumento',
@@ -9779,23 +12285,29 @@ export namespace Prisma {
     correo: 'correo',
     telefono: 'telefono',
     direccion: 'direccion',
+    contactoEmergencia: 'contactoEmergencia',
+    alergias: 'alergias',
+    antecedentesResumen: 'antecedentesResumen',
     estado: 'estado',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type PacienteScalarFieldEnum = (typeof PacienteScalarFieldEnum)[keyof typeof PacienteScalarFieldEnum]
+  export type PersonaAtendidaScalarFieldEnum = (typeof PersonaAtendidaScalarFieldEnum)[keyof typeof PersonaAtendidaScalarFieldEnum]
 
 
   export const ProfesionalScalarFieldEnum: {
     id: 'id',
     nombres: 'nombres',
     apellidos: 'apellidos',
-    registroMedico: 'registroMedico',
+    registroProfesional: 'registroProfesional',
     especialidad: 'especialidad',
     correo: 'correo',
     telefono: 'telefono',
-    agendaHabilitada: 'agendaHabilitada'
+    agendaHabilitada: 'agendaHabilitada',
+    estado: 'estado',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type ProfesionalScalarFieldEnum = (typeof ProfesionalScalarFieldEnum)[keyof typeof ProfesionalScalarFieldEnum]
@@ -9806,7 +12318,11 @@ export namespace Prisma {
     nombre: 'nombre',
     tipo: 'tipo',
     direccion: 'direccion',
-    estado: 'estado'
+    telefono: 'telefono',
+    horarioReferencia: 'horarioReferencia',
+    estado: 'estado',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UnidadAtencionScalarFieldEnum = (typeof UnidadAtencionScalarFieldEnum)[keyof typeof UnidadAtencionScalarFieldEnum]
@@ -9814,12 +12330,14 @@ export namespace Prisma {
 
   export const BloqueAgendaScalarFieldEnum: {
     id: 'id',
-    fechaInicio: 'fechaInicio',
-    fechaFin: 'fechaFin',
+    profesionalId: 'profesionalId',
+    unidadId: 'unidadId',
+    inicio: 'inicio',
+    fin: 'fin',
     capacidad: 'capacidad',
     estado: 'estado',
-    profesionalId: 'profesionalId',
-    unidadId: 'unidadId'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type BloqueAgendaScalarFieldEnum = (typeof BloqueAgendaScalarFieldEnum)[keyof typeof BloqueAgendaScalarFieldEnum]
@@ -9827,14 +12345,18 @@ export namespace Prisma {
 
   export const CitaScalarFieldEnum: {
     id: 'id',
-    fechaInicio: 'fechaInicio',
-    fechaFin: 'fechaFin',
-    motivo: 'motivo',
-    estado: 'estado',
-    canal: 'canal',
-    pacienteId: 'pacienteId',
+    personaId: 'personaId',
     profesionalId: 'profesionalId',
-    unidadId: 'unidadId'
+    unidadId: 'unidadId',
+    inicio: 'inicio',
+    fin: 'fin',
+    motivo: 'motivo',
+    canal: 'canal',
+    estado: 'estado',
+    observaciones: 'observaciones',
+    historialCambios: 'historialCambios',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type CitaScalarFieldEnum = (typeof CitaScalarFieldEnum)[keyof typeof CitaScalarFieldEnum]
@@ -9842,10 +12364,13 @@ export namespace Prisma {
 
   export const EpisodioAtencionScalarFieldEnum: {
     id: 'id',
+    personaId: 'personaId',
+    fechaApertura: 'fechaApertura',
     motivo: 'motivo',
-    fecha: 'fecha',
+    tipo: 'tipo',
     estado: 'estado',
-    pacienteId: 'pacienteId'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type EpisodioAtencionScalarFieldEnum = (typeof EpisodioAtencionScalarFieldEnum)[keyof typeof EpisodioAtencionScalarFieldEnum]
@@ -9853,16 +12378,47 @@ export namespace Prisma {
 
   export const NotaClinicaScalarFieldEnum: {
     id: 'id',
+    episodioId: 'episodioId',
+    profesionalId: 'profesionalId',
+    fecha: 'fecha',
     subjetivo: 'subjetivo',
     objetivo: 'objetivo',
     analisis: 'analisis',
     plan: 'plan',
-    fecha: 'fecha',
-    episodioId: 'episodioId',
-    profesionalId: 'profesionalId'
+    adjuntos: 'adjuntos',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type NotaClinicaScalarFieldEnum = (typeof NotaClinicaScalarFieldEnum)[keyof typeof NotaClinicaScalarFieldEnum]
+
+
+  export const DiagnosticoScalarFieldEnum: {
+    id: 'id',
+    episodioId: 'episodioId',
+    codigo: 'codigo',
+    descripcion: 'descripcion',
+    tipo: 'tipo',
+    principal: 'principal',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DiagnosticoScalarFieldEnum = (typeof DiagnosticoScalarFieldEnum)[keyof typeof DiagnosticoScalarFieldEnum]
+
+
+  export const ConsentimientoScalarFieldEnum: {
+    id: 'id',
+    personaId: 'personaId',
+    tipoProcedimiento: 'tipoProcedimiento',
+    fecha: 'fecha',
+    metodo: 'metodo',
+    archivoId: 'archivoId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ConsentimientoScalarFieldEnum = (typeof ConsentimientoScalarFieldEnum)[keyof typeof ConsentimientoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9876,7 +12432,7 @@ export namespace Prisma {
   export const UsuarioOrderByRelevanceFieldEnum: {
     email: 'email',
     password: 'password',
-    role: 'role'
+    rol: 'rol'
   };
 
   export type UsuarioOrderByRelevanceFieldEnum = (typeof UsuarioOrderByRelevanceFieldEnum)[keyof typeof UsuarioOrderByRelevanceFieldEnum]
@@ -9890,7 +12446,7 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
-  export const PacienteOrderByRelevanceFieldEnum: {
+  export const PersonaAtendidaOrderByRelevanceFieldEnum: {
     tipoDocumento: 'tipoDocumento',
     numeroDocumento: 'numeroDocumento',
     nombres: 'nombres',
@@ -9898,19 +12454,24 @@ export namespace Prisma {
     sexo: 'sexo',
     correo: 'correo',
     telefono: 'telefono',
-    direccion: 'direccion'
+    direccion: 'direccion',
+    contactoEmergencia: 'contactoEmergencia',
+    alergias: 'alergias',
+    antecedentesResumen: 'antecedentesResumen',
+    estado: 'estado'
   };
 
-  export type PacienteOrderByRelevanceFieldEnum = (typeof PacienteOrderByRelevanceFieldEnum)[keyof typeof PacienteOrderByRelevanceFieldEnum]
+  export type PersonaAtendidaOrderByRelevanceFieldEnum = (typeof PersonaAtendidaOrderByRelevanceFieldEnum)[keyof typeof PersonaAtendidaOrderByRelevanceFieldEnum]
 
 
   export const ProfesionalOrderByRelevanceFieldEnum: {
     nombres: 'nombres',
     apellidos: 'apellidos',
-    registroMedico: 'registroMedico',
+    registroProfesional: 'registroProfesional',
     especialidad: 'especialidad',
     correo: 'correo',
-    telefono: 'telefono'
+    telefono: 'telefono',
+    estado: 'estado'
   };
 
   export type ProfesionalOrderByRelevanceFieldEnum = (typeof ProfesionalOrderByRelevanceFieldEnum)[keyof typeof ProfesionalOrderByRelevanceFieldEnum]
@@ -9919,7 +12480,10 @@ export namespace Prisma {
   export const UnidadAtencionOrderByRelevanceFieldEnum: {
     nombre: 'nombre',
     tipo: 'tipo',
-    direccion: 'direccion'
+    direccion: 'direccion',
+    telefono: 'telefono',
+    horarioReferencia: 'horarioReferencia',
+    estado: 'estado'
   };
 
   export type UnidadAtencionOrderByRelevanceFieldEnum = (typeof UnidadAtencionOrderByRelevanceFieldEnum)[keyof typeof UnidadAtencionOrderByRelevanceFieldEnum]
@@ -9934,8 +12498,10 @@ export namespace Prisma {
 
   export const CitaOrderByRelevanceFieldEnum: {
     motivo: 'motivo',
+    canal: 'canal',
     estado: 'estado',
-    canal: 'canal'
+    observaciones: 'observaciones',
+    historialCambios: 'historialCambios'
   };
 
   export type CitaOrderByRelevanceFieldEnum = (typeof CitaOrderByRelevanceFieldEnum)[keyof typeof CitaOrderByRelevanceFieldEnum]
@@ -9943,6 +12509,7 @@ export namespace Prisma {
 
   export const EpisodioAtencionOrderByRelevanceFieldEnum: {
     motivo: 'motivo',
+    tipo: 'tipo',
     estado: 'estado'
   };
 
@@ -9953,10 +12520,29 @@ export namespace Prisma {
     subjetivo: 'subjetivo',
     objetivo: 'objetivo',
     analisis: 'analisis',
-    plan: 'plan'
+    plan: 'plan',
+    adjuntos: 'adjuntos'
   };
 
   export type NotaClinicaOrderByRelevanceFieldEnum = (typeof NotaClinicaOrderByRelevanceFieldEnum)[keyof typeof NotaClinicaOrderByRelevanceFieldEnum]
+
+
+  export const DiagnosticoOrderByRelevanceFieldEnum: {
+    codigo: 'codigo',
+    descripcion: 'descripcion',
+    tipo: 'tipo'
+  };
+
+  export type DiagnosticoOrderByRelevanceFieldEnum = (typeof DiagnosticoOrderByRelevanceFieldEnum)[keyof typeof DiagnosticoOrderByRelevanceFieldEnum]
+
+
+  export const ConsentimientoOrderByRelevanceFieldEnum: {
+    tipoProcedimiento: 'tipoProcedimiento',
+    metodo: 'metodo',
+    archivoId: 'archivoId'
+  };
+
+  export type ConsentimientoOrderByRelevanceFieldEnum = (typeof ConsentimientoOrderByRelevanceFieldEnum)[keyof typeof ConsentimientoOrderByRelevanceFieldEnum]
 
 
   /**
@@ -9979,16 +12565,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Boolean'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'DateTime'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -10009,16 +12595,20 @@ export namespace Prisma {
     id?: IntFilter<"Usuario"> | number
     email?: StringFilter<"Usuario"> | string
     password?: StringFilter<"Usuario"> | string
-    role?: StringFilter<"Usuario"> | string
+    rol?: StringFilter<"Usuario"> | string
+    activo?: BoolFilter<"Usuario"> | boolean
     createdAt?: DateTimeFilter<"Usuario"> | Date | string
+    updatedAt?: DateTimeFilter<"Usuario"> | Date | string
   }
 
   export type UsuarioOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role?: SortOrder
+    rol?: SortOrder
+    activo?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     _relevance?: UsuarioOrderByRelevanceInput
   }
 
@@ -10029,16 +12619,20 @@ export namespace Prisma {
     OR?: UsuarioWhereInput[]
     NOT?: UsuarioWhereInput | UsuarioWhereInput[]
     password?: StringFilter<"Usuario"> | string
-    role?: StringFilter<"Usuario"> | string
+    rol?: StringFilter<"Usuario"> | string
+    activo?: BoolFilter<"Usuario"> | boolean
     createdAt?: DateTimeFilter<"Usuario"> | Date | string
+    updatedAt?: DateTimeFilter<"Usuario"> | Date | string
   }, "id" | "email">
 
   export type UsuarioOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role?: SortOrder
+    rol?: SortOrder
+    activo?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UsuarioCountOrderByAggregateInput
     _avg?: UsuarioAvgOrderByAggregateInput
     _max?: UsuarioMaxOrderByAggregateInput
@@ -10053,32 +12647,38 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Usuario"> | number
     email?: StringWithAggregatesFilter<"Usuario"> | string
     password?: StringWithAggregatesFilter<"Usuario"> | string
-    role?: StringWithAggregatesFilter<"Usuario"> | string
+    rol?: StringWithAggregatesFilter<"Usuario"> | string
+    activo?: BoolWithAggregatesFilter<"Usuario"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
   }
 
-  export type PacienteWhereInput = {
-    AND?: PacienteWhereInput | PacienteWhereInput[]
-    OR?: PacienteWhereInput[]
-    NOT?: PacienteWhereInput | PacienteWhereInput[]
-    id?: IntFilter<"Paciente"> | number
-    tipoDocumento?: StringFilter<"Paciente"> | string
-    numeroDocumento?: StringFilter<"Paciente"> | string
-    nombres?: StringFilter<"Paciente"> | string
-    apellidos?: StringFilter<"Paciente"> | string
-    fechaNacimiento?: DateTimeFilter<"Paciente"> | Date | string
-    sexo?: StringFilter<"Paciente"> | string
-    correo?: StringNullableFilter<"Paciente"> | string | null
-    telefono?: StringFilter<"Paciente"> | string
-    direccion?: StringNullableFilter<"Paciente"> | string | null
-    estado?: BoolFilter<"Paciente"> | boolean
-    createdAt?: DateTimeFilter<"Paciente"> | Date | string
-    updatedAt?: DateTimeFilter<"Paciente"> | Date | string
+  export type PersonaAtendidaWhereInput = {
+    AND?: PersonaAtendidaWhereInput | PersonaAtendidaWhereInput[]
+    OR?: PersonaAtendidaWhereInput[]
+    NOT?: PersonaAtendidaWhereInput | PersonaAtendidaWhereInput[]
+    id?: IntFilter<"PersonaAtendida"> | number
+    tipoDocumento?: StringFilter<"PersonaAtendida"> | string
+    numeroDocumento?: StringFilter<"PersonaAtendida"> | string
+    nombres?: StringFilter<"PersonaAtendida"> | string
+    apellidos?: StringFilter<"PersonaAtendida"> | string
+    fechaNacimiento?: DateTimeFilter<"PersonaAtendida"> | Date | string
+    sexo?: StringFilter<"PersonaAtendida"> | string
+    correo?: StringNullableFilter<"PersonaAtendida"> | string | null
+    telefono?: StringNullableFilter<"PersonaAtendida"> | string | null
+    direccion?: StringNullableFilter<"PersonaAtendida"> | string | null
+    contactoEmergencia?: StringNullableFilter<"PersonaAtendida"> | string | null
+    alergias?: StringNullableFilter<"PersonaAtendida"> | string | null
+    antecedentesResumen?: StringNullableFilter<"PersonaAtendida"> | string | null
+    estado?: StringFilter<"PersonaAtendida"> | string
+    createdAt?: DateTimeFilter<"PersonaAtendida"> | Date | string
+    updatedAt?: DateTimeFilter<"PersonaAtendida"> | Date | string
     citas?: CitaListRelationFilter
     episodios?: EpisodioAtencionListRelationFilter
+    consentimientos?: ConsentimientoListRelationFilter
   }
 
-  export type PacienteOrderByWithRelationInput = {
+  export type PersonaAtendidaOrderByWithRelationInput = {
     id?: SortOrder
     tipoDocumento?: SortOrder
     numeroDocumento?: SortOrder
@@ -10087,38 +12687,46 @@ export namespace Prisma {
     fechaNacimiento?: SortOrder
     sexo?: SortOrder
     correo?: SortOrderInput | SortOrder
-    telefono?: SortOrder
+    telefono?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
+    contactoEmergencia?: SortOrderInput | SortOrder
+    alergias?: SortOrderInput | SortOrder
+    antecedentesResumen?: SortOrderInput | SortOrder
     estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     citas?: CitaOrderByRelationAggregateInput
     episodios?: EpisodioAtencionOrderByRelationAggregateInput
-    _relevance?: PacienteOrderByRelevanceInput
+    consentimientos?: ConsentimientoOrderByRelationAggregateInput
+    _relevance?: PersonaAtendidaOrderByRelevanceInput
   }
 
-  export type PacienteWhereUniqueInput = Prisma.AtLeast<{
+  export type PersonaAtendidaWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     numeroDocumento?: string
-    AND?: PacienteWhereInput | PacienteWhereInput[]
-    OR?: PacienteWhereInput[]
-    NOT?: PacienteWhereInput | PacienteWhereInput[]
-    tipoDocumento?: StringFilter<"Paciente"> | string
-    nombres?: StringFilter<"Paciente"> | string
-    apellidos?: StringFilter<"Paciente"> | string
-    fechaNacimiento?: DateTimeFilter<"Paciente"> | Date | string
-    sexo?: StringFilter<"Paciente"> | string
-    correo?: StringNullableFilter<"Paciente"> | string | null
-    telefono?: StringFilter<"Paciente"> | string
-    direccion?: StringNullableFilter<"Paciente"> | string | null
-    estado?: BoolFilter<"Paciente"> | boolean
-    createdAt?: DateTimeFilter<"Paciente"> | Date | string
-    updatedAt?: DateTimeFilter<"Paciente"> | Date | string
+    AND?: PersonaAtendidaWhereInput | PersonaAtendidaWhereInput[]
+    OR?: PersonaAtendidaWhereInput[]
+    NOT?: PersonaAtendidaWhereInput | PersonaAtendidaWhereInput[]
+    tipoDocumento?: StringFilter<"PersonaAtendida"> | string
+    nombres?: StringFilter<"PersonaAtendida"> | string
+    apellidos?: StringFilter<"PersonaAtendida"> | string
+    fechaNacimiento?: DateTimeFilter<"PersonaAtendida"> | Date | string
+    sexo?: StringFilter<"PersonaAtendida"> | string
+    correo?: StringNullableFilter<"PersonaAtendida"> | string | null
+    telefono?: StringNullableFilter<"PersonaAtendida"> | string | null
+    direccion?: StringNullableFilter<"PersonaAtendida"> | string | null
+    contactoEmergencia?: StringNullableFilter<"PersonaAtendida"> | string | null
+    alergias?: StringNullableFilter<"PersonaAtendida"> | string | null
+    antecedentesResumen?: StringNullableFilter<"PersonaAtendida"> | string | null
+    estado?: StringFilter<"PersonaAtendida"> | string
+    createdAt?: DateTimeFilter<"PersonaAtendida"> | Date | string
+    updatedAt?: DateTimeFilter<"PersonaAtendida"> | Date | string
     citas?: CitaListRelationFilter
     episodios?: EpisodioAtencionListRelationFilter
+    consentimientos?: ConsentimientoListRelationFilter
   }, "id" | "numeroDocumento">
 
-  export type PacienteOrderByWithAggregationInput = {
+  export type PersonaAtendidaOrderByWithAggregationInput = {
     id?: SortOrder
     tipoDocumento?: SortOrder
     numeroDocumento?: SortOrder
@@ -10127,35 +12735,41 @@ export namespace Prisma {
     fechaNacimiento?: SortOrder
     sexo?: SortOrder
     correo?: SortOrderInput | SortOrder
-    telefono?: SortOrder
+    telefono?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
+    contactoEmergencia?: SortOrderInput | SortOrder
+    alergias?: SortOrderInput | SortOrder
+    antecedentesResumen?: SortOrderInput | SortOrder
     estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: PacienteCountOrderByAggregateInput
-    _avg?: PacienteAvgOrderByAggregateInput
-    _max?: PacienteMaxOrderByAggregateInput
-    _min?: PacienteMinOrderByAggregateInput
-    _sum?: PacienteSumOrderByAggregateInput
+    _count?: PersonaAtendidaCountOrderByAggregateInput
+    _avg?: PersonaAtendidaAvgOrderByAggregateInput
+    _max?: PersonaAtendidaMaxOrderByAggregateInput
+    _min?: PersonaAtendidaMinOrderByAggregateInput
+    _sum?: PersonaAtendidaSumOrderByAggregateInput
   }
 
-  export type PacienteScalarWhereWithAggregatesInput = {
-    AND?: PacienteScalarWhereWithAggregatesInput | PacienteScalarWhereWithAggregatesInput[]
-    OR?: PacienteScalarWhereWithAggregatesInput[]
-    NOT?: PacienteScalarWhereWithAggregatesInput | PacienteScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Paciente"> | number
-    tipoDocumento?: StringWithAggregatesFilter<"Paciente"> | string
-    numeroDocumento?: StringWithAggregatesFilter<"Paciente"> | string
-    nombres?: StringWithAggregatesFilter<"Paciente"> | string
-    apellidos?: StringWithAggregatesFilter<"Paciente"> | string
-    fechaNacimiento?: DateTimeWithAggregatesFilter<"Paciente"> | Date | string
-    sexo?: StringWithAggregatesFilter<"Paciente"> | string
-    correo?: StringNullableWithAggregatesFilter<"Paciente"> | string | null
-    telefono?: StringWithAggregatesFilter<"Paciente"> | string
-    direccion?: StringNullableWithAggregatesFilter<"Paciente"> | string | null
-    estado?: BoolWithAggregatesFilter<"Paciente"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"Paciente"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Paciente"> | Date | string
+  export type PersonaAtendidaScalarWhereWithAggregatesInput = {
+    AND?: PersonaAtendidaScalarWhereWithAggregatesInput | PersonaAtendidaScalarWhereWithAggregatesInput[]
+    OR?: PersonaAtendidaScalarWhereWithAggregatesInput[]
+    NOT?: PersonaAtendidaScalarWhereWithAggregatesInput | PersonaAtendidaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PersonaAtendida"> | number
+    tipoDocumento?: StringWithAggregatesFilter<"PersonaAtendida"> | string
+    numeroDocumento?: StringWithAggregatesFilter<"PersonaAtendida"> | string
+    nombres?: StringWithAggregatesFilter<"PersonaAtendida"> | string
+    apellidos?: StringWithAggregatesFilter<"PersonaAtendida"> | string
+    fechaNacimiento?: DateTimeWithAggregatesFilter<"PersonaAtendida"> | Date | string
+    sexo?: StringWithAggregatesFilter<"PersonaAtendida"> | string
+    correo?: StringNullableWithAggregatesFilter<"PersonaAtendida"> | string | null
+    telefono?: StringNullableWithAggregatesFilter<"PersonaAtendida"> | string | null
+    direccion?: StringNullableWithAggregatesFilter<"PersonaAtendida"> | string | null
+    contactoEmergencia?: StringNullableWithAggregatesFilter<"PersonaAtendida"> | string | null
+    alergias?: StringNullableWithAggregatesFilter<"PersonaAtendida"> | string | null
+    antecedentesResumen?: StringNullableWithAggregatesFilter<"PersonaAtendida"> | string | null
+    estado?: StringWithAggregatesFilter<"PersonaAtendida"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PersonaAtendida"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PersonaAtendida"> | Date | string
   }
 
   export type ProfesionalWhereInput = {
@@ -10165,57 +12779,69 @@ export namespace Prisma {
     id?: IntFilter<"Profesional"> | number
     nombres?: StringFilter<"Profesional"> | string
     apellidos?: StringFilter<"Profesional"> | string
-    registroMedico?: StringFilter<"Profesional"> | string
+    registroProfesional?: StringFilter<"Profesional"> | string
     especialidad?: StringFilter<"Profesional"> | string
-    correo?: StringFilter<"Profesional"> | string
+    correo?: StringNullableFilter<"Profesional"> | string | null
     telefono?: StringNullableFilter<"Profesional"> | string | null
     agendaHabilitada?: BoolFilter<"Profesional"> | boolean
-    bloquesAgenda?: BloqueAgendaListRelationFilter
+    estado?: StringFilter<"Profesional"> | string
+    createdAt?: DateTimeFilter<"Profesional"> | Date | string
+    updatedAt?: DateTimeFilter<"Profesional"> | Date | string
+    bloques?: BloqueAgendaListRelationFilter
     citas?: CitaListRelationFilter
-    notas?: NotaClinicaListRelationFilter
+    notasClinicas?: NotaClinicaListRelationFilter
   }
 
   export type ProfesionalOrderByWithRelationInput = {
     id?: SortOrder
     nombres?: SortOrder
     apellidos?: SortOrder
-    registroMedico?: SortOrder
+    registroProfesional?: SortOrder
     especialidad?: SortOrder
-    correo?: SortOrder
+    correo?: SortOrderInput | SortOrder
     telefono?: SortOrderInput | SortOrder
     agendaHabilitada?: SortOrder
-    bloquesAgenda?: BloqueAgendaOrderByRelationAggregateInput
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    bloques?: BloqueAgendaOrderByRelationAggregateInput
     citas?: CitaOrderByRelationAggregateInput
-    notas?: NotaClinicaOrderByRelationAggregateInput
+    notasClinicas?: NotaClinicaOrderByRelationAggregateInput
     _relevance?: ProfesionalOrderByRelevanceInput
   }
 
   export type ProfesionalWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    registroMedico?: string
-    correo?: string
+    registroProfesional?: string
     AND?: ProfesionalWhereInput | ProfesionalWhereInput[]
     OR?: ProfesionalWhereInput[]
     NOT?: ProfesionalWhereInput | ProfesionalWhereInput[]
     nombres?: StringFilter<"Profesional"> | string
     apellidos?: StringFilter<"Profesional"> | string
     especialidad?: StringFilter<"Profesional"> | string
+    correo?: StringNullableFilter<"Profesional"> | string | null
     telefono?: StringNullableFilter<"Profesional"> | string | null
     agendaHabilitada?: BoolFilter<"Profesional"> | boolean
-    bloquesAgenda?: BloqueAgendaListRelationFilter
+    estado?: StringFilter<"Profesional"> | string
+    createdAt?: DateTimeFilter<"Profesional"> | Date | string
+    updatedAt?: DateTimeFilter<"Profesional"> | Date | string
+    bloques?: BloqueAgendaListRelationFilter
     citas?: CitaListRelationFilter
-    notas?: NotaClinicaListRelationFilter
-  }, "id" | "registroMedico" | "correo">
+    notasClinicas?: NotaClinicaListRelationFilter
+  }, "id" | "registroProfesional">
 
   export type ProfesionalOrderByWithAggregationInput = {
     id?: SortOrder
     nombres?: SortOrder
     apellidos?: SortOrder
-    registroMedico?: SortOrder
+    registroProfesional?: SortOrder
     especialidad?: SortOrder
-    correo?: SortOrder
+    correo?: SortOrderInput | SortOrder
     telefono?: SortOrderInput | SortOrder
     agendaHabilitada?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: ProfesionalCountOrderByAggregateInput
     _avg?: ProfesionalAvgOrderByAggregateInput
     _max?: ProfesionalMaxOrderByAggregateInput
@@ -10230,11 +12856,14 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Profesional"> | number
     nombres?: StringWithAggregatesFilter<"Profesional"> | string
     apellidos?: StringWithAggregatesFilter<"Profesional"> | string
-    registroMedico?: StringWithAggregatesFilter<"Profesional"> | string
+    registroProfesional?: StringWithAggregatesFilter<"Profesional"> | string
     especialidad?: StringWithAggregatesFilter<"Profesional"> | string
-    correo?: StringWithAggregatesFilter<"Profesional"> | string
+    correo?: StringNullableWithAggregatesFilter<"Profesional"> | string | null
     telefono?: StringNullableWithAggregatesFilter<"Profesional"> | string | null
     agendaHabilitada?: BoolWithAggregatesFilter<"Profesional"> | boolean
+    estado?: StringWithAggregatesFilter<"Profesional"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Profesional"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Profesional"> | Date | string
   }
 
   export type UnidadAtencionWhereInput = {
@@ -10244,9 +12873,13 @@ export namespace Prisma {
     id?: IntFilter<"UnidadAtencion"> | number
     nombre?: StringFilter<"UnidadAtencion"> | string
     tipo?: StringFilter<"UnidadAtencion"> | string
-    direccion?: StringFilter<"UnidadAtencion"> | string
-    estado?: BoolFilter<"UnidadAtencion"> | boolean
-    bloquesAgenda?: BloqueAgendaListRelationFilter
+    direccion?: StringNullableFilter<"UnidadAtencion"> | string | null
+    telefono?: StringNullableFilter<"UnidadAtencion"> | string | null
+    horarioReferencia?: StringNullableFilter<"UnidadAtencion"> | string | null
+    estado?: StringFilter<"UnidadAtencion"> | string
+    createdAt?: DateTimeFilter<"UnidadAtencion"> | Date | string
+    updatedAt?: DateTimeFilter<"UnidadAtencion"> | Date | string
+    bloques?: BloqueAgendaListRelationFilter
     citas?: CitaListRelationFilter
   }
 
@@ -10254,9 +12887,13 @@ export namespace Prisma {
     id?: SortOrder
     nombre?: SortOrder
     tipo?: SortOrder
-    direccion?: SortOrder
+    direccion?: SortOrderInput | SortOrder
+    telefono?: SortOrderInput | SortOrder
+    horarioReferencia?: SortOrderInput | SortOrder
     estado?: SortOrder
-    bloquesAgenda?: BloqueAgendaOrderByRelationAggregateInput
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    bloques?: BloqueAgendaOrderByRelationAggregateInput
     citas?: CitaOrderByRelationAggregateInput
     _relevance?: UnidadAtencionOrderByRelevanceInput
   }
@@ -10268,9 +12905,13 @@ export namespace Prisma {
     NOT?: UnidadAtencionWhereInput | UnidadAtencionWhereInput[]
     nombre?: StringFilter<"UnidadAtencion"> | string
     tipo?: StringFilter<"UnidadAtencion"> | string
-    direccion?: StringFilter<"UnidadAtencion"> | string
-    estado?: BoolFilter<"UnidadAtencion"> | boolean
-    bloquesAgenda?: BloqueAgendaListRelationFilter
+    direccion?: StringNullableFilter<"UnidadAtencion"> | string | null
+    telefono?: StringNullableFilter<"UnidadAtencion"> | string | null
+    horarioReferencia?: StringNullableFilter<"UnidadAtencion"> | string | null
+    estado?: StringFilter<"UnidadAtencion"> | string
+    createdAt?: DateTimeFilter<"UnidadAtencion"> | Date | string
+    updatedAt?: DateTimeFilter<"UnidadAtencion"> | Date | string
+    bloques?: BloqueAgendaListRelationFilter
     citas?: CitaListRelationFilter
   }, "id">
 
@@ -10278,8 +12919,12 @@ export namespace Prisma {
     id?: SortOrder
     nombre?: SortOrder
     tipo?: SortOrder
-    direccion?: SortOrder
+    direccion?: SortOrderInput | SortOrder
+    telefono?: SortOrderInput | SortOrder
+    horarioReferencia?: SortOrderInput | SortOrder
     estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UnidadAtencionCountOrderByAggregateInput
     _avg?: UnidadAtencionAvgOrderByAggregateInput
     _max?: UnidadAtencionMaxOrderByAggregateInput
@@ -10294,8 +12939,12 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"UnidadAtencion"> | number
     nombre?: StringWithAggregatesFilter<"UnidadAtencion"> | string
     tipo?: StringWithAggregatesFilter<"UnidadAtencion"> | string
-    direccion?: StringWithAggregatesFilter<"UnidadAtencion"> | string
-    estado?: BoolWithAggregatesFilter<"UnidadAtencion"> | boolean
+    direccion?: StringNullableWithAggregatesFilter<"UnidadAtencion"> | string | null
+    telefono?: StringNullableWithAggregatesFilter<"UnidadAtencion"> | string | null
+    horarioReferencia?: StringNullableWithAggregatesFilter<"UnidadAtencion"> | string | null
+    estado?: StringWithAggregatesFilter<"UnidadAtencion"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UnidadAtencion"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UnidadAtencion"> | Date | string
   }
 
   export type BloqueAgendaWhereInput = {
@@ -10303,24 +12952,28 @@ export namespace Prisma {
     OR?: BloqueAgendaWhereInput[]
     NOT?: BloqueAgendaWhereInput | BloqueAgendaWhereInput[]
     id?: IntFilter<"BloqueAgenda"> | number
-    fechaInicio?: DateTimeFilter<"BloqueAgenda"> | Date | string
-    fechaFin?: DateTimeFilter<"BloqueAgenda"> | Date | string
-    capacidad?: IntFilter<"BloqueAgenda"> | number
-    estado?: StringFilter<"BloqueAgenda"> | string
     profesionalId?: IntFilter<"BloqueAgenda"> | number
     unidadId?: IntFilter<"BloqueAgenda"> | number
+    inicio?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    fin?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    capacidad?: IntFilter<"BloqueAgenda"> | number
+    estado?: StringFilter<"BloqueAgenda"> | string
+    createdAt?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    updatedAt?: DateTimeFilter<"BloqueAgenda"> | Date | string
     profesional?: XOR<ProfesionalScalarRelationFilter, ProfesionalWhereInput>
     unidad?: XOR<UnidadAtencionScalarRelationFilter, UnidadAtencionWhereInput>
   }
 
   export type BloqueAgendaOrderByWithRelationInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    capacidad?: SortOrder
-    estado?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    capacidad?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     profesional?: ProfesionalOrderByWithRelationInput
     unidad?: UnidadAtencionOrderByWithRelationInput
     _relevance?: BloqueAgendaOrderByRelevanceInput
@@ -10331,24 +12984,28 @@ export namespace Prisma {
     AND?: BloqueAgendaWhereInput | BloqueAgendaWhereInput[]
     OR?: BloqueAgendaWhereInput[]
     NOT?: BloqueAgendaWhereInput | BloqueAgendaWhereInput[]
-    fechaInicio?: DateTimeFilter<"BloqueAgenda"> | Date | string
-    fechaFin?: DateTimeFilter<"BloqueAgenda"> | Date | string
-    capacidad?: IntFilter<"BloqueAgenda"> | number
-    estado?: StringFilter<"BloqueAgenda"> | string
     profesionalId?: IntFilter<"BloqueAgenda"> | number
     unidadId?: IntFilter<"BloqueAgenda"> | number
+    inicio?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    fin?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    capacidad?: IntFilter<"BloqueAgenda"> | number
+    estado?: StringFilter<"BloqueAgenda"> | string
+    createdAt?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    updatedAt?: DateTimeFilter<"BloqueAgenda"> | Date | string
     profesional?: XOR<ProfesionalScalarRelationFilter, ProfesionalWhereInput>
     unidad?: XOR<UnidadAtencionScalarRelationFilter, UnidadAtencionWhereInput>
   }, "id">
 
   export type BloqueAgendaOrderByWithAggregationInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    capacidad?: SortOrder
-    estado?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    capacidad?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: BloqueAgendaCountOrderByAggregateInput
     _avg?: BloqueAgendaAvgOrderByAggregateInput
     _max?: BloqueAgendaMaxOrderByAggregateInput
@@ -10361,12 +13018,14 @@ export namespace Prisma {
     OR?: BloqueAgendaScalarWhereWithAggregatesInput[]
     NOT?: BloqueAgendaScalarWhereWithAggregatesInput | BloqueAgendaScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"BloqueAgenda"> | number
-    fechaInicio?: DateTimeWithAggregatesFilter<"BloqueAgenda"> | Date | string
-    fechaFin?: DateTimeWithAggregatesFilter<"BloqueAgenda"> | Date | string
-    capacidad?: IntWithAggregatesFilter<"BloqueAgenda"> | number
-    estado?: StringWithAggregatesFilter<"BloqueAgenda"> | string
     profesionalId?: IntWithAggregatesFilter<"BloqueAgenda"> | number
     unidadId?: IntWithAggregatesFilter<"BloqueAgenda"> | number
+    inicio?: DateTimeWithAggregatesFilter<"BloqueAgenda"> | Date | string
+    fin?: DateTimeWithAggregatesFilter<"BloqueAgenda"> | Date | string
+    capacidad?: IntWithAggregatesFilter<"BloqueAgenda"> | number
+    estado?: StringWithAggregatesFilter<"BloqueAgenda"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"BloqueAgenda"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BloqueAgenda"> | Date | string
   }
 
   export type CitaWhereInput = {
@@ -10374,30 +13033,38 @@ export namespace Prisma {
     OR?: CitaWhereInput[]
     NOT?: CitaWhereInput | CitaWhereInput[]
     id?: IntFilter<"Cita"> | number
-    fechaInicio?: DateTimeFilter<"Cita"> | Date | string
-    fechaFin?: DateTimeFilter<"Cita"> | Date | string
-    motivo?: StringFilter<"Cita"> | string
-    estado?: StringFilter<"Cita"> | string
-    canal?: StringFilter<"Cita"> | string
-    pacienteId?: IntFilter<"Cita"> | number
+    personaId?: IntFilter<"Cita"> | number
     profesionalId?: IntFilter<"Cita"> | number
     unidadId?: IntFilter<"Cita"> | number
-    paciente?: XOR<PacienteScalarRelationFilter, PacienteWhereInput>
+    inicio?: DateTimeFilter<"Cita"> | Date | string
+    fin?: DateTimeFilter<"Cita"> | Date | string
+    motivo?: StringFilter<"Cita"> | string
+    canal?: StringFilter<"Cita"> | string
+    estado?: StringFilter<"Cita"> | string
+    observaciones?: StringNullableFilter<"Cita"> | string | null
+    historialCambios?: StringNullableFilter<"Cita"> | string | null
+    createdAt?: DateTimeFilter<"Cita"> | Date | string
+    updatedAt?: DateTimeFilter<"Cita"> | Date | string
+    persona?: XOR<PersonaAtendidaScalarRelationFilter, PersonaAtendidaWhereInput>
     profesional?: XOR<ProfesionalScalarRelationFilter, ProfesionalWhereInput>
     unidad?: XOR<UnidadAtencionScalarRelationFilter, UnidadAtencionWhereInput>
   }
 
   export type CitaOrderByWithRelationInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    motivo?: SortOrder
-    estado?: SortOrder
-    canal?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
-    paciente?: PacienteOrderByWithRelationInput
+    inicio?: SortOrder
+    fin?: SortOrder
+    motivo?: SortOrder
+    canal?: SortOrder
+    estado?: SortOrder
+    observaciones?: SortOrderInput | SortOrder
+    historialCambios?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    persona?: PersonaAtendidaOrderByWithRelationInput
     profesional?: ProfesionalOrderByWithRelationInput
     unidad?: UnidadAtencionOrderByWithRelationInput
     _relevance?: CitaOrderByRelevanceInput
@@ -10408,29 +13075,37 @@ export namespace Prisma {
     AND?: CitaWhereInput | CitaWhereInput[]
     OR?: CitaWhereInput[]
     NOT?: CitaWhereInput | CitaWhereInput[]
-    fechaInicio?: DateTimeFilter<"Cita"> | Date | string
-    fechaFin?: DateTimeFilter<"Cita"> | Date | string
-    motivo?: StringFilter<"Cita"> | string
-    estado?: StringFilter<"Cita"> | string
-    canal?: StringFilter<"Cita"> | string
-    pacienteId?: IntFilter<"Cita"> | number
+    personaId?: IntFilter<"Cita"> | number
     profesionalId?: IntFilter<"Cita"> | number
     unidadId?: IntFilter<"Cita"> | number
-    paciente?: XOR<PacienteScalarRelationFilter, PacienteWhereInput>
+    inicio?: DateTimeFilter<"Cita"> | Date | string
+    fin?: DateTimeFilter<"Cita"> | Date | string
+    motivo?: StringFilter<"Cita"> | string
+    canal?: StringFilter<"Cita"> | string
+    estado?: StringFilter<"Cita"> | string
+    observaciones?: StringNullableFilter<"Cita"> | string | null
+    historialCambios?: StringNullableFilter<"Cita"> | string | null
+    createdAt?: DateTimeFilter<"Cita"> | Date | string
+    updatedAt?: DateTimeFilter<"Cita"> | Date | string
+    persona?: XOR<PersonaAtendidaScalarRelationFilter, PersonaAtendidaWhereInput>
     profesional?: XOR<ProfesionalScalarRelationFilter, ProfesionalWhereInput>
     unidad?: XOR<UnidadAtencionScalarRelationFilter, UnidadAtencionWhereInput>
   }, "id">
 
   export type CitaOrderByWithAggregationInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    motivo?: SortOrder
-    estado?: SortOrder
-    canal?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    motivo?: SortOrder
+    canal?: SortOrder
+    estado?: SortOrder
+    observaciones?: SortOrderInput | SortOrder
+    historialCambios?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: CitaCountOrderByAggregateInput
     _avg?: CitaAvgOrderByAggregateInput
     _max?: CitaMaxOrderByAggregateInput
@@ -10443,14 +13118,18 @@ export namespace Prisma {
     OR?: CitaScalarWhereWithAggregatesInput[]
     NOT?: CitaScalarWhereWithAggregatesInput | CitaScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Cita"> | number
-    fechaInicio?: DateTimeWithAggregatesFilter<"Cita"> | Date | string
-    fechaFin?: DateTimeWithAggregatesFilter<"Cita"> | Date | string
-    motivo?: StringWithAggregatesFilter<"Cita"> | string
-    estado?: StringWithAggregatesFilter<"Cita"> | string
-    canal?: StringWithAggregatesFilter<"Cita"> | string
-    pacienteId?: IntWithAggregatesFilter<"Cita"> | number
+    personaId?: IntWithAggregatesFilter<"Cita"> | number
     profesionalId?: IntWithAggregatesFilter<"Cita"> | number
     unidadId?: IntWithAggregatesFilter<"Cita"> | number
+    inicio?: DateTimeWithAggregatesFilter<"Cita"> | Date | string
+    fin?: DateTimeWithAggregatesFilter<"Cita"> | Date | string
+    motivo?: StringWithAggregatesFilter<"Cita"> | string
+    canal?: StringWithAggregatesFilter<"Cita"> | string
+    estado?: StringWithAggregatesFilter<"Cita"> | string
+    observaciones?: StringNullableWithAggregatesFilter<"Cita"> | string | null
+    historialCambios?: StringNullableWithAggregatesFilter<"Cita"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Cita"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Cita"> | Date | string
   }
 
   export type EpisodioAtencionWhereInput = {
@@ -10458,22 +13137,30 @@ export namespace Prisma {
     OR?: EpisodioAtencionWhereInput[]
     NOT?: EpisodioAtencionWhereInput | EpisodioAtencionWhereInput[]
     id?: IntFilter<"EpisodioAtencion"> | number
+    personaId?: IntFilter<"EpisodioAtencion"> | number
+    fechaApertura?: DateTimeFilter<"EpisodioAtencion"> | Date | string
     motivo?: StringFilter<"EpisodioAtencion"> | string
-    fecha?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    tipo?: StringFilter<"EpisodioAtencion"> | string
     estado?: StringFilter<"EpisodioAtencion"> | string
-    pacienteId?: IntFilter<"EpisodioAtencion"> | number
-    paciente?: XOR<PacienteScalarRelationFilter, PacienteWhereInput>
-    notas?: NotaClinicaListRelationFilter
+    createdAt?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    updatedAt?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    persona?: XOR<PersonaAtendidaScalarRelationFilter, PersonaAtendidaWhereInput>
+    notasClinicas?: NotaClinicaListRelationFilter
+    diagnosticos?: DiagnosticoListRelationFilter
   }
 
   export type EpisodioAtencionOrderByWithRelationInput = {
     id?: SortOrder
+    personaId?: SortOrder
+    fechaApertura?: SortOrder
     motivo?: SortOrder
-    fecha?: SortOrder
+    tipo?: SortOrder
     estado?: SortOrder
-    pacienteId?: SortOrder
-    paciente?: PacienteOrderByWithRelationInput
-    notas?: NotaClinicaOrderByRelationAggregateInput
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    persona?: PersonaAtendidaOrderByWithRelationInput
+    notasClinicas?: NotaClinicaOrderByRelationAggregateInput
+    diagnosticos?: DiagnosticoOrderByRelationAggregateInput
     _relevance?: EpisodioAtencionOrderByRelevanceInput
   }
 
@@ -10482,20 +13169,27 @@ export namespace Prisma {
     AND?: EpisodioAtencionWhereInput | EpisodioAtencionWhereInput[]
     OR?: EpisodioAtencionWhereInput[]
     NOT?: EpisodioAtencionWhereInput | EpisodioAtencionWhereInput[]
+    personaId?: IntFilter<"EpisodioAtencion"> | number
+    fechaApertura?: DateTimeFilter<"EpisodioAtencion"> | Date | string
     motivo?: StringFilter<"EpisodioAtencion"> | string
-    fecha?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    tipo?: StringFilter<"EpisodioAtencion"> | string
     estado?: StringFilter<"EpisodioAtencion"> | string
-    pacienteId?: IntFilter<"EpisodioAtencion"> | number
-    paciente?: XOR<PacienteScalarRelationFilter, PacienteWhereInput>
-    notas?: NotaClinicaListRelationFilter
+    createdAt?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    updatedAt?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    persona?: XOR<PersonaAtendidaScalarRelationFilter, PersonaAtendidaWhereInput>
+    notasClinicas?: NotaClinicaListRelationFilter
+    diagnosticos?: DiagnosticoListRelationFilter
   }, "id">
 
   export type EpisodioAtencionOrderByWithAggregationInput = {
     id?: SortOrder
+    personaId?: SortOrder
+    fechaApertura?: SortOrder
     motivo?: SortOrder
-    fecha?: SortOrder
+    tipo?: SortOrder
     estado?: SortOrder
-    pacienteId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: EpisodioAtencionCountOrderByAggregateInput
     _avg?: EpisodioAtencionAvgOrderByAggregateInput
     _max?: EpisodioAtencionMaxOrderByAggregateInput
@@ -10508,10 +13202,13 @@ export namespace Prisma {
     OR?: EpisodioAtencionScalarWhereWithAggregatesInput[]
     NOT?: EpisodioAtencionScalarWhereWithAggregatesInput | EpisodioAtencionScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"EpisodioAtencion"> | number
+    personaId?: IntWithAggregatesFilter<"EpisodioAtencion"> | number
+    fechaApertura?: DateTimeWithAggregatesFilter<"EpisodioAtencion"> | Date | string
     motivo?: StringWithAggregatesFilter<"EpisodioAtencion"> | string
-    fecha?: DateTimeWithAggregatesFilter<"EpisodioAtencion"> | Date | string
+    tipo?: StringWithAggregatesFilter<"EpisodioAtencion"> | string
     estado?: StringWithAggregatesFilter<"EpisodioAtencion"> | string
-    pacienteId?: IntWithAggregatesFilter<"EpisodioAtencion"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"EpisodioAtencion"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EpisodioAtencion"> | Date | string
   }
 
   export type NotaClinicaWhereInput = {
@@ -10519,26 +13216,32 @@ export namespace Prisma {
     OR?: NotaClinicaWhereInput[]
     NOT?: NotaClinicaWhereInput | NotaClinicaWhereInput[]
     id?: IntFilter<"NotaClinica"> | number
-    subjetivo?: StringFilter<"NotaClinica"> | string
-    objetivo?: StringFilter<"NotaClinica"> | string
-    analisis?: StringFilter<"NotaClinica"> | string
-    plan?: StringFilter<"NotaClinica"> | string
-    fecha?: DateTimeFilter<"NotaClinica"> | Date | string
     episodioId?: IntFilter<"NotaClinica"> | number
     profesionalId?: IntFilter<"NotaClinica"> | number
+    fecha?: DateTimeFilter<"NotaClinica"> | Date | string
+    subjetivo?: StringNullableFilter<"NotaClinica"> | string | null
+    objetivo?: StringNullableFilter<"NotaClinica"> | string | null
+    analisis?: StringNullableFilter<"NotaClinica"> | string | null
+    plan?: StringNullableFilter<"NotaClinica"> | string | null
+    adjuntos?: StringNullableFilter<"NotaClinica"> | string | null
+    createdAt?: DateTimeFilter<"NotaClinica"> | Date | string
+    updatedAt?: DateTimeFilter<"NotaClinica"> | Date | string
     episodio?: XOR<EpisodioAtencionScalarRelationFilter, EpisodioAtencionWhereInput>
     profesional?: XOR<ProfesionalScalarRelationFilter, ProfesionalWhereInput>
   }
 
   export type NotaClinicaOrderByWithRelationInput = {
     id?: SortOrder
-    subjetivo?: SortOrder
-    objetivo?: SortOrder
-    analisis?: SortOrder
-    plan?: SortOrder
-    fecha?: SortOrder
     episodioId?: SortOrder
     profesionalId?: SortOrder
+    fecha?: SortOrder
+    subjetivo?: SortOrderInput | SortOrder
+    objetivo?: SortOrderInput | SortOrder
+    analisis?: SortOrderInput | SortOrder
+    plan?: SortOrderInput | SortOrder
+    adjuntos?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     episodio?: EpisodioAtencionOrderByWithRelationInput
     profesional?: ProfesionalOrderByWithRelationInput
     _relevance?: NotaClinicaOrderByRelevanceInput
@@ -10549,26 +13252,32 @@ export namespace Prisma {
     AND?: NotaClinicaWhereInput | NotaClinicaWhereInput[]
     OR?: NotaClinicaWhereInput[]
     NOT?: NotaClinicaWhereInput | NotaClinicaWhereInput[]
-    subjetivo?: StringFilter<"NotaClinica"> | string
-    objetivo?: StringFilter<"NotaClinica"> | string
-    analisis?: StringFilter<"NotaClinica"> | string
-    plan?: StringFilter<"NotaClinica"> | string
-    fecha?: DateTimeFilter<"NotaClinica"> | Date | string
     episodioId?: IntFilter<"NotaClinica"> | number
     profesionalId?: IntFilter<"NotaClinica"> | number
+    fecha?: DateTimeFilter<"NotaClinica"> | Date | string
+    subjetivo?: StringNullableFilter<"NotaClinica"> | string | null
+    objetivo?: StringNullableFilter<"NotaClinica"> | string | null
+    analisis?: StringNullableFilter<"NotaClinica"> | string | null
+    plan?: StringNullableFilter<"NotaClinica"> | string | null
+    adjuntos?: StringNullableFilter<"NotaClinica"> | string | null
+    createdAt?: DateTimeFilter<"NotaClinica"> | Date | string
+    updatedAt?: DateTimeFilter<"NotaClinica"> | Date | string
     episodio?: XOR<EpisodioAtencionScalarRelationFilter, EpisodioAtencionWhereInput>
     profesional?: XOR<ProfesionalScalarRelationFilter, ProfesionalWhereInput>
   }, "id">
 
   export type NotaClinicaOrderByWithAggregationInput = {
     id?: SortOrder
-    subjetivo?: SortOrder
-    objetivo?: SortOrder
-    analisis?: SortOrder
-    plan?: SortOrder
-    fecha?: SortOrder
     episodioId?: SortOrder
     profesionalId?: SortOrder
+    fecha?: SortOrder
+    subjetivo?: SortOrderInput | SortOrder
+    objetivo?: SortOrderInput | SortOrder
+    analisis?: SortOrderInput | SortOrder
+    plan?: SortOrderInput | SortOrder
+    adjuntos?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: NotaClinicaCountOrderByAggregateInput
     _avg?: NotaClinicaAvgOrderByAggregateInput
     _max?: NotaClinicaMaxOrderByAggregateInput
@@ -10581,69 +13290,232 @@ export namespace Prisma {
     OR?: NotaClinicaScalarWhereWithAggregatesInput[]
     NOT?: NotaClinicaScalarWhereWithAggregatesInput | NotaClinicaScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"NotaClinica"> | number
-    subjetivo?: StringWithAggregatesFilter<"NotaClinica"> | string
-    objetivo?: StringWithAggregatesFilter<"NotaClinica"> | string
-    analisis?: StringWithAggregatesFilter<"NotaClinica"> | string
-    plan?: StringWithAggregatesFilter<"NotaClinica"> | string
-    fecha?: DateTimeWithAggregatesFilter<"NotaClinica"> | Date | string
     episodioId?: IntWithAggregatesFilter<"NotaClinica"> | number
     profesionalId?: IntWithAggregatesFilter<"NotaClinica"> | number
+    fecha?: DateTimeWithAggregatesFilter<"NotaClinica"> | Date | string
+    subjetivo?: StringNullableWithAggregatesFilter<"NotaClinica"> | string | null
+    objetivo?: StringNullableWithAggregatesFilter<"NotaClinica"> | string | null
+    analisis?: StringNullableWithAggregatesFilter<"NotaClinica"> | string | null
+    plan?: StringNullableWithAggregatesFilter<"NotaClinica"> | string | null
+    adjuntos?: StringNullableWithAggregatesFilter<"NotaClinica"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"NotaClinica"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"NotaClinica"> | Date | string
+  }
+
+  export type DiagnosticoWhereInput = {
+    AND?: DiagnosticoWhereInput | DiagnosticoWhereInput[]
+    OR?: DiagnosticoWhereInput[]
+    NOT?: DiagnosticoWhereInput | DiagnosticoWhereInput[]
+    id?: IntFilter<"Diagnostico"> | number
+    episodioId?: IntFilter<"Diagnostico"> | number
+    codigo?: StringFilter<"Diagnostico"> | string
+    descripcion?: StringFilter<"Diagnostico"> | string
+    tipo?: StringFilter<"Diagnostico"> | string
+    principal?: BoolFilter<"Diagnostico"> | boolean
+    createdAt?: DateTimeFilter<"Diagnostico"> | Date | string
+    updatedAt?: DateTimeFilter<"Diagnostico"> | Date | string
+    episodio?: XOR<EpisodioAtencionScalarRelationFilter, EpisodioAtencionWhereInput>
+  }
+
+  export type DiagnosticoOrderByWithRelationInput = {
+    id?: SortOrder
+    episodioId?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    tipo?: SortOrder
+    principal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    episodio?: EpisodioAtencionOrderByWithRelationInput
+    _relevance?: DiagnosticoOrderByRelevanceInput
+  }
+
+  export type DiagnosticoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: DiagnosticoWhereInput | DiagnosticoWhereInput[]
+    OR?: DiagnosticoWhereInput[]
+    NOT?: DiagnosticoWhereInput | DiagnosticoWhereInput[]
+    episodioId?: IntFilter<"Diagnostico"> | number
+    codigo?: StringFilter<"Diagnostico"> | string
+    descripcion?: StringFilter<"Diagnostico"> | string
+    tipo?: StringFilter<"Diagnostico"> | string
+    principal?: BoolFilter<"Diagnostico"> | boolean
+    createdAt?: DateTimeFilter<"Diagnostico"> | Date | string
+    updatedAt?: DateTimeFilter<"Diagnostico"> | Date | string
+    episodio?: XOR<EpisodioAtencionScalarRelationFilter, EpisodioAtencionWhereInput>
+  }, "id">
+
+  export type DiagnosticoOrderByWithAggregationInput = {
+    id?: SortOrder
+    episodioId?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    tipo?: SortOrder
+    principal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DiagnosticoCountOrderByAggregateInput
+    _avg?: DiagnosticoAvgOrderByAggregateInput
+    _max?: DiagnosticoMaxOrderByAggregateInput
+    _min?: DiagnosticoMinOrderByAggregateInput
+    _sum?: DiagnosticoSumOrderByAggregateInput
+  }
+
+  export type DiagnosticoScalarWhereWithAggregatesInput = {
+    AND?: DiagnosticoScalarWhereWithAggregatesInput | DiagnosticoScalarWhereWithAggregatesInput[]
+    OR?: DiagnosticoScalarWhereWithAggregatesInput[]
+    NOT?: DiagnosticoScalarWhereWithAggregatesInput | DiagnosticoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Diagnostico"> | number
+    episodioId?: IntWithAggregatesFilter<"Diagnostico"> | number
+    codigo?: StringWithAggregatesFilter<"Diagnostico"> | string
+    descripcion?: StringWithAggregatesFilter<"Diagnostico"> | string
+    tipo?: StringWithAggregatesFilter<"Diagnostico"> | string
+    principal?: BoolWithAggregatesFilter<"Diagnostico"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Diagnostico"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Diagnostico"> | Date | string
+  }
+
+  export type ConsentimientoWhereInput = {
+    AND?: ConsentimientoWhereInput | ConsentimientoWhereInput[]
+    OR?: ConsentimientoWhereInput[]
+    NOT?: ConsentimientoWhereInput | ConsentimientoWhereInput[]
+    id?: IntFilter<"Consentimiento"> | number
+    personaId?: IntFilter<"Consentimiento"> | number
+    tipoProcedimiento?: StringFilter<"Consentimiento"> | string
+    fecha?: DateTimeFilter<"Consentimiento"> | Date | string
+    metodo?: StringFilter<"Consentimiento"> | string
+    archivoId?: StringNullableFilter<"Consentimiento"> | string | null
+    createdAt?: DateTimeFilter<"Consentimiento"> | Date | string
+    updatedAt?: DateTimeFilter<"Consentimiento"> | Date | string
+    persona?: XOR<PersonaAtendidaScalarRelationFilter, PersonaAtendidaWhereInput>
+  }
+
+  export type ConsentimientoOrderByWithRelationInput = {
+    id?: SortOrder
+    personaId?: SortOrder
+    tipoProcedimiento?: SortOrder
+    fecha?: SortOrder
+    metodo?: SortOrder
+    archivoId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    persona?: PersonaAtendidaOrderByWithRelationInput
+    _relevance?: ConsentimientoOrderByRelevanceInput
+  }
+
+  export type ConsentimientoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ConsentimientoWhereInput | ConsentimientoWhereInput[]
+    OR?: ConsentimientoWhereInput[]
+    NOT?: ConsentimientoWhereInput | ConsentimientoWhereInput[]
+    personaId?: IntFilter<"Consentimiento"> | number
+    tipoProcedimiento?: StringFilter<"Consentimiento"> | string
+    fecha?: DateTimeFilter<"Consentimiento"> | Date | string
+    metodo?: StringFilter<"Consentimiento"> | string
+    archivoId?: StringNullableFilter<"Consentimiento"> | string | null
+    createdAt?: DateTimeFilter<"Consentimiento"> | Date | string
+    updatedAt?: DateTimeFilter<"Consentimiento"> | Date | string
+    persona?: XOR<PersonaAtendidaScalarRelationFilter, PersonaAtendidaWhereInput>
+  }, "id">
+
+  export type ConsentimientoOrderByWithAggregationInput = {
+    id?: SortOrder
+    personaId?: SortOrder
+    tipoProcedimiento?: SortOrder
+    fecha?: SortOrder
+    metodo?: SortOrder
+    archivoId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ConsentimientoCountOrderByAggregateInput
+    _avg?: ConsentimientoAvgOrderByAggregateInput
+    _max?: ConsentimientoMaxOrderByAggregateInput
+    _min?: ConsentimientoMinOrderByAggregateInput
+    _sum?: ConsentimientoSumOrderByAggregateInput
+  }
+
+  export type ConsentimientoScalarWhereWithAggregatesInput = {
+    AND?: ConsentimientoScalarWhereWithAggregatesInput | ConsentimientoScalarWhereWithAggregatesInput[]
+    OR?: ConsentimientoScalarWhereWithAggregatesInput[]
+    NOT?: ConsentimientoScalarWhereWithAggregatesInput | ConsentimientoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Consentimiento"> | number
+    personaId?: IntWithAggregatesFilter<"Consentimiento"> | number
+    tipoProcedimiento?: StringWithAggregatesFilter<"Consentimiento"> | string
+    fecha?: DateTimeWithAggregatesFilter<"Consentimiento"> | Date | string
+    metodo?: StringWithAggregatesFilter<"Consentimiento"> | string
+    archivoId?: StringNullableWithAggregatesFilter<"Consentimiento"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Consentimiento"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Consentimiento"> | Date | string
   }
 
   export type UsuarioCreateInput = {
     email: string
     password: string
-    role: string
+    rol: string
+    activo?: boolean
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UsuarioUncheckedCreateInput = {
     id?: number
     email: string
     password: string
-    role: string
+    rol: string
+    activo?: boolean
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UsuarioUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsuarioUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsuarioCreateManyInput = {
     id?: number
     email: string
     password: string
-    role: string
+    rol: string
+    activo?: boolean
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UsuarioUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsuarioUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    rol?: StringFieldUpdateOperationsInput | string
+    activo?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PacienteCreateInput = {
+  export type PersonaAtendidaCreateInput = {
     tipoDocumento: string
     numeroDocumento: string
     nombres: string
@@ -10651,16 +13523,20 @@ export namespace Prisma {
     fechaNacimiento: Date | string
     sexo: string
     correo?: string | null
-    telefono: string
+    telefono?: string | null
     direccion?: string | null
-    estado?: boolean
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    citas?: CitaCreateNestedManyWithoutPacienteInput
-    episodios?: EpisodioAtencionCreateNestedManyWithoutPacienteInput
+    citas?: CitaCreateNestedManyWithoutPersonaInput
+    episodios?: EpisodioAtencionCreateNestedManyWithoutPersonaInput
+    consentimientos?: ConsentimientoCreateNestedManyWithoutPersonaInput
   }
 
-  export type PacienteUncheckedCreateInput = {
+  export type PersonaAtendidaUncheckedCreateInput = {
     id?: number
     tipoDocumento: string
     numeroDocumento: string
@@ -10669,16 +13545,20 @@ export namespace Prisma {
     fechaNacimiento: Date | string
     sexo: string
     correo?: string | null
-    telefono: string
+    telefono?: string | null
     direccion?: string | null
-    estado?: boolean
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    citas?: CitaUncheckedCreateNestedManyWithoutPacienteInput
-    episodios?: EpisodioAtencionUncheckedCreateNestedManyWithoutPacienteInput
+    citas?: CitaUncheckedCreateNestedManyWithoutPersonaInput
+    episodios?: EpisodioAtencionUncheckedCreateNestedManyWithoutPersonaInput
+    consentimientos?: ConsentimientoUncheckedCreateNestedManyWithoutPersonaInput
   }
 
-  export type PacienteUpdateInput = {
+  export type PersonaAtendidaUpdateInput = {
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
     nombres?: StringFieldUpdateOperationsInput | string
@@ -10686,16 +13566,20 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    citas?: CitaUpdateManyWithoutPacienteNestedInput
-    episodios?: EpisodioAtencionUpdateManyWithoutPacienteNestedInput
+    citas?: CitaUpdateManyWithoutPersonaNestedInput
+    episodios?: EpisodioAtencionUpdateManyWithoutPersonaNestedInput
+    consentimientos?: ConsentimientoUpdateManyWithoutPersonaNestedInput
   }
 
-  export type PacienteUncheckedUpdateInput = {
+  export type PersonaAtendidaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
@@ -10704,16 +13588,20 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    citas?: CitaUncheckedUpdateManyWithoutPacienteNestedInput
-    episodios?: EpisodioAtencionUncheckedUpdateManyWithoutPacienteNestedInput
+    citas?: CitaUncheckedUpdateManyWithoutPersonaNestedInput
+    episodios?: EpisodioAtencionUncheckedUpdateManyWithoutPersonaNestedInput
+    consentimientos?: ConsentimientoUncheckedUpdateManyWithoutPersonaNestedInput
   }
 
-  export type PacienteCreateManyInput = {
+  export type PersonaAtendidaCreateManyInput = {
     id?: number
     tipoDocumento: string
     numeroDocumento: string
@@ -10722,14 +13610,17 @@ export namespace Prisma {
     fechaNacimiento: Date | string
     sexo: string
     correo?: string | null
-    telefono: string
+    telefono?: string | null
     direccion?: string | null
-    estado?: boolean
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type PacienteUpdateManyMutationInput = {
+  export type PersonaAtendidaUpdateManyMutationInput = {
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
     nombres?: StringFieldUpdateOperationsInput | string
@@ -10737,14 +13628,17 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PacienteUncheckedUpdateManyInput = {
+  export type PersonaAtendidaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
@@ -10753,9 +13647,12 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10763,95 +13660,120 @@ export namespace Prisma {
   export type ProfesionalCreateInput = {
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
-    bloquesAgenda?: BloqueAgendaCreateNestedManyWithoutProfesionalInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaCreateNestedManyWithoutProfesionalInput
     citas?: CitaCreateNestedManyWithoutProfesionalInput
-    notas?: NotaClinicaCreateNestedManyWithoutProfesionalInput
+    notasClinicas?: NotaClinicaCreateNestedManyWithoutProfesionalInput
   }
 
   export type ProfesionalUncheckedCreateInput = {
     id?: number
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
-    bloquesAgenda?: BloqueAgendaUncheckedCreateNestedManyWithoutProfesionalInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaUncheckedCreateNestedManyWithoutProfesionalInput
     citas?: CitaUncheckedCreateNestedManyWithoutProfesionalInput
-    notas?: NotaClinicaUncheckedCreateNestedManyWithoutProfesionalInput
+    notasClinicas?: NotaClinicaUncheckedCreateNestedManyWithoutProfesionalInput
   }
 
   export type ProfesionalUpdateInput = {
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUpdateManyWithoutProfesionalNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUpdateManyWithoutProfesionalNestedInput
     citas?: CitaUpdateManyWithoutProfesionalNestedInput
-    notas?: NotaClinicaUpdateManyWithoutProfesionalNestedInput
+    notasClinicas?: NotaClinicaUpdateManyWithoutProfesionalNestedInput
   }
 
   export type ProfesionalUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUncheckedUpdateManyWithoutProfesionalNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUncheckedUpdateManyWithoutProfesionalNestedInput
     citas?: CitaUncheckedUpdateManyWithoutProfesionalNestedInput
-    notas?: NotaClinicaUncheckedUpdateManyWithoutProfesionalNestedInput
+    notasClinicas?: NotaClinicaUncheckedUpdateManyWithoutProfesionalNestedInput
   }
 
   export type ProfesionalCreateManyInput = {
     id?: number
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ProfesionalUpdateManyMutationInput = {
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProfesionalUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UnidadAtencionCreateInput = {
     nombre: string
     tipo: string
-    direccion: string
-    estado?: boolean
-    bloquesAgenda?: BloqueAgendaCreateNestedManyWithoutUnidadInput
+    direccion?: string | null
+    telefono?: string | null
+    horarioReferencia?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaCreateNestedManyWithoutUnidadInput
     citas?: CitaCreateNestedManyWithoutUnidadInput
   }
 
@@ -10859,18 +13781,26 @@ export namespace Prisma {
     id?: number
     nombre: string
     tipo: string
-    direccion: string
-    estado?: boolean
-    bloquesAgenda?: BloqueAgendaUncheckedCreateNestedManyWithoutUnidadInput
+    direccion?: string | null
+    telefono?: string | null
+    horarioReferencia?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaUncheckedCreateNestedManyWithoutUnidadInput
     citas?: CitaUncheckedCreateNestedManyWithoutUnidadInput
   }
 
   export type UnidadAtencionUpdateInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUpdateManyWithoutUnidadNestedInput
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUpdateManyWithoutUnidadNestedInput
     citas?: CitaUpdateManyWithoutUnidadNestedInput
   }
 
@@ -10878,9 +13808,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUncheckedUpdateManyWithoutUnidadNestedInput
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUncheckedUpdateManyWithoutUnidadNestedInput
     citas?: CitaUncheckedUpdateManyWithoutUnidadNestedInput
   }
 
@@ -10888,294 +13822,540 @@ export namespace Prisma {
     id?: number
     nombre: string
     tipo: string
-    direccion: string
-    estado?: boolean
+    direccion?: string | null
+    telefono?: string | null
+    horarioReferencia?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UnidadAtencionUpdateManyMutationInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UnidadAtencionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BloqueAgendaCreateInput = {
-    fechaInicio: Date | string
-    fechaFin: Date | string
+    inicio: Date | string
+    fin: Date | string
     capacidad?: number
-    estado: string
-    profesional: ProfesionalCreateNestedOneWithoutBloquesAgendaInput
-    unidad: UnidadAtencionCreateNestedOneWithoutBloquesAgendaInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profesional: ProfesionalCreateNestedOneWithoutBloquesInput
+    unidad: UnidadAtencionCreateNestedOneWithoutBloquesInput
   }
 
   export type BloqueAgendaUncheckedCreateInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    capacidad?: number
-    estado: string
     profesionalId: number
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    capacidad?: number
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BloqueAgendaUpdateInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
-    profesional?: ProfesionalUpdateOneRequiredWithoutBloquesAgendaNestedInput
-    unidad?: UnidadAtencionUpdateOneRequiredWithoutBloquesAgendaNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profesional?: ProfesionalUpdateOneRequiredWithoutBloquesNestedInput
+    unidad?: UnidadAtencionUpdateOneRequiredWithoutBloquesNestedInput
   }
 
   export type BloqueAgendaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    capacidad?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
     profesionalId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    capacidad?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BloqueAgendaCreateManyInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    capacidad?: number
-    estado: string
     profesionalId: number
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    capacidad?: number
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BloqueAgendaUpdateManyMutationInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BloqueAgendaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    capacidad?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
     profesionalId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    capacidad?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CitaCreateInput = {
-    fechaInicio: Date | string
-    fechaFin: Date | string
+    inicio: Date | string
+    fin: Date | string
     motivo: string
-    estado: string
     canal: string
-    paciente: PacienteCreateNestedOneWithoutCitasInput
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    persona: PersonaAtendidaCreateNestedOneWithoutCitasInput
     profesional: ProfesionalCreateNestedOneWithoutCitasInput
     unidad: UnidadAtencionCreateNestedOneWithoutCitasInput
   }
 
   export type CitaUncheckedCreateInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    motivo: string
-    estado: string
-    canal: string
-    pacienteId: number
+    personaId: number
     profesionalId: number
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    motivo: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CitaUpdateInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
     canal?: StringFieldUpdateOperationsInput | string
-    paciente?: PacienteUpdateOneRequiredWithoutCitasNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    persona?: PersonaAtendidaUpdateOneRequiredWithoutCitasNestedInput
     profesional?: ProfesionalUpdateOneRequiredWithoutCitasNestedInput
     unidad?: UnidadAtencionUpdateOneRequiredWithoutCitasNestedInput
   }
 
   export type CitaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
     profesionalId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CitaCreateManyInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    motivo: string
-    estado: string
-    canal: string
-    pacienteId: number
+    personaId: number
     profesionalId: number
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    motivo: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CitaUpdateManyMutationInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
     canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CitaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
     profesionalId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EpisodioAtencionCreateInput = {
+    fechaApertura?: Date | string
     motivo: string
-    fecha?: Date | string
-    estado: string
-    paciente: PacienteCreateNestedOneWithoutEpisodiosInput
-    notas?: NotaClinicaCreateNestedManyWithoutEpisodioInput
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    persona: PersonaAtendidaCreateNestedOneWithoutEpisodiosInput
+    notasClinicas?: NotaClinicaCreateNestedManyWithoutEpisodioInput
+    diagnosticos?: DiagnosticoCreateNestedManyWithoutEpisodioInput
   }
 
   export type EpisodioAtencionUncheckedCreateInput = {
     id?: number
+    personaId: number
+    fechaApertura?: Date | string
     motivo: string
-    fecha?: Date | string
-    estado: string
-    pacienteId: number
-    notas?: NotaClinicaUncheckedCreateNestedManyWithoutEpisodioInput
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notasClinicas?: NotaClinicaUncheckedCreateNestedManyWithoutEpisodioInput
+    diagnosticos?: DiagnosticoUncheckedCreateNestedManyWithoutEpisodioInput
   }
 
   export type EpisodioAtencionUpdateInput = {
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
-    paciente?: PacienteUpdateOneRequiredWithoutEpisodiosNestedInput
-    notas?: NotaClinicaUpdateManyWithoutEpisodioNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    persona?: PersonaAtendidaUpdateOneRequiredWithoutEpisodiosNestedInput
+    notasClinicas?: NotaClinicaUpdateManyWithoutEpisodioNestedInput
+    diagnosticos?: DiagnosticoUpdateManyWithoutEpisodioNestedInput
   }
 
   export type EpisodioAtencionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
-    notas?: NotaClinicaUncheckedUpdateManyWithoutEpisodioNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notasClinicas?: NotaClinicaUncheckedUpdateManyWithoutEpisodioNestedInput
+    diagnosticos?: DiagnosticoUncheckedUpdateManyWithoutEpisodioNestedInput
   }
 
   export type EpisodioAtencionCreateManyInput = {
     id?: number
+    personaId: number
+    fechaApertura?: Date | string
     motivo: string
-    fecha?: Date | string
-    estado: string
-    pacienteId: number
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type EpisodioAtencionUpdateManyMutationInput = {
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EpisodioAtencionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotaClinicaCreateInput = {
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
     fecha?: Date | string
-    episodio: EpisodioAtencionCreateNestedOneWithoutNotasInput
-    profesional: ProfesionalCreateNestedOneWithoutNotasInput
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    episodio: EpisodioAtencionCreateNestedOneWithoutNotasClinicasInput
+    profesional: ProfesionalCreateNestedOneWithoutNotasClinicasInput
   }
 
   export type NotaClinicaUncheckedCreateInput = {
     id?: number
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
-    fecha?: Date | string
     episodioId: number
     profesionalId: number
+    fecha?: Date | string
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type NotaClinicaUpdateInput = {
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    episodio?: EpisodioAtencionUpdateOneRequiredWithoutNotasNestedInput
-    profesional?: ProfesionalUpdateOneRequiredWithoutNotasNestedInput
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    episodio?: EpisodioAtencionUpdateOneRequiredWithoutNotasClinicasNestedInput
+    profesional?: ProfesionalUpdateOneRequiredWithoutNotasClinicasNestedInput
   }
 
   export type NotaClinicaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     episodioId?: IntFieldUpdateOperationsInput | number
     profesionalId?: IntFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotaClinicaCreateManyInput = {
     id?: number
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
-    fecha?: Date | string
     episodioId: number
     profesionalId: number
+    fecha?: Date | string
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type NotaClinicaUpdateManyMutationInput = {
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotaClinicaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     episodioId?: IntFieldUpdateOperationsInput | number
     profesionalId?: IntFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DiagnosticoCreateInput = {
+    codigo: string
+    descripcion: string
+    tipo: string
+    principal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    episodio: EpisodioAtencionCreateNestedOneWithoutDiagnosticosInput
+  }
+
+  export type DiagnosticoUncheckedCreateInput = {
+    id?: number
+    episodioId: number
+    codigo: string
+    descripcion: string
+    tipo: string
+    principal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DiagnosticoUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    principal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    episodio?: EpisodioAtencionUpdateOneRequiredWithoutDiagnosticosNestedInput
+  }
+
+  export type DiagnosticoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    episodioId?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    principal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DiagnosticoCreateManyInput = {
+    id?: number
+    episodioId: number
+    codigo: string
+    descripcion: string
+    tipo: string
+    principal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DiagnosticoUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    principal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DiagnosticoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    episodioId?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    principal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsentimientoCreateInput = {
+    tipoProcedimiento: string
+    fecha?: Date | string
+    metodo: string
+    archivoId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    persona: PersonaAtendidaCreateNestedOneWithoutConsentimientosInput
+  }
+
+  export type ConsentimientoUncheckedCreateInput = {
+    id?: number
+    personaId: number
+    tipoProcedimiento: string
+    fecha?: Date | string
+    metodo: string
+    archivoId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConsentimientoUpdateInput = {
+    tipoProcedimiento?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    metodo?: StringFieldUpdateOperationsInput | string
+    archivoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    persona?: PersonaAtendidaUpdateOneRequiredWithoutConsentimientosNestedInput
+  }
+
+  export type ConsentimientoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
+    tipoProcedimiento?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    metodo?: StringFieldUpdateOperationsInput | string
+    archivoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsentimientoCreateManyInput = {
+    id?: number
+    personaId: number
+    tipoProcedimiento: string
+    fecha?: Date | string
+    metodo: string
+    archivoId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConsentimientoUpdateManyMutationInput = {
+    tipoProcedimiento?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    metodo?: StringFieldUpdateOperationsInput | string
+    archivoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsentimientoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
+    tipoProcedimiento?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    metodo?: StringFieldUpdateOperationsInput | string
+    archivoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11204,6 +14384,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -11225,8 +14410,10 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role?: SortOrder
+    rol?: SortOrder
+    activo?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UsuarioAvgOrderByAggregateInput = {
@@ -11237,16 +14424,20 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role?: SortOrder
+    rol?: SortOrder
+    activo?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UsuarioMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    role?: SortOrder
+    rol?: SortOrder
+    activo?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UsuarioSumOrderByAggregateInput = {
@@ -11287,6 +14478,14 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -11316,11 +14515,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type CitaListRelationFilter = {
     every?: CitaWhereInput
     some?: CitaWhereInput
@@ -11331,6 +14525,12 @@ export namespace Prisma {
     every?: EpisodioAtencionWhereInput
     some?: EpisodioAtencionWhereInput
     none?: EpisodioAtencionWhereInput
+  }
+
+  export type ConsentimientoListRelationFilter = {
+    every?: ConsentimientoWhereInput
+    some?: ConsentimientoWhereInput
+    none?: ConsentimientoWhereInput
   }
 
   export type SortOrderInput = {
@@ -11346,13 +14546,17 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type PacienteOrderByRelevanceInput = {
-    fields: PacienteOrderByRelevanceFieldEnum | PacienteOrderByRelevanceFieldEnum[]
+  export type ConsentimientoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PersonaAtendidaOrderByRelevanceInput = {
+    fields: PersonaAtendidaOrderByRelevanceFieldEnum | PersonaAtendidaOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
   }
 
-  export type PacienteCountOrderByAggregateInput = {
+  export type PersonaAtendidaCountOrderByAggregateInput = {
     id?: SortOrder
     tipoDocumento?: SortOrder
     numeroDocumento?: SortOrder
@@ -11363,32 +14567,19 @@ export namespace Prisma {
     correo?: SortOrder
     telefono?: SortOrder
     direccion?: SortOrder
+    contactoEmergencia?: SortOrder
+    alergias?: SortOrder
+    antecedentesResumen?: SortOrder
     estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type PacienteAvgOrderByAggregateInput = {
+  export type PersonaAtendidaAvgOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type PacienteMaxOrderByAggregateInput = {
-    id?: SortOrder
-    tipoDocumento?: SortOrder
-    numeroDocumento?: SortOrder
-    nombres?: SortOrder
-    apellidos?: SortOrder
-    fechaNacimiento?: SortOrder
-    sexo?: SortOrder
-    correo?: SortOrder
-    telefono?: SortOrder
-    direccion?: SortOrder
-    estado?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type PacienteMinOrderByAggregateInput = {
+  export type PersonaAtendidaMaxOrderByAggregateInput = {
     id?: SortOrder
     tipoDocumento?: SortOrder
     numeroDocumento?: SortOrder
@@ -11399,12 +14590,34 @@ export namespace Prisma {
     correo?: SortOrder
     telefono?: SortOrder
     direccion?: SortOrder
+    contactoEmergencia?: SortOrder
+    alergias?: SortOrder
+    antecedentesResumen?: SortOrder
     estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type PacienteSumOrderByAggregateInput = {
+  export type PersonaAtendidaMinOrderByAggregateInput = {
+    id?: SortOrder
+    tipoDocumento?: SortOrder
+    numeroDocumento?: SortOrder
+    nombres?: SortOrder
+    apellidos?: SortOrder
+    fechaNacimiento?: SortOrder
+    sexo?: SortOrder
+    correo?: SortOrder
+    telefono?: SortOrder
+    direccion?: SortOrder
+    contactoEmergencia?: SortOrder
+    alergias?: SortOrder
+    antecedentesResumen?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PersonaAtendidaSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
@@ -11424,14 +14637,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type BloqueAgendaListRelationFilter = {
@@ -11464,11 +14669,14 @@ export namespace Prisma {
     id?: SortOrder
     nombres?: SortOrder
     apellidos?: SortOrder
-    registroMedico?: SortOrder
+    registroProfesional?: SortOrder
     especialidad?: SortOrder
     correo?: SortOrder
     telefono?: SortOrder
     agendaHabilitada?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ProfesionalAvgOrderByAggregateInput = {
@@ -11479,22 +14687,28 @@ export namespace Prisma {
     id?: SortOrder
     nombres?: SortOrder
     apellidos?: SortOrder
-    registroMedico?: SortOrder
+    registroProfesional?: SortOrder
     especialidad?: SortOrder
     correo?: SortOrder
     telefono?: SortOrder
     agendaHabilitada?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ProfesionalMinOrderByAggregateInput = {
     id?: SortOrder
     nombres?: SortOrder
     apellidos?: SortOrder
-    registroMedico?: SortOrder
+    registroProfesional?: SortOrder
     especialidad?: SortOrder
     correo?: SortOrder
     telefono?: SortOrder
     agendaHabilitada?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ProfesionalSumOrderByAggregateInput = {
@@ -11512,7 +14726,11 @@ export namespace Prisma {
     nombre?: SortOrder
     tipo?: SortOrder
     direccion?: SortOrder
+    telefono?: SortOrder
+    horarioReferencia?: SortOrder
     estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UnidadAtencionAvgOrderByAggregateInput = {
@@ -11524,7 +14742,11 @@ export namespace Prisma {
     nombre?: SortOrder
     tipo?: SortOrder
     direccion?: SortOrder
+    telefono?: SortOrder
+    horarioReferencia?: SortOrder
     estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UnidadAtencionMinOrderByAggregateInput = {
@@ -11532,7 +14754,11 @@ export namespace Prisma {
     nombre?: SortOrder
     tipo?: SortOrder
     direccion?: SortOrder
+    telefono?: SortOrder
+    horarioReferencia?: SortOrder
     estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UnidadAtencionSumOrderByAggregateInput = {
@@ -11557,51 +14783,57 @@ export namespace Prisma {
 
   export type BloqueAgendaCountOrderByAggregateInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    capacidad?: SortOrder
-    estado?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    capacidad?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type BloqueAgendaAvgOrderByAggregateInput = {
     id?: SortOrder
-    capacidad?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    capacidad?: SortOrder
   }
 
   export type BloqueAgendaMaxOrderByAggregateInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    capacidad?: SortOrder
-    estado?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    capacidad?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type BloqueAgendaMinOrderByAggregateInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    capacidad?: SortOrder
-    estado?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    capacidad?: SortOrder
+    estado?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type BloqueAgendaSumOrderByAggregateInput = {
     id?: SortOrder
-    capacidad?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    capacidad?: SortOrder
   }
 
-  export type PacienteScalarRelationFilter = {
-    is?: PacienteWhereInput
-    isNot?: PacienteWhereInput
+  export type PersonaAtendidaScalarRelationFilter = {
+    is?: PersonaAtendidaWhereInput
+    isNot?: PersonaAtendidaWhereInput
   }
 
   export type CitaOrderByRelevanceInput = {
@@ -11612,52 +14844,74 @@ export namespace Prisma {
 
   export type CitaCountOrderByAggregateInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    motivo?: SortOrder
-    estado?: SortOrder
-    canal?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    motivo?: SortOrder
+    canal?: SortOrder
+    estado?: SortOrder
+    observaciones?: SortOrder
+    historialCambios?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type CitaAvgOrderByAggregateInput = {
     id?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
   }
 
   export type CitaMaxOrderByAggregateInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    motivo?: SortOrder
-    estado?: SortOrder
-    canal?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    motivo?: SortOrder
+    canal?: SortOrder
+    estado?: SortOrder
+    observaciones?: SortOrder
+    historialCambios?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type CitaMinOrderByAggregateInput = {
     id?: SortOrder
-    fechaInicio?: SortOrder
-    fechaFin?: SortOrder
-    motivo?: SortOrder
-    estado?: SortOrder
-    canal?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+    inicio?: SortOrder
+    fin?: SortOrder
+    motivo?: SortOrder
+    canal?: SortOrder
+    estado?: SortOrder
+    observaciones?: SortOrder
+    historialCambios?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type CitaSumOrderByAggregateInput = {
     id?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
     profesionalId?: SortOrder
     unidadId?: SortOrder
+  }
+
+  export type DiagnosticoListRelationFilter = {
+    every?: DiagnosticoWhereInput
+    some?: DiagnosticoWhereInput
+    none?: DiagnosticoWhereInput
+  }
+
+  export type DiagnosticoOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type EpisodioAtencionOrderByRelevanceInput = {
@@ -11668,36 +14922,45 @@ export namespace Prisma {
 
   export type EpisodioAtencionCountOrderByAggregateInput = {
     id?: SortOrder
+    personaId?: SortOrder
+    fechaApertura?: SortOrder
     motivo?: SortOrder
-    fecha?: SortOrder
+    tipo?: SortOrder
     estado?: SortOrder
-    pacienteId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EpisodioAtencionAvgOrderByAggregateInput = {
     id?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
   }
 
   export type EpisodioAtencionMaxOrderByAggregateInput = {
     id?: SortOrder
+    personaId?: SortOrder
+    fechaApertura?: SortOrder
     motivo?: SortOrder
-    fecha?: SortOrder
+    tipo?: SortOrder
     estado?: SortOrder
-    pacienteId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EpisodioAtencionMinOrderByAggregateInput = {
     id?: SortOrder
+    personaId?: SortOrder
+    fechaApertura?: SortOrder
     motivo?: SortOrder
-    fecha?: SortOrder
+    tipo?: SortOrder
     estado?: SortOrder
-    pacienteId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EpisodioAtencionSumOrderByAggregateInput = {
     id?: SortOrder
-    pacienteId?: SortOrder
+    personaId?: SortOrder
   }
 
   export type EpisodioAtencionScalarRelationFilter = {
@@ -11713,13 +14976,16 @@ export namespace Prisma {
 
   export type NotaClinicaCountOrderByAggregateInput = {
     id?: SortOrder
+    episodioId?: SortOrder
+    profesionalId?: SortOrder
+    fecha?: SortOrder
     subjetivo?: SortOrder
     objetivo?: SortOrder
     analisis?: SortOrder
     plan?: SortOrder
-    fecha?: SortOrder
-    episodioId?: SortOrder
-    profesionalId?: SortOrder
+    adjuntos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type NotaClinicaAvgOrderByAggregateInput = {
@@ -11730,24 +14996,30 @@ export namespace Prisma {
 
   export type NotaClinicaMaxOrderByAggregateInput = {
     id?: SortOrder
+    episodioId?: SortOrder
+    profesionalId?: SortOrder
+    fecha?: SortOrder
     subjetivo?: SortOrder
     objetivo?: SortOrder
     analisis?: SortOrder
     plan?: SortOrder
-    fecha?: SortOrder
-    episodioId?: SortOrder
-    profesionalId?: SortOrder
+    adjuntos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type NotaClinicaMinOrderByAggregateInput = {
     id?: SortOrder
+    episodioId?: SortOrder
+    profesionalId?: SortOrder
+    fecha?: SortOrder
     subjetivo?: SortOrder
     objetivo?: SortOrder
     analisis?: SortOrder
     plan?: SortOrder
-    fecha?: SortOrder
-    episodioId?: SortOrder
-    profesionalId?: SortOrder
+    adjuntos?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type NotaClinicaSumOrderByAggregateInput = {
@@ -11756,8 +15028,110 @@ export namespace Prisma {
     profesionalId?: SortOrder
   }
 
+  export type DiagnosticoOrderByRelevanceInput = {
+    fields: DiagnosticoOrderByRelevanceFieldEnum | DiagnosticoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type DiagnosticoCountOrderByAggregateInput = {
+    id?: SortOrder
+    episodioId?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    tipo?: SortOrder
+    principal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DiagnosticoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    episodioId?: SortOrder
+  }
+
+  export type DiagnosticoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    episodioId?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    tipo?: SortOrder
+    principal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DiagnosticoMinOrderByAggregateInput = {
+    id?: SortOrder
+    episodioId?: SortOrder
+    codigo?: SortOrder
+    descripcion?: SortOrder
+    tipo?: SortOrder
+    principal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DiagnosticoSumOrderByAggregateInput = {
+    id?: SortOrder
+    episodioId?: SortOrder
+  }
+
+  export type ConsentimientoOrderByRelevanceInput = {
+    fields: ConsentimientoOrderByRelevanceFieldEnum | ConsentimientoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type ConsentimientoCountOrderByAggregateInput = {
+    id?: SortOrder
+    personaId?: SortOrder
+    tipoProcedimiento?: SortOrder
+    fecha?: SortOrder
+    metodo?: SortOrder
+    archivoId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConsentimientoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    personaId?: SortOrder
+  }
+
+  export type ConsentimientoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    personaId?: SortOrder
+    tipoProcedimiento?: SortOrder
+    fecha?: SortOrder
+    metodo?: SortOrder
+    archivoId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConsentimientoMinOrderByAggregateInput = {
+    id?: SortOrder
+    personaId?: SortOrder
+    tipoProcedimiento?: SortOrder
+    fecha?: SortOrder
+    metodo?: SortOrder
+    archivoId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConsentimientoSumOrderByAggregateInput = {
+    id?: SortOrder
+    personaId?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -11772,96 +15146,134 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type CitaCreateNestedManyWithoutPacienteInput = {
-    create?: XOR<CitaCreateWithoutPacienteInput, CitaUncheckedCreateWithoutPacienteInput> | CitaCreateWithoutPacienteInput[] | CitaUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: CitaCreateOrConnectWithoutPacienteInput | CitaCreateOrConnectWithoutPacienteInput[]
-    createMany?: CitaCreateManyPacienteInputEnvelope
+  export type CitaCreateNestedManyWithoutPersonaInput = {
+    create?: XOR<CitaCreateWithoutPersonaInput, CitaUncheckedCreateWithoutPersonaInput> | CitaCreateWithoutPersonaInput[] | CitaUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: CitaCreateOrConnectWithoutPersonaInput | CitaCreateOrConnectWithoutPersonaInput[]
+    createMany?: CitaCreateManyPersonaInputEnvelope
     connect?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
   }
 
-  export type EpisodioAtencionCreateNestedManyWithoutPacienteInput = {
-    create?: XOR<EpisodioAtencionCreateWithoutPacienteInput, EpisodioAtencionUncheckedCreateWithoutPacienteInput> | EpisodioAtencionCreateWithoutPacienteInput[] | EpisodioAtencionUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPacienteInput | EpisodioAtencionCreateOrConnectWithoutPacienteInput[]
-    createMany?: EpisodioAtencionCreateManyPacienteInputEnvelope
+  export type EpisodioAtencionCreateNestedManyWithoutPersonaInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutPersonaInput, EpisodioAtencionUncheckedCreateWithoutPersonaInput> | EpisodioAtencionCreateWithoutPersonaInput[] | EpisodioAtencionUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPersonaInput | EpisodioAtencionCreateOrConnectWithoutPersonaInput[]
+    createMany?: EpisodioAtencionCreateManyPersonaInputEnvelope
     connect?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
   }
 
-  export type CitaUncheckedCreateNestedManyWithoutPacienteInput = {
-    create?: XOR<CitaCreateWithoutPacienteInput, CitaUncheckedCreateWithoutPacienteInput> | CitaCreateWithoutPacienteInput[] | CitaUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: CitaCreateOrConnectWithoutPacienteInput | CitaCreateOrConnectWithoutPacienteInput[]
-    createMany?: CitaCreateManyPacienteInputEnvelope
+  export type ConsentimientoCreateNestedManyWithoutPersonaInput = {
+    create?: XOR<ConsentimientoCreateWithoutPersonaInput, ConsentimientoUncheckedCreateWithoutPersonaInput> | ConsentimientoCreateWithoutPersonaInput[] | ConsentimientoUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: ConsentimientoCreateOrConnectWithoutPersonaInput | ConsentimientoCreateOrConnectWithoutPersonaInput[]
+    createMany?: ConsentimientoCreateManyPersonaInputEnvelope
+    connect?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+  }
+
+  export type CitaUncheckedCreateNestedManyWithoutPersonaInput = {
+    create?: XOR<CitaCreateWithoutPersonaInput, CitaUncheckedCreateWithoutPersonaInput> | CitaCreateWithoutPersonaInput[] | CitaUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: CitaCreateOrConnectWithoutPersonaInput | CitaCreateOrConnectWithoutPersonaInput[]
+    createMany?: CitaCreateManyPersonaInputEnvelope
     connect?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
   }
 
-  export type EpisodioAtencionUncheckedCreateNestedManyWithoutPacienteInput = {
-    create?: XOR<EpisodioAtencionCreateWithoutPacienteInput, EpisodioAtencionUncheckedCreateWithoutPacienteInput> | EpisodioAtencionCreateWithoutPacienteInput[] | EpisodioAtencionUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPacienteInput | EpisodioAtencionCreateOrConnectWithoutPacienteInput[]
-    createMany?: EpisodioAtencionCreateManyPacienteInputEnvelope
+  export type EpisodioAtencionUncheckedCreateNestedManyWithoutPersonaInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutPersonaInput, EpisodioAtencionUncheckedCreateWithoutPersonaInput> | EpisodioAtencionCreateWithoutPersonaInput[] | EpisodioAtencionUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPersonaInput | EpisodioAtencionCreateOrConnectWithoutPersonaInput[]
+    createMany?: EpisodioAtencionCreateManyPersonaInputEnvelope
     connect?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
+  }
+
+  export type ConsentimientoUncheckedCreateNestedManyWithoutPersonaInput = {
+    create?: XOR<ConsentimientoCreateWithoutPersonaInput, ConsentimientoUncheckedCreateWithoutPersonaInput> | ConsentimientoCreateWithoutPersonaInput[] | ConsentimientoUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: ConsentimientoCreateOrConnectWithoutPersonaInput | ConsentimientoCreateOrConnectWithoutPersonaInput[]
+    createMany?: ConsentimientoCreateManyPersonaInputEnvelope
+    connect?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type CitaUpdateManyWithoutPacienteNestedInput = {
-    create?: XOR<CitaCreateWithoutPacienteInput, CitaUncheckedCreateWithoutPacienteInput> | CitaCreateWithoutPacienteInput[] | CitaUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: CitaCreateOrConnectWithoutPacienteInput | CitaCreateOrConnectWithoutPacienteInput[]
-    upsert?: CitaUpsertWithWhereUniqueWithoutPacienteInput | CitaUpsertWithWhereUniqueWithoutPacienteInput[]
-    createMany?: CitaCreateManyPacienteInputEnvelope
+  export type CitaUpdateManyWithoutPersonaNestedInput = {
+    create?: XOR<CitaCreateWithoutPersonaInput, CitaUncheckedCreateWithoutPersonaInput> | CitaCreateWithoutPersonaInput[] | CitaUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: CitaCreateOrConnectWithoutPersonaInput | CitaCreateOrConnectWithoutPersonaInput[]
+    upsert?: CitaUpsertWithWhereUniqueWithoutPersonaInput | CitaUpsertWithWhereUniqueWithoutPersonaInput[]
+    createMany?: CitaCreateManyPersonaInputEnvelope
     set?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
     disconnect?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
     delete?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
     connect?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
-    update?: CitaUpdateWithWhereUniqueWithoutPacienteInput | CitaUpdateWithWhereUniqueWithoutPacienteInput[]
-    updateMany?: CitaUpdateManyWithWhereWithoutPacienteInput | CitaUpdateManyWithWhereWithoutPacienteInput[]
+    update?: CitaUpdateWithWhereUniqueWithoutPersonaInput | CitaUpdateWithWhereUniqueWithoutPersonaInput[]
+    updateMany?: CitaUpdateManyWithWhereWithoutPersonaInput | CitaUpdateManyWithWhereWithoutPersonaInput[]
     deleteMany?: CitaScalarWhereInput | CitaScalarWhereInput[]
   }
 
-  export type EpisodioAtencionUpdateManyWithoutPacienteNestedInput = {
-    create?: XOR<EpisodioAtencionCreateWithoutPacienteInput, EpisodioAtencionUncheckedCreateWithoutPacienteInput> | EpisodioAtencionCreateWithoutPacienteInput[] | EpisodioAtencionUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPacienteInput | EpisodioAtencionCreateOrConnectWithoutPacienteInput[]
-    upsert?: EpisodioAtencionUpsertWithWhereUniqueWithoutPacienteInput | EpisodioAtencionUpsertWithWhereUniqueWithoutPacienteInput[]
-    createMany?: EpisodioAtencionCreateManyPacienteInputEnvelope
+  export type EpisodioAtencionUpdateManyWithoutPersonaNestedInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutPersonaInput, EpisodioAtencionUncheckedCreateWithoutPersonaInput> | EpisodioAtencionCreateWithoutPersonaInput[] | EpisodioAtencionUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPersonaInput | EpisodioAtencionCreateOrConnectWithoutPersonaInput[]
+    upsert?: EpisodioAtencionUpsertWithWhereUniqueWithoutPersonaInput | EpisodioAtencionUpsertWithWhereUniqueWithoutPersonaInput[]
+    createMany?: EpisodioAtencionCreateManyPersonaInputEnvelope
     set?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
     disconnect?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
     delete?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
     connect?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
-    update?: EpisodioAtencionUpdateWithWhereUniqueWithoutPacienteInput | EpisodioAtencionUpdateWithWhereUniqueWithoutPacienteInput[]
-    updateMany?: EpisodioAtencionUpdateManyWithWhereWithoutPacienteInput | EpisodioAtencionUpdateManyWithWhereWithoutPacienteInput[]
+    update?: EpisodioAtencionUpdateWithWhereUniqueWithoutPersonaInput | EpisodioAtencionUpdateWithWhereUniqueWithoutPersonaInput[]
+    updateMany?: EpisodioAtencionUpdateManyWithWhereWithoutPersonaInput | EpisodioAtencionUpdateManyWithWhereWithoutPersonaInput[]
     deleteMany?: EpisodioAtencionScalarWhereInput | EpisodioAtencionScalarWhereInput[]
   }
 
-  export type CitaUncheckedUpdateManyWithoutPacienteNestedInput = {
-    create?: XOR<CitaCreateWithoutPacienteInput, CitaUncheckedCreateWithoutPacienteInput> | CitaCreateWithoutPacienteInput[] | CitaUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: CitaCreateOrConnectWithoutPacienteInput | CitaCreateOrConnectWithoutPacienteInput[]
-    upsert?: CitaUpsertWithWhereUniqueWithoutPacienteInput | CitaUpsertWithWhereUniqueWithoutPacienteInput[]
-    createMany?: CitaCreateManyPacienteInputEnvelope
+  export type ConsentimientoUpdateManyWithoutPersonaNestedInput = {
+    create?: XOR<ConsentimientoCreateWithoutPersonaInput, ConsentimientoUncheckedCreateWithoutPersonaInput> | ConsentimientoCreateWithoutPersonaInput[] | ConsentimientoUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: ConsentimientoCreateOrConnectWithoutPersonaInput | ConsentimientoCreateOrConnectWithoutPersonaInput[]
+    upsert?: ConsentimientoUpsertWithWhereUniqueWithoutPersonaInput | ConsentimientoUpsertWithWhereUniqueWithoutPersonaInput[]
+    createMany?: ConsentimientoCreateManyPersonaInputEnvelope
+    set?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    disconnect?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    delete?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    connect?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    update?: ConsentimientoUpdateWithWhereUniqueWithoutPersonaInput | ConsentimientoUpdateWithWhereUniqueWithoutPersonaInput[]
+    updateMany?: ConsentimientoUpdateManyWithWhereWithoutPersonaInput | ConsentimientoUpdateManyWithWhereWithoutPersonaInput[]
+    deleteMany?: ConsentimientoScalarWhereInput | ConsentimientoScalarWhereInput[]
+  }
+
+  export type CitaUncheckedUpdateManyWithoutPersonaNestedInput = {
+    create?: XOR<CitaCreateWithoutPersonaInput, CitaUncheckedCreateWithoutPersonaInput> | CitaCreateWithoutPersonaInput[] | CitaUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: CitaCreateOrConnectWithoutPersonaInput | CitaCreateOrConnectWithoutPersonaInput[]
+    upsert?: CitaUpsertWithWhereUniqueWithoutPersonaInput | CitaUpsertWithWhereUniqueWithoutPersonaInput[]
+    createMany?: CitaCreateManyPersonaInputEnvelope
     set?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
     disconnect?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
     delete?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
     connect?: CitaWhereUniqueInput | CitaWhereUniqueInput[]
-    update?: CitaUpdateWithWhereUniqueWithoutPacienteInput | CitaUpdateWithWhereUniqueWithoutPacienteInput[]
-    updateMany?: CitaUpdateManyWithWhereWithoutPacienteInput | CitaUpdateManyWithWhereWithoutPacienteInput[]
+    update?: CitaUpdateWithWhereUniqueWithoutPersonaInput | CitaUpdateWithWhereUniqueWithoutPersonaInput[]
+    updateMany?: CitaUpdateManyWithWhereWithoutPersonaInput | CitaUpdateManyWithWhereWithoutPersonaInput[]
     deleteMany?: CitaScalarWhereInput | CitaScalarWhereInput[]
   }
 
-  export type EpisodioAtencionUncheckedUpdateManyWithoutPacienteNestedInput = {
-    create?: XOR<EpisodioAtencionCreateWithoutPacienteInput, EpisodioAtencionUncheckedCreateWithoutPacienteInput> | EpisodioAtencionCreateWithoutPacienteInput[] | EpisodioAtencionUncheckedCreateWithoutPacienteInput[]
-    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPacienteInput | EpisodioAtencionCreateOrConnectWithoutPacienteInput[]
-    upsert?: EpisodioAtencionUpsertWithWhereUniqueWithoutPacienteInput | EpisodioAtencionUpsertWithWhereUniqueWithoutPacienteInput[]
-    createMany?: EpisodioAtencionCreateManyPacienteInputEnvelope
+  export type EpisodioAtencionUncheckedUpdateManyWithoutPersonaNestedInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutPersonaInput, EpisodioAtencionUncheckedCreateWithoutPersonaInput> | EpisodioAtencionCreateWithoutPersonaInput[] | EpisodioAtencionUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutPersonaInput | EpisodioAtencionCreateOrConnectWithoutPersonaInput[]
+    upsert?: EpisodioAtencionUpsertWithWhereUniqueWithoutPersonaInput | EpisodioAtencionUpsertWithWhereUniqueWithoutPersonaInput[]
+    createMany?: EpisodioAtencionCreateManyPersonaInputEnvelope
     set?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
     disconnect?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
     delete?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
     connect?: EpisodioAtencionWhereUniqueInput | EpisodioAtencionWhereUniqueInput[]
-    update?: EpisodioAtencionUpdateWithWhereUniqueWithoutPacienteInput | EpisodioAtencionUpdateWithWhereUniqueWithoutPacienteInput[]
-    updateMany?: EpisodioAtencionUpdateManyWithWhereWithoutPacienteInput | EpisodioAtencionUpdateManyWithWhereWithoutPacienteInput[]
+    update?: EpisodioAtencionUpdateWithWhereUniqueWithoutPersonaInput | EpisodioAtencionUpdateWithWhereUniqueWithoutPersonaInput[]
+    updateMany?: EpisodioAtencionUpdateManyWithWhereWithoutPersonaInput | EpisodioAtencionUpdateManyWithWhereWithoutPersonaInput[]
     deleteMany?: EpisodioAtencionScalarWhereInput | EpisodioAtencionScalarWhereInput[]
+  }
+
+  export type ConsentimientoUncheckedUpdateManyWithoutPersonaNestedInput = {
+    create?: XOR<ConsentimientoCreateWithoutPersonaInput, ConsentimientoUncheckedCreateWithoutPersonaInput> | ConsentimientoCreateWithoutPersonaInput[] | ConsentimientoUncheckedCreateWithoutPersonaInput[]
+    connectOrCreate?: ConsentimientoCreateOrConnectWithoutPersonaInput | ConsentimientoCreateOrConnectWithoutPersonaInput[]
+    upsert?: ConsentimientoUpsertWithWhereUniqueWithoutPersonaInput | ConsentimientoUpsertWithWhereUniqueWithoutPersonaInput[]
+    createMany?: ConsentimientoCreateManyPersonaInputEnvelope
+    set?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    disconnect?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    delete?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    connect?: ConsentimientoWhereUniqueInput | ConsentimientoWhereUniqueInput[]
+    update?: ConsentimientoUpdateWithWhereUniqueWithoutPersonaInput | ConsentimientoUpdateWithWhereUniqueWithoutPersonaInput[]
+    updateMany?: ConsentimientoUpdateManyWithWhereWithoutPersonaInput | ConsentimientoUpdateManyWithWhereWithoutPersonaInput[]
+    deleteMany?: ConsentimientoScalarWhereInput | ConsentimientoScalarWhereInput[]
   }
 
   export type BloqueAgendaCreateNestedManyWithoutProfesionalInput = {
@@ -12074,38 +15486,38 @@ export namespace Prisma {
     deleteMany?: CitaScalarWhereInput | CitaScalarWhereInput[]
   }
 
-  export type ProfesionalCreateNestedOneWithoutBloquesAgendaInput = {
-    create?: XOR<ProfesionalCreateWithoutBloquesAgendaInput, ProfesionalUncheckedCreateWithoutBloquesAgendaInput>
-    connectOrCreate?: ProfesionalCreateOrConnectWithoutBloquesAgendaInput
+  export type ProfesionalCreateNestedOneWithoutBloquesInput = {
+    create?: XOR<ProfesionalCreateWithoutBloquesInput, ProfesionalUncheckedCreateWithoutBloquesInput>
+    connectOrCreate?: ProfesionalCreateOrConnectWithoutBloquesInput
     connect?: ProfesionalWhereUniqueInput
   }
 
-  export type UnidadAtencionCreateNestedOneWithoutBloquesAgendaInput = {
-    create?: XOR<UnidadAtencionCreateWithoutBloquesAgendaInput, UnidadAtencionUncheckedCreateWithoutBloquesAgendaInput>
-    connectOrCreate?: UnidadAtencionCreateOrConnectWithoutBloquesAgendaInput
+  export type UnidadAtencionCreateNestedOneWithoutBloquesInput = {
+    create?: XOR<UnidadAtencionCreateWithoutBloquesInput, UnidadAtencionUncheckedCreateWithoutBloquesInput>
+    connectOrCreate?: UnidadAtencionCreateOrConnectWithoutBloquesInput
     connect?: UnidadAtencionWhereUniqueInput
   }
 
-  export type ProfesionalUpdateOneRequiredWithoutBloquesAgendaNestedInput = {
-    create?: XOR<ProfesionalCreateWithoutBloquesAgendaInput, ProfesionalUncheckedCreateWithoutBloquesAgendaInput>
-    connectOrCreate?: ProfesionalCreateOrConnectWithoutBloquesAgendaInput
-    upsert?: ProfesionalUpsertWithoutBloquesAgendaInput
+  export type ProfesionalUpdateOneRequiredWithoutBloquesNestedInput = {
+    create?: XOR<ProfesionalCreateWithoutBloquesInput, ProfesionalUncheckedCreateWithoutBloquesInput>
+    connectOrCreate?: ProfesionalCreateOrConnectWithoutBloquesInput
+    upsert?: ProfesionalUpsertWithoutBloquesInput
     connect?: ProfesionalWhereUniqueInput
-    update?: XOR<XOR<ProfesionalUpdateToOneWithWhereWithoutBloquesAgendaInput, ProfesionalUpdateWithoutBloquesAgendaInput>, ProfesionalUncheckedUpdateWithoutBloquesAgendaInput>
+    update?: XOR<XOR<ProfesionalUpdateToOneWithWhereWithoutBloquesInput, ProfesionalUpdateWithoutBloquesInput>, ProfesionalUncheckedUpdateWithoutBloquesInput>
   }
 
-  export type UnidadAtencionUpdateOneRequiredWithoutBloquesAgendaNestedInput = {
-    create?: XOR<UnidadAtencionCreateWithoutBloquesAgendaInput, UnidadAtencionUncheckedCreateWithoutBloquesAgendaInput>
-    connectOrCreate?: UnidadAtencionCreateOrConnectWithoutBloquesAgendaInput
-    upsert?: UnidadAtencionUpsertWithoutBloquesAgendaInput
+  export type UnidadAtencionUpdateOneRequiredWithoutBloquesNestedInput = {
+    create?: XOR<UnidadAtencionCreateWithoutBloquesInput, UnidadAtencionUncheckedCreateWithoutBloquesInput>
+    connectOrCreate?: UnidadAtencionCreateOrConnectWithoutBloquesInput
+    upsert?: UnidadAtencionUpsertWithoutBloquesInput
     connect?: UnidadAtencionWhereUniqueInput
-    update?: XOR<XOR<UnidadAtencionUpdateToOneWithWhereWithoutBloquesAgendaInput, UnidadAtencionUpdateWithoutBloquesAgendaInput>, UnidadAtencionUncheckedUpdateWithoutBloquesAgendaInput>
+    update?: XOR<XOR<UnidadAtencionUpdateToOneWithWhereWithoutBloquesInput, UnidadAtencionUpdateWithoutBloquesInput>, UnidadAtencionUncheckedUpdateWithoutBloquesInput>
   }
 
-  export type PacienteCreateNestedOneWithoutCitasInput = {
-    create?: XOR<PacienteCreateWithoutCitasInput, PacienteUncheckedCreateWithoutCitasInput>
-    connectOrCreate?: PacienteCreateOrConnectWithoutCitasInput
-    connect?: PacienteWhereUniqueInput
+  export type PersonaAtendidaCreateNestedOneWithoutCitasInput = {
+    create?: XOR<PersonaAtendidaCreateWithoutCitasInput, PersonaAtendidaUncheckedCreateWithoutCitasInput>
+    connectOrCreate?: PersonaAtendidaCreateOrConnectWithoutCitasInput
+    connect?: PersonaAtendidaWhereUniqueInput
   }
 
   export type ProfesionalCreateNestedOneWithoutCitasInput = {
@@ -12120,12 +15532,12 @@ export namespace Prisma {
     connect?: UnidadAtencionWhereUniqueInput
   }
 
-  export type PacienteUpdateOneRequiredWithoutCitasNestedInput = {
-    create?: XOR<PacienteCreateWithoutCitasInput, PacienteUncheckedCreateWithoutCitasInput>
-    connectOrCreate?: PacienteCreateOrConnectWithoutCitasInput
-    upsert?: PacienteUpsertWithoutCitasInput
-    connect?: PacienteWhereUniqueInput
-    update?: XOR<XOR<PacienteUpdateToOneWithWhereWithoutCitasInput, PacienteUpdateWithoutCitasInput>, PacienteUncheckedUpdateWithoutCitasInput>
+  export type PersonaAtendidaUpdateOneRequiredWithoutCitasNestedInput = {
+    create?: XOR<PersonaAtendidaCreateWithoutCitasInput, PersonaAtendidaUncheckedCreateWithoutCitasInput>
+    connectOrCreate?: PersonaAtendidaCreateOrConnectWithoutCitasInput
+    upsert?: PersonaAtendidaUpsertWithoutCitasInput
+    connect?: PersonaAtendidaWhereUniqueInput
+    update?: XOR<XOR<PersonaAtendidaUpdateToOneWithWhereWithoutCitasInput, PersonaAtendidaUpdateWithoutCitasInput>, PersonaAtendidaUncheckedUpdateWithoutCitasInput>
   }
 
   export type ProfesionalUpdateOneRequiredWithoutCitasNestedInput = {
@@ -12144,10 +15556,10 @@ export namespace Prisma {
     update?: XOR<XOR<UnidadAtencionUpdateToOneWithWhereWithoutCitasInput, UnidadAtencionUpdateWithoutCitasInput>, UnidadAtencionUncheckedUpdateWithoutCitasInput>
   }
 
-  export type PacienteCreateNestedOneWithoutEpisodiosInput = {
-    create?: XOR<PacienteCreateWithoutEpisodiosInput, PacienteUncheckedCreateWithoutEpisodiosInput>
-    connectOrCreate?: PacienteCreateOrConnectWithoutEpisodiosInput
-    connect?: PacienteWhereUniqueInput
+  export type PersonaAtendidaCreateNestedOneWithoutEpisodiosInput = {
+    create?: XOR<PersonaAtendidaCreateWithoutEpisodiosInput, PersonaAtendidaUncheckedCreateWithoutEpisodiosInput>
+    connectOrCreate?: PersonaAtendidaCreateOrConnectWithoutEpisodiosInput
+    connect?: PersonaAtendidaWhereUniqueInput
   }
 
   export type NotaClinicaCreateNestedManyWithoutEpisodioInput = {
@@ -12157,6 +15569,13 @@ export namespace Prisma {
     connect?: NotaClinicaWhereUniqueInput | NotaClinicaWhereUniqueInput[]
   }
 
+  export type DiagnosticoCreateNestedManyWithoutEpisodioInput = {
+    create?: XOR<DiagnosticoCreateWithoutEpisodioInput, DiagnosticoUncheckedCreateWithoutEpisodioInput> | DiagnosticoCreateWithoutEpisodioInput[] | DiagnosticoUncheckedCreateWithoutEpisodioInput[]
+    connectOrCreate?: DiagnosticoCreateOrConnectWithoutEpisodioInput | DiagnosticoCreateOrConnectWithoutEpisodioInput[]
+    createMany?: DiagnosticoCreateManyEpisodioInputEnvelope
+    connect?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+  }
+
   export type NotaClinicaUncheckedCreateNestedManyWithoutEpisodioInput = {
     create?: XOR<NotaClinicaCreateWithoutEpisodioInput, NotaClinicaUncheckedCreateWithoutEpisodioInput> | NotaClinicaCreateWithoutEpisodioInput[] | NotaClinicaUncheckedCreateWithoutEpisodioInput[]
     connectOrCreate?: NotaClinicaCreateOrConnectWithoutEpisodioInput | NotaClinicaCreateOrConnectWithoutEpisodioInput[]
@@ -12164,12 +15583,19 @@ export namespace Prisma {
     connect?: NotaClinicaWhereUniqueInput | NotaClinicaWhereUniqueInput[]
   }
 
-  export type PacienteUpdateOneRequiredWithoutEpisodiosNestedInput = {
-    create?: XOR<PacienteCreateWithoutEpisodiosInput, PacienteUncheckedCreateWithoutEpisodiosInput>
-    connectOrCreate?: PacienteCreateOrConnectWithoutEpisodiosInput
-    upsert?: PacienteUpsertWithoutEpisodiosInput
-    connect?: PacienteWhereUniqueInput
-    update?: XOR<XOR<PacienteUpdateToOneWithWhereWithoutEpisodiosInput, PacienteUpdateWithoutEpisodiosInput>, PacienteUncheckedUpdateWithoutEpisodiosInput>
+  export type DiagnosticoUncheckedCreateNestedManyWithoutEpisodioInput = {
+    create?: XOR<DiagnosticoCreateWithoutEpisodioInput, DiagnosticoUncheckedCreateWithoutEpisodioInput> | DiagnosticoCreateWithoutEpisodioInput[] | DiagnosticoUncheckedCreateWithoutEpisodioInput[]
+    connectOrCreate?: DiagnosticoCreateOrConnectWithoutEpisodioInput | DiagnosticoCreateOrConnectWithoutEpisodioInput[]
+    createMany?: DiagnosticoCreateManyEpisodioInputEnvelope
+    connect?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+  }
+
+  export type PersonaAtendidaUpdateOneRequiredWithoutEpisodiosNestedInput = {
+    create?: XOR<PersonaAtendidaCreateWithoutEpisodiosInput, PersonaAtendidaUncheckedCreateWithoutEpisodiosInput>
+    connectOrCreate?: PersonaAtendidaCreateOrConnectWithoutEpisodiosInput
+    upsert?: PersonaAtendidaUpsertWithoutEpisodiosInput
+    connect?: PersonaAtendidaWhereUniqueInput
+    update?: XOR<XOR<PersonaAtendidaUpdateToOneWithWhereWithoutEpisodiosInput, PersonaAtendidaUpdateWithoutEpisodiosInput>, PersonaAtendidaUncheckedUpdateWithoutEpisodiosInput>
   }
 
   export type NotaClinicaUpdateManyWithoutEpisodioNestedInput = {
@@ -12186,6 +15612,20 @@ export namespace Prisma {
     deleteMany?: NotaClinicaScalarWhereInput | NotaClinicaScalarWhereInput[]
   }
 
+  export type DiagnosticoUpdateManyWithoutEpisodioNestedInput = {
+    create?: XOR<DiagnosticoCreateWithoutEpisodioInput, DiagnosticoUncheckedCreateWithoutEpisodioInput> | DiagnosticoCreateWithoutEpisodioInput[] | DiagnosticoUncheckedCreateWithoutEpisodioInput[]
+    connectOrCreate?: DiagnosticoCreateOrConnectWithoutEpisodioInput | DiagnosticoCreateOrConnectWithoutEpisodioInput[]
+    upsert?: DiagnosticoUpsertWithWhereUniqueWithoutEpisodioInput | DiagnosticoUpsertWithWhereUniqueWithoutEpisodioInput[]
+    createMany?: DiagnosticoCreateManyEpisodioInputEnvelope
+    set?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    disconnect?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    delete?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    connect?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    update?: DiagnosticoUpdateWithWhereUniqueWithoutEpisodioInput | DiagnosticoUpdateWithWhereUniqueWithoutEpisodioInput[]
+    updateMany?: DiagnosticoUpdateManyWithWhereWithoutEpisodioInput | DiagnosticoUpdateManyWithWhereWithoutEpisodioInput[]
+    deleteMany?: DiagnosticoScalarWhereInput | DiagnosticoScalarWhereInput[]
+  }
+
   export type NotaClinicaUncheckedUpdateManyWithoutEpisodioNestedInput = {
     create?: XOR<NotaClinicaCreateWithoutEpisodioInput, NotaClinicaUncheckedCreateWithoutEpisodioInput> | NotaClinicaCreateWithoutEpisodioInput[] | NotaClinicaUncheckedCreateWithoutEpisodioInput[]
     connectOrCreate?: NotaClinicaCreateOrConnectWithoutEpisodioInput | NotaClinicaCreateOrConnectWithoutEpisodioInput[]
@@ -12200,32 +15640,74 @@ export namespace Prisma {
     deleteMany?: NotaClinicaScalarWhereInput | NotaClinicaScalarWhereInput[]
   }
 
-  export type EpisodioAtencionCreateNestedOneWithoutNotasInput = {
-    create?: XOR<EpisodioAtencionCreateWithoutNotasInput, EpisodioAtencionUncheckedCreateWithoutNotasInput>
-    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutNotasInput
+  export type DiagnosticoUncheckedUpdateManyWithoutEpisodioNestedInput = {
+    create?: XOR<DiagnosticoCreateWithoutEpisodioInput, DiagnosticoUncheckedCreateWithoutEpisodioInput> | DiagnosticoCreateWithoutEpisodioInput[] | DiagnosticoUncheckedCreateWithoutEpisodioInput[]
+    connectOrCreate?: DiagnosticoCreateOrConnectWithoutEpisodioInput | DiagnosticoCreateOrConnectWithoutEpisodioInput[]
+    upsert?: DiagnosticoUpsertWithWhereUniqueWithoutEpisodioInput | DiagnosticoUpsertWithWhereUniqueWithoutEpisodioInput[]
+    createMany?: DiagnosticoCreateManyEpisodioInputEnvelope
+    set?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    disconnect?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    delete?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    connect?: DiagnosticoWhereUniqueInput | DiagnosticoWhereUniqueInput[]
+    update?: DiagnosticoUpdateWithWhereUniqueWithoutEpisodioInput | DiagnosticoUpdateWithWhereUniqueWithoutEpisodioInput[]
+    updateMany?: DiagnosticoUpdateManyWithWhereWithoutEpisodioInput | DiagnosticoUpdateManyWithWhereWithoutEpisodioInput[]
+    deleteMany?: DiagnosticoScalarWhereInput | DiagnosticoScalarWhereInput[]
+  }
+
+  export type EpisodioAtencionCreateNestedOneWithoutNotasClinicasInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutNotasClinicasInput, EpisodioAtencionUncheckedCreateWithoutNotasClinicasInput>
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutNotasClinicasInput
     connect?: EpisodioAtencionWhereUniqueInput
   }
 
-  export type ProfesionalCreateNestedOneWithoutNotasInput = {
-    create?: XOR<ProfesionalCreateWithoutNotasInput, ProfesionalUncheckedCreateWithoutNotasInput>
-    connectOrCreate?: ProfesionalCreateOrConnectWithoutNotasInput
+  export type ProfesionalCreateNestedOneWithoutNotasClinicasInput = {
+    create?: XOR<ProfesionalCreateWithoutNotasClinicasInput, ProfesionalUncheckedCreateWithoutNotasClinicasInput>
+    connectOrCreate?: ProfesionalCreateOrConnectWithoutNotasClinicasInput
     connect?: ProfesionalWhereUniqueInput
   }
 
-  export type EpisodioAtencionUpdateOneRequiredWithoutNotasNestedInput = {
-    create?: XOR<EpisodioAtencionCreateWithoutNotasInput, EpisodioAtencionUncheckedCreateWithoutNotasInput>
-    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutNotasInput
-    upsert?: EpisodioAtencionUpsertWithoutNotasInput
+  export type EpisodioAtencionUpdateOneRequiredWithoutNotasClinicasNestedInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutNotasClinicasInput, EpisodioAtencionUncheckedCreateWithoutNotasClinicasInput>
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutNotasClinicasInput
+    upsert?: EpisodioAtencionUpsertWithoutNotasClinicasInput
     connect?: EpisodioAtencionWhereUniqueInput
-    update?: XOR<XOR<EpisodioAtencionUpdateToOneWithWhereWithoutNotasInput, EpisodioAtencionUpdateWithoutNotasInput>, EpisodioAtencionUncheckedUpdateWithoutNotasInput>
+    update?: XOR<XOR<EpisodioAtencionUpdateToOneWithWhereWithoutNotasClinicasInput, EpisodioAtencionUpdateWithoutNotasClinicasInput>, EpisodioAtencionUncheckedUpdateWithoutNotasClinicasInput>
   }
 
-  export type ProfesionalUpdateOneRequiredWithoutNotasNestedInput = {
-    create?: XOR<ProfesionalCreateWithoutNotasInput, ProfesionalUncheckedCreateWithoutNotasInput>
-    connectOrCreate?: ProfesionalCreateOrConnectWithoutNotasInput
-    upsert?: ProfesionalUpsertWithoutNotasInput
+  export type ProfesionalUpdateOneRequiredWithoutNotasClinicasNestedInput = {
+    create?: XOR<ProfesionalCreateWithoutNotasClinicasInput, ProfesionalUncheckedCreateWithoutNotasClinicasInput>
+    connectOrCreate?: ProfesionalCreateOrConnectWithoutNotasClinicasInput
+    upsert?: ProfesionalUpsertWithoutNotasClinicasInput
     connect?: ProfesionalWhereUniqueInput
-    update?: XOR<XOR<ProfesionalUpdateToOneWithWhereWithoutNotasInput, ProfesionalUpdateWithoutNotasInput>, ProfesionalUncheckedUpdateWithoutNotasInput>
+    update?: XOR<XOR<ProfesionalUpdateToOneWithWhereWithoutNotasClinicasInput, ProfesionalUpdateWithoutNotasClinicasInput>, ProfesionalUncheckedUpdateWithoutNotasClinicasInput>
+  }
+
+  export type EpisodioAtencionCreateNestedOneWithoutDiagnosticosInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutDiagnosticosInput, EpisodioAtencionUncheckedCreateWithoutDiagnosticosInput>
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutDiagnosticosInput
+    connect?: EpisodioAtencionWhereUniqueInput
+  }
+
+  export type EpisodioAtencionUpdateOneRequiredWithoutDiagnosticosNestedInput = {
+    create?: XOR<EpisodioAtencionCreateWithoutDiagnosticosInput, EpisodioAtencionUncheckedCreateWithoutDiagnosticosInput>
+    connectOrCreate?: EpisodioAtencionCreateOrConnectWithoutDiagnosticosInput
+    upsert?: EpisodioAtencionUpsertWithoutDiagnosticosInput
+    connect?: EpisodioAtencionWhereUniqueInput
+    update?: XOR<XOR<EpisodioAtencionUpdateToOneWithWhereWithoutDiagnosticosInput, EpisodioAtencionUpdateWithoutDiagnosticosInput>, EpisodioAtencionUncheckedUpdateWithoutDiagnosticosInput>
+  }
+
+  export type PersonaAtendidaCreateNestedOneWithoutConsentimientosInput = {
+    create?: XOR<PersonaAtendidaCreateWithoutConsentimientosInput, PersonaAtendidaUncheckedCreateWithoutConsentimientosInput>
+    connectOrCreate?: PersonaAtendidaCreateOrConnectWithoutConsentimientosInput
+    connect?: PersonaAtendidaWhereUniqueInput
+  }
+
+  export type PersonaAtendidaUpdateOneRequiredWithoutConsentimientosNestedInput = {
+    create?: XOR<PersonaAtendidaCreateWithoutConsentimientosInput, PersonaAtendidaUncheckedCreateWithoutConsentimientosInput>
+    connectOrCreate?: PersonaAtendidaCreateOrConnectWithoutConsentimientosInput
+    upsert?: PersonaAtendidaUpsertWithoutConsentimientosInput
+    connect?: PersonaAtendidaWhereUniqueInput
+    update?: XOR<XOR<PersonaAtendidaUpdateToOneWithWhereWithoutConsentimientosInput, PersonaAtendidaUpdateWithoutConsentimientosInput>, PersonaAtendidaUncheckedUpdateWithoutConsentimientosInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -12252,6 +15734,11 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -12310,6 +15797,14 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -12337,11 +15832,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12373,84 +15863,121 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type CitaCreateWithoutPacienteInput = {
-    fechaInicio: Date | string
-    fechaFin: Date | string
+  export type CitaCreateWithoutPersonaInput = {
+    inicio: Date | string
+    fin: Date | string
     motivo: string
-    estado: string
     canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     profesional: ProfesionalCreateNestedOneWithoutCitasInput
     unidad: UnidadAtencionCreateNestedOneWithoutCitasInput
   }
 
-  export type CitaUncheckedCreateWithoutPacienteInput = {
+  export type CitaUncheckedCreateWithoutPersonaInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    motivo: string
-    estado: string
-    canal: string
     profesionalId: number
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    motivo: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type CitaCreateOrConnectWithoutPacienteInput = {
+  export type CitaCreateOrConnectWithoutPersonaInput = {
     where: CitaWhereUniqueInput
-    create: XOR<CitaCreateWithoutPacienteInput, CitaUncheckedCreateWithoutPacienteInput>
+    create: XOR<CitaCreateWithoutPersonaInput, CitaUncheckedCreateWithoutPersonaInput>
   }
 
-  export type CitaCreateManyPacienteInputEnvelope = {
-    data: CitaCreateManyPacienteInput | CitaCreateManyPacienteInput[]
+  export type CitaCreateManyPersonaInputEnvelope = {
+    data: CitaCreateManyPersonaInput | CitaCreateManyPersonaInput[]
     skipDuplicates?: boolean
   }
 
-  export type EpisodioAtencionCreateWithoutPacienteInput = {
+  export type EpisodioAtencionCreateWithoutPersonaInput = {
+    fechaApertura?: Date | string
     motivo: string
-    fecha?: Date | string
-    estado: string
-    notas?: NotaClinicaCreateNestedManyWithoutEpisodioInput
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notasClinicas?: NotaClinicaCreateNestedManyWithoutEpisodioInput
+    diagnosticos?: DiagnosticoCreateNestedManyWithoutEpisodioInput
   }
 
-  export type EpisodioAtencionUncheckedCreateWithoutPacienteInput = {
+  export type EpisodioAtencionUncheckedCreateWithoutPersonaInput = {
     id?: number
+    fechaApertura?: Date | string
     motivo: string
-    fecha?: Date | string
-    estado: string
-    notas?: NotaClinicaUncheckedCreateNestedManyWithoutEpisodioInput
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notasClinicas?: NotaClinicaUncheckedCreateNestedManyWithoutEpisodioInput
+    diagnosticos?: DiagnosticoUncheckedCreateNestedManyWithoutEpisodioInput
   }
 
-  export type EpisodioAtencionCreateOrConnectWithoutPacienteInput = {
+  export type EpisodioAtencionCreateOrConnectWithoutPersonaInput = {
     where: EpisodioAtencionWhereUniqueInput
-    create: XOR<EpisodioAtencionCreateWithoutPacienteInput, EpisodioAtencionUncheckedCreateWithoutPacienteInput>
+    create: XOR<EpisodioAtencionCreateWithoutPersonaInput, EpisodioAtencionUncheckedCreateWithoutPersonaInput>
   }
 
-  export type EpisodioAtencionCreateManyPacienteInputEnvelope = {
-    data: EpisodioAtencionCreateManyPacienteInput | EpisodioAtencionCreateManyPacienteInput[]
+  export type EpisodioAtencionCreateManyPersonaInputEnvelope = {
+    data: EpisodioAtencionCreateManyPersonaInput | EpisodioAtencionCreateManyPersonaInput[]
     skipDuplicates?: boolean
   }
 
-  export type CitaUpsertWithWhereUniqueWithoutPacienteInput = {
-    where: CitaWhereUniqueInput
-    update: XOR<CitaUpdateWithoutPacienteInput, CitaUncheckedUpdateWithoutPacienteInput>
-    create: XOR<CitaCreateWithoutPacienteInput, CitaUncheckedCreateWithoutPacienteInput>
+  export type ConsentimientoCreateWithoutPersonaInput = {
+    tipoProcedimiento: string
+    fecha?: Date | string
+    metodo: string
+    archivoId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type CitaUpdateWithWhereUniqueWithoutPacienteInput = {
-    where: CitaWhereUniqueInput
-    data: XOR<CitaUpdateWithoutPacienteInput, CitaUncheckedUpdateWithoutPacienteInput>
+  export type ConsentimientoUncheckedCreateWithoutPersonaInput = {
+    id?: number
+    tipoProcedimiento: string
+    fecha?: Date | string
+    metodo: string
+    archivoId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type CitaUpdateManyWithWhereWithoutPacienteInput = {
+  export type ConsentimientoCreateOrConnectWithoutPersonaInput = {
+    where: ConsentimientoWhereUniqueInput
+    create: XOR<ConsentimientoCreateWithoutPersonaInput, ConsentimientoUncheckedCreateWithoutPersonaInput>
+  }
+
+  export type ConsentimientoCreateManyPersonaInputEnvelope = {
+    data: ConsentimientoCreateManyPersonaInput | ConsentimientoCreateManyPersonaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CitaUpsertWithWhereUniqueWithoutPersonaInput = {
+    where: CitaWhereUniqueInput
+    update: XOR<CitaUpdateWithoutPersonaInput, CitaUncheckedUpdateWithoutPersonaInput>
+    create: XOR<CitaCreateWithoutPersonaInput, CitaUncheckedCreateWithoutPersonaInput>
+  }
+
+  export type CitaUpdateWithWhereUniqueWithoutPersonaInput = {
+    where: CitaWhereUniqueInput
+    data: XOR<CitaUpdateWithoutPersonaInput, CitaUncheckedUpdateWithoutPersonaInput>
+  }
+
+  export type CitaUpdateManyWithWhereWithoutPersonaInput = {
     where: CitaScalarWhereInput
-    data: XOR<CitaUpdateManyMutationInput, CitaUncheckedUpdateManyWithoutPacienteInput>
+    data: XOR<CitaUpdateManyMutationInput, CitaUncheckedUpdateManyWithoutPersonaInput>
   }
 
   export type CitaScalarWhereInput = {
@@ -12458,30 +15985,34 @@ export namespace Prisma {
     OR?: CitaScalarWhereInput[]
     NOT?: CitaScalarWhereInput | CitaScalarWhereInput[]
     id?: IntFilter<"Cita"> | number
-    fechaInicio?: DateTimeFilter<"Cita"> | Date | string
-    fechaFin?: DateTimeFilter<"Cita"> | Date | string
-    motivo?: StringFilter<"Cita"> | string
-    estado?: StringFilter<"Cita"> | string
-    canal?: StringFilter<"Cita"> | string
-    pacienteId?: IntFilter<"Cita"> | number
+    personaId?: IntFilter<"Cita"> | number
     profesionalId?: IntFilter<"Cita"> | number
     unidadId?: IntFilter<"Cita"> | number
+    inicio?: DateTimeFilter<"Cita"> | Date | string
+    fin?: DateTimeFilter<"Cita"> | Date | string
+    motivo?: StringFilter<"Cita"> | string
+    canal?: StringFilter<"Cita"> | string
+    estado?: StringFilter<"Cita"> | string
+    observaciones?: StringNullableFilter<"Cita"> | string | null
+    historialCambios?: StringNullableFilter<"Cita"> | string | null
+    createdAt?: DateTimeFilter<"Cita"> | Date | string
+    updatedAt?: DateTimeFilter<"Cita"> | Date | string
   }
 
-  export type EpisodioAtencionUpsertWithWhereUniqueWithoutPacienteInput = {
+  export type EpisodioAtencionUpsertWithWhereUniqueWithoutPersonaInput = {
     where: EpisodioAtencionWhereUniqueInput
-    update: XOR<EpisodioAtencionUpdateWithoutPacienteInput, EpisodioAtencionUncheckedUpdateWithoutPacienteInput>
-    create: XOR<EpisodioAtencionCreateWithoutPacienteInput, EpisodioAtencionUncheckedCreateWithoutPacienteInput>
+    update: XOR<EpisodioAtencionUpdateWithoutPersonaInput, EpisodioAtencionUncheckedUpdateWithoutPersonaInput>
+    create: XOR<EpisodioAtencionCreateWithoutPersonaInput, EpisodioAtencionUncheckedCreateWithoutPersonaInput>
   }
 
-  export type EpisodioAtencionUpdateWithWhereUniqueWithoutPacienteInput = {
+  export type EpisodioAtencionUpdateWithWhereUniqueWithoutPersonaInput = {
     where: EpisodioAtencionWhereUniqueInput
-    data: XOR<EpisodioAtencionUpdateWithoutPacienteInput, EpisodioAtencionUncheckedUpdateWithoutPacienteInput>
+    data: XOR<EpisodioAtencionUpdateWithoutPersonaInput, EpisodioAtencionUncheckedUpdateWithoutPersonaInput>
   }
 
-  export type EpisodioAtencionUpdateManyWithWhereWithoutPacienteInput = {
+  export type EpisodioAtencionUpdateManyWithWhereWithoutPersonaInput = {
     where: EpisodioAtencionScalarWhereInput
-    data: XOR<EpisodioAtencionUpdateManyMutationInput, EpisodioAtencionUncheckedUpdateManyWithoutPacienteInput>
+    data: XOR<EpisodioAtencionUpdateManyMutationInput, EpisodioAtencionUncheckedUpdateManyWithoutPersonaInput>
   }
 
   export type EpisodioAtencionScalarWhereInput = {
@@ -12489,27 +16020,64 @@ export namespace Prisma {
     OR?: EpisodioAtencionScalarWhereInput[]
     NOT?: EpisodioAtencionScalarWhereInput | EpisodioAtencionScalarWhereInput[]
     id?: IntFilter<"EpisodioAtencion"> | number
+    personaId?: IntFilter<"EpisodioAtencion"> | number
+    fechaApertura?: DateTimeFilter<"EpisodioAtencion"> | Date | string
     motivo?: StringFilter<"EpisodioAtencion"> | string
-    fecha?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    tipo?: StringFilter<"EpisodioAtencion"> | string
     estado?: StringFilter<"EpisodioAtencion"> | string
-    pacienteId?: IntFilter<"EpisodioAtencion"> | number
+    createdAt?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+    updatedAt?: DateTimeFilter<"EpisodioAtencion"> | Date | string
+  }
+
+  export type ConsentimientoUpsertWithWhereUniqueWithoutPersonaInput = {
+    where: ConsentimientoWhereUniqueInput
+    update: XOR<ConsentimientoUpdateWithoutPersonaInput, ConsentimientoUncheckedUpdateWithoutPersonaInput>
+    create: XOR<ConsentimientoCreateWithoutPersonaInput, ConsentimientoUncheckedCreateWithoutPersonaInput>
+  }
+
+  export type ConsentimientoUpdateWithWhereUniqueWithoutPersonaInput = {
+    where: ConsentimientoWhereUniqueInput
+    data: XOR<ConsentimientoUpdateWithoutPersonaInput, ConsentimientoUncheckedUpdateWithoutPersonaInput>
+  }
+
+  export type ConsentimientoUpdateManyWithWhereWithoutPersonaInput = {
+    where: ConsentimientoScalarWhereInput
+    data: XOR<ConsentimientoUpdateManyMutationInput, ConsentimientoUncheckedUpdateManyWithoutPersonaInput>
+  }
+
+  export type ConsentimientoScalarWhereInput = {
+    AND?: ConsentimientoScalarWhereInput | ConsentimientoScalarWhereInput[]
+    OR?: ConsentimientoScalarWhereInput[]
+    NOT?: ConsentimientoScalarWhereInput | ConsentimientoScalarWhereInput[]
+    id?: IntFilter<"Consentimiento"> | number
+    personaId?: IntFilter<"Consentimiento"> | number
+    tipoProcedimiento?: StringFilter<"Consentimiento"> | string
+    fecha?: DateTimeFilter<"Consentimiento"> | Date | string
+    metodo?: StringFilter<"Consentimiento"> | string
+    archivoId?: StringNullableFilter<"Consentimiento"> | string | null
+    createdAt?: DateTimeFilter<"Consentimiento"> | Date | string
+    updatedAt?: DateTimeFilter<"Consentimiento"> | Date | string
   }
 
   export type BloqueAgendaCreateWithoutProfesionalInput = {
-    fechaInicio: Date | string
-    fechaFin: Date | string
+    inicio: Date | string
+    fin: Date | string
     capacidad?: number
-    estado: string
-    unidad: UnidadAtencionCreateNestedOneWithoutBloquesAgendaInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    unidad: UnidadAtencionCreateNestedOneWithoutBloquesInput
   }
 
   export type BloqueAgendaUncheckedCreateWithoutProfesionalInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    capacidad?: number
-    estado: string
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    capacidad?: number
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BloqueAgendaCreateOrConnectWithoutProfesionalInput = {
@@ -12523,24 +16091,32 @@ export namespace Prisma {
   }
 
   export type CitaCreateWithoutProfesionalInput = {
-    fechaInicio: Date | string
-    fechaFin: Date | string
+    inicio: Date | string
+    fin: Date | string
     motivo: string
-    estado: string
     canal: string
-    paciente: PacienteCreateNestedOneWithoutCitasInput
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    persona: PersonaAtendidaCreateNestedOneWithoutCitasInput
     unidad: UnidadAtencionCreateNestedOneWithoutCitasInput
   }
 
   export type CitaUncheckedCreateWithoutProfesionalInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    motivo: string
-    estado: string
-    canal: string
-    pacienteId: number
+    personaId: number
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    motivo: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CitaCreateOrConnectWithoutProfesionalInput = {
@@ -12554,22 +16130,28 @@ export namespace Prisma {
   }
 
   export type NotaClinicaCreateWithoutProfesionalInput = {
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
     fecha?: Date | string
-    episodio: EpisodioAtencionCreateNestedOneWithoutNotasInput
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    episodio: EpisodioAtencionCreateNestedOneWithoutNotasClinicasInput
   }
 
   export type NotaClinicaUncheckedCreateWithoutProfesionalInput = {
     id?: number
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
-    fecha?: Date | string
     episodioId: number
+    fecha?: Date | string
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type NotaClinicaCreateOrConnectWithoutProfesionalInput = {
@@ -12603,12 +16185,14 @@ export namespace Prisma {
     OR?: BloqueAgendaScalarWhereInput[]
     NOT?: BloqueAgendaScalarWhereInput | BloqueAgendaScalarWhereInput[]
     id?: IntFilter<"BloqueAgenda"> | number
-    fechaInicio?: DateTimeFilter<"BloqueAgenda"> | Date | string
-    fechaFin?: DateTimeFilter<"BloqueAgenda"> | Date | string
-    capacidad?: IntFilter<"BloqueAgenda"> | number
-    estado?: StringFilter<"BloqueAgenda"> | string
     profesionalId?: IntFilter<"BloqueAgenda"> | number
     unidadId?: IntFilter<"BloqueAgenda"> | number
+    inicio?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    fin?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    capacidad?: IntFilter<"BloqueAgenda"> | number
+    estado?: StringFilter<"BloqueAgenda"> | string
+    createdAt?: DateTimeFilter<"BloqueAgenda"> | Date | string
+    updatedAt?: DateTimeFilter<"BloqueAgenda"> | Date | string
   }
 
   export type CitaUpsertWithWhereUniqueWithoutProfesionalInput = {
@@ -12648,30 +16232,37 @@ export namespace Prisma {
     OR?: NotaClinicaScalarWhereInput[]
     NOT?: NotaClinicaScalarWhereInput | NotaClinicaScalarWhereInput[]
     id?: IntFilter<"NotaClinica"> | number
-    subjetivo?: StringFilter<"NotaClinica"> | string
-    objetivo?: StringFilter<"NotaClinica"> | string
-    analisis?: StringFilter<"NotaClinica"> | string
-    plan?: StringFilter<"NotaClinica"> | string
-    fecha?: DateTimeFilter<"NotaClinica"> | Date | string
     episodioId?: IntFilter<"NotaClinica"> | number
     profesionalId?: IntFilter<"NotaClinica"> | number
+    fecha?: DateTimeFilter<"NotaClinica"> | Date | string
+    subjetivo?: StringNullableFilter<"NotaClinica"> | string | null
+    objetivo?: StringNullableFilter<"NotaClinica"> | string | null
+    analisis?: StringNullableFilter<"NotaClinica"> | string | null
+    plan?: StringNullableFilter<"NotaClinica"> | string | null
+    adjuntos?: StringNullableFilter<"NotaClinica"> | string | null
+    createdAt?: DateTimeFilter<"NotaClinica"> | Date | string
+    updatedAt?: DateTimeFilter<"NotaClinica"> | Date | string
   }
 
   export type BloqueAgendaCreateWithoutUnidadInput = {
-    fechaInicio: Date | string
-    fechaFin: Date | string
+    inicio: Date | string
+    fin: Date | string
     capacidad?: number
-    estado: string
-    profesional: ProfesionalCreateNestedOneWithoutBloquesAgendaInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profesional: ProfesionalCreateNestedOneWithoutBloquesInput
   }
 
   export type BloqueAgendaUncheckedCreateWithoutUnidadInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    capacidad?: number
-    estado: string
     profesionalId: number
+    inicio: Date | string
+    fin: Date | string
+    capacidad?: number
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BloqueAgendaCreateOrConnectWithoutUnidadInput = {
@@ -12685,24 +16276,32 @@ export namespace Prisma {
   }
 
   export type CitaCreateWithoutUnidadInput = {
-    fechaInicio: Date | string
-    fechaFin: Date | string
+    inicio: Date | string
+    fin: Date | string
     motivo: string
-    estado: string
     canal: string
-    paciente: PacienteCreateNestedOneWithoutCitasInput
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    persona: PersonaAtendidaCreateNestedOneWithoutCitasInput
     profesional: ProfesionalCreateNestedOneWithoutCitasInput
   }
 
   export type CitaUncheckedCreateWithoutUnidadInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    motivo: string
-    estado: string
-    canal: string
-    pacienteId: number
+    personaId: number
     profesionalId: number
+    inicio: Date | string
+    fin: Date | string
+    motivo: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CitaCreateOrConnectWithoutUnidadInput = {
@@ -12747,123 +16346,151 @@ export namespace Prisma {
     data: XOR<CitaUpdateManyMutationInput, CitaUncheckedUpdateManyWithoutUnidadInput>
   }
 
-  export type ProfesionalCreateWithoutBloquesAgendaInput = {
+  export type ProfesionalCreateWithoutBloquesInput = {
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     citas?: CitaCreateNestedManyWithoutProfesionalInput
-    notas?: NotaClinicaCreateNestedManyWithoutProfesionalInput
+    notasClinicas?: NotaClinicaCreateNestedManyWithoutProfesionalInput
   }
 
-  export type ProfesionalUncheckedCreateWithoutBloquesAgendaInput = {
+  export type ProfesionalUncheckedCreateWithoutBloquesInput = {
     id?: number
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     citas?: CitaUncheckedCreateNestedManyWithoutProfesionalInput
-    notas?: NotaClinicaUncheckedCreateNestedManyWithoutProfesionalInput
+    notasClinicas?: NotaClinicaUncheckedCreateNestedManyWithoutProfesionalInput
   }
 
-  export type ProfesionalCreateOrConnectWithoutBloquesAgendaInput = {
+  export type ProfesionalCreateOrConnectWithoutBloquesInput = {
     where: ProfesionalWhereUniqueInput
-    create: XOR<ProfesionalCreateWithoutBloquesAgendaInput, ProfesionalUncheckedCreateWithoutBloquesAgendaInput>
+    create: XOR<ProfesionalCreateWithoutBloquesInput, ProfesionalUncheckedCreateWithoutBloquesInput>
   }
 
-  export type UnidadAtencionCreateWithoutBloquesAgendaInput = {
+  export type UnidadAtencionCreateWithoutBloquesInput = {
     nombre: string
     tipo: string
-    direccion: string
-    estado?: boolean
+    direccion?: string | null
+    telefono?: string | null
+    horarioReferencia?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     citas?: CitaCreateNestedManyWithoutUnidadInput
   }
 
-  export type UnidadAtencionUncheckedCreateWithoutBloquesAgendaInput = {
+  export type UnidadAtencionUncheckedCreateWithoutBloquesInput = {
     id?: number
     nombre: string
     tipo: string
-    direccion: string
-    estado?: boolean
+    direccion?: string | null
+    telefono?: string | null
+    horarioReferencia?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     citas?: CitaUncheckedCreateNestedManyWithoutUnidadInput
   }
 
-  export type UnidadAtencionCreateOrConnectWithoutBloquesAgendaInput = {
+  export type UnidadAtencionCreateOrConnectWithoutBloquesInput = {
     where: UnidadAtencionWhereUniqueInput
-    create: XOR<UnidadAtencionCreateWithoutBloquesAgendaInput, UnidadAtencionUncheckedCreateWithoutBloquesAgendaInput>
+    create: XOR<UnidadAtencionCreateWithoutBloquesInput, UnidadAtencionUncheckedCreateWithoutBloquesInput>
   }
 
-  export type ProfesionalUpsertWithoutBloquesAgendaInput = {
-    update: XOR<ProfesionalUpdateWithoutBloquesAgendaInput, ProfesionalUncheckedUpdateWithoutBloquesAgendaInput>
-    create: XOR<ProfesionalCreateWithoutBloquesAgendaInput, ProfesionalUncheckedCreateWithoutBloquesAgendaInput>
+  export type ProfesionalUpsertWithoutBloquesInput = {
+    update: XOR<ProfesionalUpdateWithoutBloquesInput, ProfesionalUncheckedUpdateWithoutBloquesInput>
+    create: XOR<ProfesionalCreateWithoutBloquesInput, ProfesionalUncheckedCreateWithoutBloquesInput>
     where?: ProfesionalWhereInput
   }
 
-  export type ProfesionalUpdateToOneWithWhereWithoutBloquesAgendaInput = {
+  export type ProfesionalUpdateToOneWithWhereWithoutBloquesInput = {
     where?: ProfesionalWhereInput
-    data: XOR<ProfesionalUpdateWithoutBloquesAgendaInput, ProfesionalUncheckedUpdateWithoutBloquesAgendaInput>
+    data: XOR<ProfesionalUpdateWithoutBloquesInput, ProfesionalUncheckedUpdateWithoutBloquesInput>
   }
 
-  export type ProfesionalUpdateWithoutBloquesAgendaInput = {
+  export type ProfesionalUpdateWithoutBloquesInput = {
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citas?: CitaUpdateManyWithoutProfesionalNestedInput
-    notas?: NotaClinicaUpdateManyWithoutProfesionalNestedInput
+    notasClinicas?: NotaClinicaUpdateManyWithoutProfesionalNestedInput
   }
 
-  export type ProfesionalUncheckedUpdateWithoutBloquesAgendaInput = {
+  export type ProfesionalUncheckedUpdateWithoutBloquesInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citas?: CitaUncheckedUpdateManyWithoutProfesionalNestedInput
-    notas?: NotaClinicaUncheckedUpdateManyWithoutProfesionalNestedInput
+    notasClinicas?: NotaClinicaUncheckedUpdateManyWithoutProfesionalNestedInput
   }
 
-  export type UnidadAtencionUpsertWithoutBloquesAgendaInput = {
-    update: XOR<UnidadAtencionUpdateWithoutBloquesAgendaInput, UnidadAtencionUncheckedUpdateWithoutBloquesAgendaInput>
-    create: XOR<UnidadAtencionCreateWithoutBloquesAgendaInput, UnidadAtencionUncheckedCreateWithoutBloquesAgendaInput>
+  export type UnidadAtencionUpsertWithoutBloquesInput = {
+    update: XOR<UnidadAtencionUpdateWithoutBloquesInput, UnidadAtencionUncheckedUpdateWithoutBloquesInput>
+    create: XOR<UnidadAtencionCreateWithoutBloquesInput, UnidadAtencionUncheckedCreateWithoutBloquesInput>
     where?: UnidadAtencionWhereInput
   }
 
-  export type UnidadAtencionUpdateToOneWithWhereWithoutBloquesAgendaInput = {
+  export type UnidadAtencionUpdateToOneWithWhereWithoutBloquesInput = {
     where?: UnidadAtencionWhereInput
-    data: XOR<UnidadAtencionUpdateWithoutBloquesAgendaInput, UnidadAtencionUncheckedUpdateWithoutBloquesAgendaInput>
+    data: XOR<UnidadAtencionUpdateWithoutBloquesInput, UnidadAtencionUncheckedUpdateWithoutBloquesInput>
   }
 
-  export type UnidadAtencionUpdateWithoutBloquesAgendaInput = {
+  export type UnidadAtencionUpdateWithoutBloquesInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citas?: CitaUpdateManyWithoutUnidadNestedInput
   }
 
-  export type UnidadAtencionUncheckedUpdateWithoutBloquesAgendaInput = {
+  export type UnidadAtencionUncheckedUpdateWithoutBloquesInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citas?: CitaUncheckedUpdateManyWithoutUnidadNestedInput
   }
 
-  export type PacienteCreateWithoutCitasInput = {
+  export type PersonaAtendidaCreateWithoutCitasInput = {
     tipoDocumento: string
     numeroDocumento: string
     nombres: string
@@ -12871,15 +16498,19 @@ export namespace Prisma {
     fechaNacimiento: Date | string
     sexo: string
     correo?: string | null
-    telefono: string
+    telefono?: string | null
     direccion?: string | null
-    estado?: boolean
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    episodios?: EpisodioAtencionCreateNestedManyWithoutPacienteInput
+    episodios?: EpisodioAtencionCreateNestedManyWithoutPersonaInput
+    consentimientos?: ConsentimientoCreateNestedManyWithoutPersonaInput
   }
 
-  export type PacienteUncheckedCreateWithoutCitasInput = {
+  export type PersonaAtendidaUncheckedCreateWithoutCitasInput = {
     id?: number
     tipoDocumento: string
     numeroDocumento: string
@@ -12888,42 +16519,52 @@ export namespace Prisma {
     fechaNacimiento: Date | string
     sexo: string
     correo?: string | null
-    telefono: string
+    telefono?: string | null
     direccion?: string | null
-    estado?: boolean
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    episodios?: EpisodioAtencionUncheckedCreateNestedManyWithoutPacienteInput
+    episodios?: EpisodioAtencionUncheckedCreateNestedManyWithoutPersonaInput
+    consentimientos?: ConsentimientoUncheckedCreateNestedManyWithoutPersonaInput
   }
 
-  export type PacienteCreateOrConnectWithoutCitasInput = {
-    where: PacienteWhereUniqueInput
-    create: XOR<PacienteCreateWithoutCitasInput, PacienteUncheckedCreateWithoutCitasInput>
+  export type PersonaAtendidaCreateOrConnectWithoutCitasInput = {
+    where: PersonaAtendidaWhereUniqueInput
+    create: XOR<PersonaAtendidaCreateWithoutCitasInput, PersonaAtendidaUncheckedCreateWithoutCitasInput>
   }
 
   export type ProfesionalCreateWithoutCitasInput = {
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
-    bloquesAgenda?: BloqueAgendaCreateNestedManyWithoutProfesionalInput
-    notas?: NotaClinicaCreateNestedManyWithoutProfesionalInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaCreateNestedManyWithoutProfesionalInput
+    notasClinicas?: NotaClinicaCreateNestedManyWithoutProfesionalInput
   }
 
   export type ProfesionalUncheckedCreateWithoutCitasInput = {
     id?: number
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
-    bloquesAgenda?: BloqueAgendaUncheckedCreateNestedManyWithoutProfesionalInput
-    notas?: NotaClinicaUncheckedCreateNestedManyWithoutProfesionalInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaUncheckedCreateNestedManyWithoutProfesionalInput
+    notasClinicas?: NotaClinicaUncheckedCreateNestedManyWithoutProfesionalInput
   }
 
   export type ProfesionalCreateOrConnectWithoutCitasInput = {
@@ -12934,18 +16575,26 @@ export namespace Prisma {
   export type UnidadAtencionCreateWithoutCitasInput = {
     nombre: string
     tipo: string
-    direccion: string
-    estado?: boolean
-    bloquesAgenda?: BloqueAgendaCreateNestedManyWithoutUnidadInput
+    direccion?: string | null
+    telefono?: string | null
+    horarioReferencia?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaCreateNestedManyWithoutUnidadInput
   }
 
   export type UnidadAtencionUncheckedCreateWithoutCitasInput = {
     id?: number
     nombre: string
     tipo: string
-    direccion: string
-    estado?: boolean
-    bloquesAgenda?: BloqueAgendaUncheckedCreateNestedManyWithoutUnidadInput
+    direccion?: string | null
+    telefono?: string | null
+    horarioReferencia?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaUncheckedCreateNestedManyWithoutUnidadInput
   }
 
   export type UnidadAtencionCreateOrConnectWithoutCitasInput = {
@@ -12953,18 +16602,18 @@ export namespace Prisma {
     create: XOR<UnidadAtencionCreateWithoutCitasInput, UnidadAtencionUncheckedCreateWithoutCitasInput>
   }
 
-  export type PacienteUpsertWithoutCitasInput = {
-    update: XOR<PacienteUpdateWithoutCitasInput, PacienteUncheckedUpdateWithoutCitasInput>
-    create: XOR<PacienteCreateWithoutCitasInput, PacienteUncheckedCreateWithoutCitasInput>
-    where?: PacienteWhereInput
+  export type PersonaAtendidaUpsertWithoutCitasInput = {
+    update: XOR<PersonaAtendidaUpdateWithoutCitasInput, PersonaAtendidaUncheckedUpdateWithoutCitasInput>
+    create: XOR<PersonaAtendidaCreateWithoutCitasInput, PersonaAtendidaUncheckedCreateWithoutCitasInput>
+    where?: PersonaAtendidaWhereInput
   }
 
-  export type PacienteUpdateToOneWithWhereWithoutCitasInput = {
-    where?: PacienteWhereInput
-    data: XOR<PacienteUpdateWithoutCitasInput, PacienteUncheckedUpdateWithoutCitasInput>
+  export type PersonaAtendidaUpdateToOneWithWhereWithoutCitasInput = {
+    where?: PersonaAtendidaWhereInput
+    data: XOR<PersonaAtendidaUpdateWithoutCitasInput, PersonaAtendidaUncheckedUpdateWithoutCitasInput>
   }
 
-  export type PacienteUpdateWithoutCitasInput = {
+  export type PersonaAtendidaUpdateWithoutCitasInput = {
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
     nombres?: StringFieldUpdateOperationsInput | string
@@ -12972,15 +16621,19 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    episodios?: EpisodioAtencionUpdateManyWithoutPacienteNestedInput
+    episodios?: EpisodioAtencionUpdateManyWithoutPersonaNestedInput
+    consentimientos?: ConsentimientoUpdateManyWithoutPersonaNestedInput
   }
 
-  export type PacienteUncheckedUpdateWithoutCitasInput = {
+  export type PersonaAtendidaUncheckedUpdateWithoutCitasInput = {
     id?: IntFieldUpdateOperationsInput | number
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
@@ -12989,12 +16642,16 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    episodios?: EpisodioAtencionUncheckedUpdateManyWithoutPacienteNestedInput
+    episodios?: EpisodioAtencionUncheckedUpdateManyWithoutPersonaNestedInput
+    consentimientos?: ConsentimientoUncheckedUpdateManyWithoutPersonaNestedInput
   }
 
   export type ProfesionalUpsertWithoutCitasInput = {
@@ -13011,26 +16668,32 @@ export namespace Prisma {
   export type ProfesionalUpdateWithoutCitasInput = {
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUpdateManyWithoutProfesionalNestedInput
-    notas?: NotaClinicaUpdateManyWithoutProfesionalNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUpdateManyWithoutProfesionalNestedInput
+    notasClinicas?: NotaClinicaUpdateManyWithoutProfesionalNestedInput
   }
 
   export type ProfesionalUncheckedUpdateWithoutCitasInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUncheckedUpdateManyWithoutProfesionalNestedInput
-    notas?: NotaClinicaUncheckedUpdateManyWithoutProfesionalNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUncheckedUpdateManyWithoutProfesionalNestedInput
+    notasClinicas?: NotaClinicaUncheckedUpdateManyWithoutProfesionalNestedInput
   }
 
   export type UnidadAtencionUpsertWithoutCitasInput = {
@@ -13047,21 +16710,29 @@ export namespace Prisma {
   export type UnidadAtencionUpdateWithoutCitasInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUpdateManyWithoutUnidadNestedInput
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUpdateManyWithoutUnidadNestedInput
   }
 
   export type UnidadAtencionUncheckedUpdateWithoutCitasInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    direccion?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUncheckedUpdateManyWithoutUnidadNestedInput
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    horarioReferencia?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUncheckedUpdateManyWithoutUnidadNestedInput
   }
 
-  export type PacienteCreateWithoutEpisodiosInput = {
+  export type PersonaAtendidaCreateWithoutEpisodiosInput = {
     tipoDocumento: string
     numeroDocumento: string
     nombres: string
@@ -13069,15 +16740,19 @@ export namespace Prisma {
     fechaNacimiento: Date | string
     sexo: string
     correo?: string | null
-    telefono: string
+    telefono?: string | null
     direccion?: string | null
-    estado?: boolean
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    citas?: CitaCreateNestedManyWithoutPacienteInput
+    citas?: CitaCreateNestedManyWithoutPersonaInput
+    consentimientos?: ConsentimientoCreateNestedManyWithoutPersonaInput
   }
 
-  export type PacienteUncheckedCreateWithoutEpisodiosInput = {
+  export type PersonaAtendidaUncheckedCreateWithoutEpisodiosInput = {
     id?: number
     tipoDocumento: string
     numeroDocumento: string
@@ -13086,36 +16761,46 @@ export namespace Prisma {
     fechaNacimiento: Date | string
     sexo: string
     correo?: string | null
-    telefono: string
+    telefono?: string | null
     direccion?: string | null
-    estado?: boolean
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    citas?: CitaUncheckedCreateNestedManyWithoutPacienteInput
+    citas?: CitaUncheckedCreateNestedManyWithoutPersonaInput
+    consentimientos?: ConsentimientoUncheckedCreateNestedManyWithoutPersonaInput
   }
 
-  export type PacienteCreateOrConnectWithoutEpisodiosInput = {
-    where: PacienteWhereUniqueInput
-    create: XOR<PacienteCreateWithoutEpisodiosInput, PacienteUncheckedCreateWithoutEpisodiosInput>
+  export type PersonaAtendidaCreateOrConnectWithoutEpisodiosInput = {
+    where: PersonaAtendidaWhereUniqueInput
+    create: XOR<PersonaAtendidaCreateWithoutEpisodiosInput, PersonaAtendidaUncheckedCreateWithoutEpisodiosInput>
   }
 
   export type NotaClinicaCreateWithoutEpisodioInput = {
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
     fecha?: Date | string
-    profesional: ProfesionalCreateNestedOneWithoutNotasInput
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profesional: ProfesionalCreateNestedOneWithoutNotasClinicasInput
   }
 
   export type NotaClinicaUncheckedCreateWithoutEpisodioInput = {
     id?: number
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
-    fecha?: Date | string
     profesionalId: number
+    fecha?: Date | string
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type NotaClinicaCreateOrConnectWithoutEpisodioInput = {
@@ -13128,18 +16813,47 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PacienteUpsertWithoutEpisodiosInput = {
-    update: XOR<PacienteUpdateWithoutEpisodiosInput, PacienteUncheckedUpdateWithoutEpisodiosInput>
-    create: XOR<PacienteCreateWithoutEpisodiosInput, PacienteUncheckedCreateWithoutEpisodiosInput>
-    where?: PacienteWhereInput
+  export type DiagnosticoCreateWithoutEpisodioInput = {
+    codigo: string
+    descripcion: string
+    tipo: string
+    principal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type PacienteUpdateToOneWithWhereWithoutEpisodiosInput = {
-    where?: PacienteWhereInput
-    data: XOR<PacienteUpdateWithoutEpisodiosInput, PacienteUncheckedUpdateWithoutEpisodiosInput>
+  export type DiagnosticoUncheckedCreateWithoutEpisodioInput = {
+    id?: number
+    codigo: string
+    descripcion: string
+    tipo: string
+    principal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type PacienteUpdateWithoutEpisodiosInput = {
+  export type DiagnosticoCreateOrConnectWithoutEpisodioInput = {
+    where: DiagnosticoWhereUniqueInput
+    create: XOR<DiagnosticoCreateWithoutEpisodioInput, DiagnosticoUncheckedCreateWithoutEpisodioInput>
+  }
+
+  export type DiagnosticoCreateManyEpisodioInputEnvelope = {
+    data: DiagnosticoCreateManyEpisodioInput | DiagnosticoCreateManyEpisodioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PersonaAtendidaUpsertWithoutEpisodiosInput = {
+    update: XOR<PersonaAtendidaUpdateWithoutEpisodiosInput, PersonaAtendidaUncheckedUpdateWithoutEpisodiosInput>
+    create: XOR<PersonaAtendidaCreateWithoutEpisodiosInput, PersonaAtendidaUncheckedCreateWithoutEpisodiosInput>
+    where?: PersonaAtendidaWhereInput
+  }
+
+  export type PersonaAtendidaUpdateToOneWithWhereWithoutEpisodiosInput = {
+    where?: PersonaAtendidaWhereInput
+    data: XOR<PersonaAtendidaUpdateWithoutEpisodiosInput, PersonaAtendidaUncheckedUpdateWithoutEpisodiosInput>
+  }
+
+  export type PersonaAtendidaUpdateWithoutEpisodiosInput = {
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
     nombres?: StringFieldUpdateOperationsInput | string
@@ -13147,15 +16861,19 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    citas?: CitaUpdateManyWithoutPacienteNestedInput
+    citas?: CitaUpdateManyWithoutPersonaNestedInput
+    consentimientos?: ConsentimientoUpdateManyWithoutPersonaNestedInput
   }
 
-  export type PacienteUncheckedUpdateWithoutEpisodiosInput = {
+  export type PersonaAtendidaUncheckedUpdateWithoutEpisodiosInput = {
     id?: IntFieldUpdateOperationsInput | number
     tipoDocumento?: StringFieldUpdateOperationsInput | string
     numeroDocumento?: StringFieldUpdateOperationsInput | string
@@ -13164,12 +16882,16 @@ export namespace Prisma {
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     sexo?: StringFieldUpdateOperationsInput | string
     correo?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: StringFieldUpdateOperationsInput | string
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    citas?: CitaUncheckedUpdateManyWithoutPacienteNestedInput
+    citas?: CitaUncheckedUpdateManyWithoutPersonaNestedInput
+    consentimientos?: ConsentimientoUncheckedUpdateManyWithoutPersonaNestedInput
   }
 
   export type NotaClinicaUpsertWithWhereUniqueWithoutEpisodioInput = {
@@ -13188,422 +16910,820 @@ export namespace Prisma {
     data: XOR<NotaClinicaUpdateManyMutationInput, NotaClinicaUncheckedUpdateManyWithoutEpisodioInput>
   }
 
-  export type EpisodioAtencionCreateWithoutNotasInput = {
-    motivo: string
-    fecha?: Date | string
-    estado: string
-    paciente: PacienteCreateNestedOneWithoutEpisodiosInput
+  export type DiagnosticoUpsertWithWhereUniqueWithoutEpisodioInput = {
+    where: DiagnosticoWhereUniqueInput
+    update: XOR<DiagnosticoUpdateWithoutEpisodioInput, DiagnosticoUncheckedUpdateWithoutEpisodioInput>
+    create: XOR<DiagnosticoCreateWithoutEpisodioInput, DiagnosticoUncheckedCreateWithoutEpisodioInput>
   }
 
-  export type EpisodioAtencionUncheckedCreateWithoutNotasInput = {
+  export type DiagnosticoUpdateWithWhereUniqueWithoutEpisodioInput = {
+    where: DiagnosticoWhereUniqueInput
+    data: XOR<DiagnosticoUpdateWithoutEpisodioInput, DiagnosticoUncheckedUpdateWithoutEpisodioInput>
+  }
+
+  export type DiagnosticoUpdateManyWithWhereWithoutEpisodioInput = {
+    where: DiagnosticoScalarWhereInput
+    data: XOR<DiagnosticoUpdateManyMutationInput, DiagnosticoUncheckedUpdateManyWithoutEpisodioInput>
+  }
+
+  export type DiagnosticoScalarWhereInput = {
+    AND?: DiagnosticoScalarWhereInput | DiagnosticoScalarWhereInput[]
+    OR?: DiagnosticoScalarWhereInput[]
+    NOT?: DiagnosticoScalarWhereInput | DiagnosticoScalarWhereInput[]
+    id?: IntFilter<"Diagnostico"> | number
+    episodioId?: IntFilter<"Diagnostico"> | number
+    codigo?: StringFilter<"Diagnostico"> | string
+    descripcion?: StringFilter<"Diagnostico"> | string
+    tipo?: StringFilter<"Diagnostico"> | string
+    principal?: BoolFilter<"Diagnostico"> | boolean
+    createdAt?: DateTimeFilter<"Diagnostico"> | Date | string
+    updatedAt?: DateTimeFilter<"Diagnostico"> | Date | string
+  }
+
+  export type EpisodioAtencionCreateWithoutNotasClinicasInput = {
+    fechaApertura?: Date | string
+    motivo: string
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    persona: PersonaAtendidaCreateNestedOneWithoutEpisodiosInput
+    diagnosticos?: DiagnosticoCreateNestedManyWithoutEpisodioInput
+  }
+
+  export type EpisodioAtencionUncheckedCreateWithoutNotasClinicasInput = {
     id?: number
+    personaId: number
+    fechaApertura?: Date | string
     motivo: string
-    fecha?: Date | string
-    estado: string
-    pacienteId: number
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diagnosticos?: DiagnosticoUncheckedCreateNestedManyWithoutEpisodioInput
   }
 
-  export type EpisodioAtencionCreateOrConnectWithoutNotasInput = {
+  export type EpisodioAtencionCreateOrConnectWithoutNotasClinicasInput = {
     where: EpisodioAtencionWhereUniqueInput
-    create: XOR<EpisodioAtencionCreateWithoutNotasInput, EpisodioAtencionUncheckedCreateWithoutNotasInput>
+    create: XOR<EpisodioAtencionCreateWithoutNotasClinicasInput, EpisodioAtencionUncheckedCreateWithoutNotasClinicasInput>
   }
 
-  export type ProfesionalCreateWithoutNotasInput = {
+  export type ProfesionalCreateWithoutNotasClinicasInput = {
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
-    bloquesAgenda?: BloqueAgendaCreateNestedManyWithoutProfesionalInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaCreateNestedManyWithoutProfesionalInput
     citas?: CitaCreateNestedManyWithoutProfesionalInput
   }
 
-  export type ProfesionalUncheckedCreateWithoutNotasInput = {
+  export type ProfesionalUncheckedCreateWithoutNotasClinicasInput = {
     id?: number
     nombres: string
     apellidos: string
-    registroMedico: string
+    registroProfesional: string
     especialidad: string
-    correo: string
+    correo?: string | null
     telefono?: string | null
     agendaHabilitada?: boolean
-    bloquesAgenda?: BloqueAgendaUncheckedCreateNestedManyWithoutProfesionalInput
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bloques?: BloqueAgendaUncheckedCreateNestedManyWithoutProfesionalInput
     citas?: CitaUncheckedCreateNestedManyWithoutProfesionalInput
   }
 
-  export type ProfesionalCreateOrConnectWithoutNotasInput = {
+  export type ProfesionalCreateOrConnectWithoutNotasClinicasInput = {
     where: ProfesionalWhereUniqueInput
-    create: XOR<ProfesionalCreateWithoutNotasInput, ProfesionalUncheckedCreateWithoutNotasInput>
+    create: XOR<ProfesionalCreateWithoutNotasClinicasInput, ProfesionalUncheckedCreateWithoutNotasClinicasInput>
   }
 
-  export type EpisodioAtencionUpsertWithoutNotasInput = {
-    update: XOR<EpisodioAtencionUpdateWithoutNotasInput, EpisodioAtencionUncheckedUpdateWithoutNotasInput>
-    create: XOR<EpisodioAtencionCreateWithoutNotasInput, EpisodioAtencionUncheckedCreateWithoutNotasInput>
+  export type EpisodioAtencionUpsertWithoutNotasClinicasInput = {
+    update: XOR<EpisodioAtencionUpdateWithoutNotasClinicasInput, EpisodioAtencionUncheckedUpdateWithoutNotasClinicasInput>
+    create: XOR<EpisodioAtencionCreateWithoutNotasClinicasInput, EpisodioAtencionUncheckedCreateWithoutNotasClinicasInput>
     where?: EpisodioAtencionWhereInput
   }
 
-  export type EpisodioAtencionUpdateToOneWithWhereWithoutNotasInput = {
+  export type EpisodioAtencionUpdateToOneWithWhereWithoutNotasClinicasInput = {
     where?: EpisodioAtencionWhereInput
-    data: XOR<EpisodioAtencionUpdateWithoutNotasInput, EpisodioAtencionUncheckedUpdateWithoutNotasInput>
+    data: XOR<EpisodioAtencionUpdateWithoutNotasClinicasInput, EpisodioAtencionUncheckedUpdateWithoutNotasClinicasInput>
   }
 
-  export type EpisodioAtencionUpdateWithoutNotasInput = {
+  export type EpisodioAtencionUpdateWithoutNotasClinicasInput = {
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
-    paciente?: PacienteUpdateOneRequiredWithoutEpisodiosNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    persona?: PersonaAtendidaUpdateOneRequiredWithoutEpisodiosNestedInput
+    diagnosticos?: DiagnosticoUpdateManyWithoutEpisodioNestedInput
   }
 
-  export type EpisodioAtencionUncheckedUpdateWithoutNotasInput = {
+  export type EpisodioAtencionUncheckedUpdateWithoutNotasClinicasInput = {
     id?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diagnosticos?: DiagnosticoUncheckedUpdateManyWithoutEpisodioNestedInput
   }
 
-  export type ProfesionalUpsertWithoutNotasInput = {
-    update: XOR<ProfesionalUpdateWithoutNotasInput, ProfesionalUncheckedUpdateWithoutNotasInput>
-    create: XOR<ProfesionalCreateWithoutNotasInput, ProfesionalUncheckedCreateWithoutNotasInput>
+  export type ProfesionalUpsertWithoutNotasClinicasInput = {
+    update: XOR<ProfesionalUpdateWithoutNotasClinicasInput, ProfesionalUncheckedUpdateWithoutNotasClinicasInput>
+    create: XOR<ProfesionalCreateWithoutNotasClinicasInput, ProfesionalUncheckedCreateWithoutNotasClinicasInput>
     where?: ProfesionalWhereInput
   }
 
-  export type ProfesionalUpdateToOneWithWhereWithoutNotasInput = {
+  export type ProfesionalUpdateToOneWithWhereWithoutNotasClinicasInput = {
     where?: ProfesionalWhereInput
-    data: XOR<ProfesionalUpdateWithoutNotasInput, ProfesionalUncheckedUpdateWithoutNotasInput>
+    data: XOR<ProfesionalUpdateWithoutNotasClinicasInput, ProfesionalUncheckedUpdateWithoutNotasClinicasInput>
   }
 
-  export type ProfesionalUpdateWithoutNotasInput = {
+  export type ProfesionalUpdateWithoutNotasClinicasInput = {
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUpdateManyWithoutProfesionalNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUpdateManyWithoutProfesionalNestedInput
     citas?: CitaUpdateManyWithoutProfesionalNestedInput
   }
 
-  export type ProfesionalUncheckedUpdateWithoutNotasInput = {
+  export type ProfesionalUncheckedUpdateWithoutNotasClinicasInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombres?: StringFieldUpdateOperationsInput | string
     apellidos?: StringFieldUpdateOperationsInput | string
-    registroMedico?: StringFieldUpdateOperationsInput | string
+    registroProfesional?: StringFieldUpdateOperationsInput | string
     especialidad?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     agendaHabilitada?: BoolFieldUpdateOperationsInput | boolean
-    bloquesAgenda?: BloqueAgendaUncheckedUpdateManyWithoutProfesionalNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloques?: BloqueAgendaUncheckedUpdateManyWithoutProfesionalNestedInput
     citas?: CitaUncheckedUpdateManyWithoutProfesionalNestedInput
   }
 
-  export type CitaCreateManyPacienteInput = {
-    id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
+  export type EpisodioAtencionCreateWithoutDiagnosticosInput = {
+    fechaApertura?: Date | string
     motivo: string
-    estado: string
-    canal: string
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    persona: PersonaAtendidaCreateNestedOneWithoutEpisodiosInput
+    notasClinicas?: NotaClinicaCreateNestedManyWithoutEpisodioInput
+  }
+
+  export type EpisodioAtencionUncheckedCreateWithoutDiagnosticosInput = {
+    id?: number
+    personaId: number
+    fechaApertura?: Date | string
+    motivo: string
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    notasClinicas?: NotaClinicaUncheckedCreateNestedManyWithoutEpisodioInput
+  }
+
+  export type EpisodioAtencionCreateOrConnectWithoutDiagnosticosInput = {
+    where: EpisodioAtencionWhereUniqueInput
+    create: XOR<EpisodioAtencionCreateWithoutDiagnosticosInput, EpisodioAtencionUncheckedCreateWithoutDiagnosticosInput>
+  }
+
+  export type EpisodioAtencionUpsertWithoutDiagnosticosInput = {
+    update: XOR<EpisodioAtencionUpdateWithoutDiagnosticosInput, EpisodioAtencionUncheckedUpdateWithoutDiagnosticosInput>
+    create: XOR<EpisodioAtencionCreateWithoutDiagnosticosInput, EpisodioAtencionUncheckedCreateWithoutDiagnosticosInput>
+    where?: EpisodioAtencionWhereInput
+  }
+
+  export type EpisodioAtencionUpdateToOneWithWhereWithoutDiagnosticosInput = {
+    where?: EpisodioAtencionWhereInput
+    data: XOR<EpisodioAtencionUpdateWithoutDiagnosticosInput, EpisodioAtencionUncheckedUpdateWithoutDiagnosticosInput>
+  }
+
+  export type EpisodioAtencionUpdateWithoutDiagnosticosInput = {
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    persona?: PersonaAtendidaUpdateOneRequiredWithoutEpisodiosNestedInput
+    notasClinicas?: NotaClinicaUpdateManyWithoutEpisodioNestedInput
+  }
+
+  export type EpisodioAtencionUncheckedUpdateWithoutDiagnosticosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notasClinicas?: NotaClinicaUncheckedUpdateManyWithoutEpisodioNestedInput
+  }
+
+  export type PersonaAtendidaCreateWithoutConsentimientosInput = {
+    tipoDocumento: string
+    numeroDocumento: string
+    nombres: string
+    apellidos: string
+    fechaNacimiento: Date | string
+    sexo: string
+    correo?: string | null
+    telefono?: string | null
+    direccion?: string | null
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    citas?: CitaCreateNestedManyWithoutPersonaInput
+    episodios?: EpisodioAtencionCreateNestedManyWithoutPersonaInput
+  }
+
+  export type PersonaAtendidaUncheckedCreateWithoutConsentimientosInput = {
+    id?: number
+    tipoDocumento: string
+    numeroDocumento: string
+    nombres: string
+    apellidos: string
+    fechaNacimiento: Date | string
+    sexo: string
+    correo?: string | null
+    telefono?: string | null
+    direccion?: string | null
+    contactoEmergencia?: string | null
+    alergias?: string | null
+    antecedentesResumen?: string | null
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    citas?: CitaUncheckedCreateNestedManyWithoutPersonaInput
+    episodios?: EpisodioAtencionUncheckedCreateNestedManyWithoutPersonaInput
+  }
+
+  export type PersonaAtendidaCreateOrConnectWithoutConsentimientosInput = {
+    where: PersonaAtendidaWhereUniqueInput
+    create: XOR<PersonaAtendidaCreateWithoutConsentimientosInput, PersonaAtendidaUncheckedCreateWithoutConsentimientosInput>
+  }
+
+  export type PersonaAtendidaUpsertWithoutConsentimientosInput = {
+    update: XOR<PersonaAtendidaUpdateWithoutConsentimientosInput, PersonaAtendidaUncheckedUpdateWithoutConsentimientosInput>
+    create: XOR<PersonaAtendidaCreateWithoutConsentimientosInput, PersonaAtendidaUncheckedCreateWithoutConsentimientosInput>
+    where?: PersonaAtendidaWhereInput
+  }
+
+  export type PersonaAtendidaUpdateToOneWithWhereWithoutConsentimientosInput = {
+    where?: PersonaAtendidaWhereInput
+    data: XOR<PersonaAtendidaUpdateWithoutConsentimientosInput, PersonaAtendidaUncheckedUpdateWithoutConsentimientosInput>
+  }
+
+  export type PersonaAtendidaUpdateWithoutConsentimientosInput = {
+    tipoDocumento?: StringFieldUpdateOperationsInput | string
+    numeroDocumento?: StringFieldUpdateOperationsInput | string
+    nombres?: StringFieldUpdateOperationsInput | string
+    apellidos?: StringFieldUpdateOperationsInput | string
+    fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
+    sexo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    citas?: CitaUpdateManyWithoutPersonaNestedInput
+    episodios?: EpisodioAtencionUpdateManyWithoutPersonaNestedInput
+  }
+
+  export type PersonaAtendidaUncheckedUpdateWithoutConsentimientosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tipoDocumento?: StringFieldUpdateOperationsInput | string
+    numeroDocumento?: StringFieldUpdateOperationsInput | string
+    nombres?: StringFieldUpdateOperationsInput | string
+    apellidos?: StringFieldUpdateOperationsInput | string
+    fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
+    sexo?: StringFieldUpdateOperationsInput | string
+    correo?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    contactoEmergencia?: NullableStringFieldUpdateOperationsInput | string | null
+    alergias?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedentesResumen?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    citas?: CitaUncheckedUpdateManyWithoutPersonaNestedInput
+    episodios?: EpisodioAtencionUncheckedUpdateManyWithoutPersonaNestedInput
+  }
+
+  export type CitaCreateManyPersonaInput = {
+    id?: number
     profesionalId: number
     unidadId: number
-  }
-
-  export type EpisodioAtencionCreateManyPacienteInput = {
-    id?: number
+    inicio: Date | string
+    fin: Date | string
     motivo: string
-    fecha?: Date | string
-    estado: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type CitaUpdateWithoutPacienteInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type EpisodioAtencionCreateManyPersonaInput = {
+    id?: number
+    fechaApertura?: Date | string
+    motivo: string
+    tipo: string
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConsentimientoCreateManyPersonaInput = {
+    id?: number
+    tipoProcedimiento: string
+    fecha?: Date | string
+    metodo: string
+    archivoId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CitaUpdateWithoutPersonaInput = {
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
     canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profesional?: ProfesionalUpdateOneRequiredWithoutCitasNestedInput
     unidad?: UnidadAtencionUpdateOneRequiredWithoutCitasNestedInput
   }
 
-  export type CitaUncheckedUpdateWithoutPacienteInput = {
+  export type CitaUncheckedUpdateWithoutPersonaInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
     profesionalId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CitaUncheckedUpdateManyWithoutPacienteInput = {
+  export type CitaUncheckedUpdateManyWithoutPersonaInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
     profesionalId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type EpisodioAtencionUpdateWithoutPacienteInput = {
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    canal?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
-    notas?: NotaClinicaUpdateManyWithoutEpisodioNestedInput
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EpisodioAtencionUncheckedUpdateWithoutPacienteInput = {
+  export type EpisodioAtencionUpdateWithoutPersonaInput = {
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notasClinicas?: NotaClinicaUpdateManyWithoutEpisodioNestedInput
+    diagnosticos?: DiagnosticoUpdateManyWithoutEpisodioNestedInput
+  }
+
+  export type EpisodioAtencionUncheckedUpdateWithoutPersonaInput = {
     id?: IntFieldUpdateOperationsInput | number
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
-    notas?: NotaClinicaUncheckedUpdateManyWithoutEpisodioNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notasClinicas?: NotaClinicaUncheckedUpdateManyWithoutEpisodioNestedInput
+    diagnosticos?: DiagnosticoUncheckedUpdateManyWithoutEpisodioNestedInput
   }
 
-  export type EpisodioAtencionUncheckedUpdateManyWithoutPacienteInput = {
+  export type EpisodioAtencionUncheckedUpdateManyWithoutPersonaInput = {
     id?: IntFieldUpdateOperationsInput | number
+    fechaApertura?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipo?: StringFieldUpdateOperationsInput | string
     estado?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsentimientoUpdateWithoutPersonaInput = {
+    tipoProcedimiento?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    metodo?: StringFieldUpdateOperationsInput | string
+    archivoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsentimientoUncheckedUpdateWithoutPersonaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tipoProcedimiento?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    metodo?: StringFieldUpdateOperationsInput | string
+    archivoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsentimientoUncheckedUpdateManyWithoutPersonaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tipoProcedimiento?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    metodo?: StringFieldUpdateOperationsInput | string
+    archivoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BloqueAgendaCreateManyProfesionalInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    capacidad?: number
-    estado: string
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    capacidad?: number
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CitaCreateManyProfesionalInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    motivo: string
-    estado: string
-    canal: string
-    pacienteId: number
+    personaId: number
     unidadId: number
+    inicio: Date | string
+    fin: Date | string
+    motivo: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type NotaClinicaCreateManyProfesionalInput = {
     id?: number
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
-    fecha?: Date | string
     episodioId: number
+    fecha?: Date | string
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BloqueAgendaUpdateWithoutProfesionalInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
-    unidad?: UnidadAtencionUpdateOneRequiredWithoutBloquesAgendaNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    unidad?: UnidadAtencionUpdateOneRequiredWithoutBloquesNestedInput
   }
 
   export type BloqueAgendaUncheckedUpdateWithoutProfesionalInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
-    unidadId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BloqueAgendaUncheckedUpdateManyWithoutProfesionalInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
-    unidadId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CitaUpdateWithoutProfesionalInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
     canal?: StringFieldUpdateOperationsInput | string
-    paciente?: PacienteUpdateOneRequiredWithoutCitasNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    persona?: PersonaAtendidaUpdateOneRequiredWithoutCitasNestedInput
     unidad?: UnidadAtencionUpdateOneRequiredWithoutCitasNestedInput
   }
 
   export type CitaUncheckedUpdateWithoutProfesionalInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CitaUncheckedUpdateManyWithoutProfesionalInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
     unidadId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotaClinicaUpdateWithoutProfesionalInput = {
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    episodio?: EpisodioAtencionUpdateOneRequiredWithoutNotasNestedInput
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    episodio?: EpisodioAtencionUpdateOneRequiredWithoutNotasClinicasNestedInput
   }
 
   export type NotaClinicaUncheckedUpdateWithoutProfesionalInput = {
     id?: IntFieldUpdateOperationsInput | number
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     episodioId?: IntFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotaClinicaUncheckedUpdateManyWithoutProfesionalInput = {
     id?: IntFieldUpdateOperationsInput | number
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     episodioId?: IntFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BloqueAgendaCreateManyUnidadInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    capacidad?: number
-    estado: string
     profesionalId: number
+    inicio: Date | string
+    fin: Date | string
+    capacidad?: number
+    estado?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CitaCreateManyUnidadInput = {
     id?: number
-    fechaInicio: Date | string
-    fechaFin: Date | string
-    motivo: string
-    estado: string
-    canal: string
-    pacienteId: number
+    personaId: number
     profesionalId: number
+    inicio: Date | string
+    fin: Date | string
+    motivo: string
+    canal: string
+    estado?: string
+    observaciones?: string | null
+    historialCambios?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type BloqueAgendaUpdateWithoutUnidadInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
-    profesional?: ProfesionalUpdateOneRequiredWithoutBloquesAgendaNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profesional?: ProfesionalUpdateOneRequiredWithoutBloquesNestedInput
   }
 
   export type BloqueAgendaUncheckedUpdateWithoutUnidadInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    profesionalId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
-    profesionalId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BloqueAgendaUncheckedUpdateManyWithoutUnidadInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    profesionalId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     capacidad?: IntFieldUpdateOperationsInput | number
     estado?: StringFieldUpdateOperationsInput | string
-    profesionalId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CitaUpdateWithoutUnidadInput = {
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
     motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
     canal?: StringFieldUpdateOperationsInput | string
-    paciente?: PacienteUpdateOneRequiredWithoutCitasNestedInput
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    persona?: PersonaAtendidaUpdateOneRequiredWithoutCitasNestedInput
     profesional?: ProfesionalUpdateOneRequiredWithoutCitasNestedInput
   }
 
   export type CitaUncheckedUpdateWithoutUnidadInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
     profesionalId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CitaUncheckedUpdateManyWithoutUnidadInput = {
     id?: IntFieldUpdateOperationsInput | number
-    fechaInicio?: DateTimeFieldUpdateOperationsInput | Date | string
-    fechaFin?: DateTimeFieldUpdateOperationsInput | Date | string
-    motivo?: StringFieldUpdateOperationsInput | string
-    estado?: StringFieldUpdateOperationsInput | string
-    canal?: StringFieldUpdateOperationsInput | string
-    pacienteId?: IntFieldUpdateOperationsInput | number
+    personaId?: IntFieldUpdateOperationsInput | number
     profesionalId?: IntFieldUpdateOperationsInput | number
+    inicio?: DateTimeFieldUpdateOperationsInput | Date | string
+    fin?: DateTimeFieldUpdateOperationsInput | Date | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    canal?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    observaciones?: NullableStringFieldUpdateOperationsInput | string | null
+    historialCambios?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotaClinicaCreateManyEpisodioInput = {
     id?: number
-    subjetivo: string
-    objetivo: string
-    analisis: string
-    plan: string
-    fecha?: Date | string
     profesionalId: number
+    fecha?: Date | string
+    subjetivo?: string | null
+    objetivo?: string | null
+    analisis?: string | null
+    plan?: string | null
+    adjuntos?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DiagnosticoCreateManyEpisodioInput = {
+    id?: number
+    codigo: string
+    descripcion: string
+    tipo: string
+    principal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type NotaClinicaUpdateWithoutEpisodioInput = {
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    profesional?: ProfesionalUpdateOneRequiredWithoutNotasNestedInput
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profesional?: ProfesionalUpdateOneRequiredWithoutNotasClinicasNestedInput
   }
 
   export type NotaClinicaUncheckedUpdateWithoutEpisodioInput = {
     id?: IntFieldUpdateOperationsInput | number
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     profesionalId?: IntFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotaClinicaUncheckedUpdateManyWithoutEpisodioInput = {
     id?: IntFieldUpdateOperationsInput | number
-    subjetivo?: StringFieldUpdateOperationsInput | string
-    objetivo?: StringFieldUpdateOperationsInput | string
-    analisis?: StringFieldUpdateOperationsInput | string
-    plan?: StringFieldUpdateOperationsInput | string
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     profesionalId?: IntFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    objetivo?: NullableStringFieldUpdateOperationsInput | string | null
+    analisis?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    adjuntos?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DiagnosticoUpdateWithoutEpisodioInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    principal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DiagnosticoUncheckedUpdateWithoutEpisodioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    principal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DiagnosticoUncheckedUpdateManyWithoutEpisodioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    descripcion?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    principal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

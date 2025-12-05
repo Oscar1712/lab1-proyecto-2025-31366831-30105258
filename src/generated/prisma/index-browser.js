@@ -124,11 +124,13 @@ exports.Prisma.UsuarioScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
-  role: 'role',
-  createdAt: 'createdAt'
+  rol: 'rol',
+  activo: 'activo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PacienteScalarFieldEnum = {
+exports.Prisma.PersonaAtendidaScalarFieldEnum = {
   id: 'id',
   tipoDocumento: 'tipoDocumento',
   numeroDocumento: 'numeroDocumento',
@@ -139,6 +141,9 @@ exports.Prisma.PacienteScalarFieldEnum = {
   correo: 'correo',
   telefono: 'telefono',
   direccion: 'direccion',
+  contactoEmergencia: 'contactoEmergencia',
+  alergias: 'alergias',
+  antecedentesResumen: 'antecedentesResumen',
   estado: 'estado',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -148,11 +153,14 @@ exports.Prisma.ProfesionalScalarFieldEnum = {
   id: 'id',
   nombres: 'nombres',
   apellidos: 'apellidos',
-  registroMedico: 'registroMedico',
+  registroProfesional: 'registroProfesional',
   especialidad: 'especialidad',
   correo: 'correo',
   telefono: 'telefono',
-  agendaHabilitada: 'agendaHabilitada'
+  agendaHabilitada: 'agendaHabilitada',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.UnidadAtencionScalarFieldEnum = {
@@ -160,48 +168,86 @@ exports.Prisma.UnidadAtencionScalarFieldEnum = {
   nombre: 'nombre',
   tipo: 'tipo',
   direccion: 'direccion',
-  estado: 'estado'
+  telefono: 'telefono',
+  horarioReferencia: 'horarioReferencia',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.BloqueAgendaScalarFieldEnum = {
   id: 'id',
-  fechaInicio: 'fechaInicio',
-  fechaFin: 'fechaFin',
+  profesionalId: 'profesionalId',
+  unidadId: 'unidadId',
+  inicio: 'inicio',
+  fin: 'fin',
   capacidad: 'capacidad',
   estado: 'estado',
-  profesionalId: 'profesionalId',
-  unidadId: 'unidadId'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CitaScalarFieldEnum = {
   id: 'id',
-  fechaInicio: 'fechaInicio',
-  fechaFin: 'fechaFin',
-  motivo: 'motivo',
-  estado: 'estado',
-  canal: 'canal',
-  pacienteId: 'pacienteId',
+  personaId: 'personaId',
   profesionalId: 'profesionalId',
-  unidadId: 'unidadId'
+  unidadId: 'unidadId',
+  inicio: 'inicio',
+  fin: 'fin',
+  motivo: 'motivo',
+  canal: 'canal',
+  estado: 'estado',
+  observaciones: 'observaciones',
+  historialCambios: 'historialCambios',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.EpisodioAtencionScalarFieldEnum = {
   id: 'id',
+  personaId: 'personaId',
+  fechaApertura: 'fechaApertura',
   motivo: 'motivo',
-  fecha: 'fecha',
+  tipo: 'tipo',
   estado: 'estado',
-  pacienteId: 'pacienteId'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.NotaClinicaScalarFieldEnum = {
   id: 'id',
+  episodioId: 'episodioId',
+  profesionalId: 'profesionalId',
+  fecha: 'fecha',
   subjetivo: 'subjetivo',
   objetivo: 'objetivo',
   analisis: 'analisis',
   plan: 'plan',
-  fecha: 'fecha',
+  adjuntos: 'adjuntos',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DiagnosticoScalarFieldEnum = {
+  id: 'id',
   episodioId: 'episodioId',
-  profesionalId: 'profesionalId'
+  codigo: 'codigo',
+  descripcion: 'descripcion',
+  tipo: 'tipo',
+  principal: 'principal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConsentimientoScalarFieldEnum = {
+  id: 'id',
+  personaId: 'personaId',
+  tipoProcedimiento: 'tipoProcedimiento',
+  fecha: 'fecha',
+  metodo: 'metodo',
+  archivoId: 'archivoId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -212,7 +258,7 @@ exports.Prisma.SortOrder = {
 exports.Prisma.UsuarioOrderByRelevanceFieldEnum = {
   email: 'email',
   password: 'password',
-  role: 'role'
+  rol: 'rol'
 };
 
 exports.Prisma.NullsOrder = {
@@ -220,7 +266,7 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.PacienteOrderByRelevanceFieldEnum = {
+exports.Prisma.PersonaAtendidaOrderByRelevanceFieldEnum = {
   tipoDocumento: 'tipoDocumento',
   numeroDocumento: 'numeroDocumento',
   nombres: 'nombres',
@@ -228,22 +274,30 @@ exports.Prisma.PacienteOrderByRelevanceFieldEnum = {
   sexo: 'sexo',
   correo: 'correo',
   telefono: 'telefono',
-  direccion: 'direccion'
+  direccion: 'direccion',
+  contactoEmergencia: 'contactoEmergencia',
+  alergias: 'alergias',
+  antecedentesResumen: 'antecedentesResumen',
+  estado: 'estado'
 };
 
 exports.Prisma.ProfesionalOrderByRelevanceFieldEnum = {
   nombres: 'nombres',
   apellidos: 'apellidos',
-  registroMedico: 'registroMedico',
+  registroProfesional: 'registroProfesional',
   especialidad: 'especialidad',
   correo: 'correo',
-  telefono: 'telefono'
+  telefono: 'telefono',
+  estado: 'estado'
 };
 
 exports.Prisma.UnidadAtencionOrderByRelevanceFieldEnum = {
   nombre: 'nombre',
   tipo: 'tipo',
-  direccion: 'direccion'
+  direccion: 'direccion',
+  telefono: 'telefono',
+  horarioReferencia: 'horarioReferencia',
+  estado: 'estado'
 };
 
 exports.Prisma.BloqueAgendaOrderByRelevanceFieldEnum = {
@@ -252,12 +306,15 @@ exports.Prisma.BloqueAgendaOrderByRelevanceFieldEnum = {
 
 exports.Prisma.CitaOrderByRelevanceFieldEnum = {
   motivo: 'motivo',
+  canal: 'canal',
   estado: 'estado',
-  canal: 'canal'
+  observaciones: 'observaciones',
+  historialCambios: 'historialCambios'
 };
 
 exports.Prisma.EpisodioAtencionOrderByRelevanceFieldEnum = {
   motivo: 'motivo',
+  tipo: 'tipo',
   estado: 'estado'
 };
 
@@ -265,19 +322,34 @@ exports.Prisma.NotaClinicaOrderByRelevanceFieldEnum = {
   subjetivo: 'subjetivo',
   objetivo: 'objetivo',
   analisis: 'analisis',
-  plan: 'plan'
+  plan: 'plan',
+  adjuntos: 'adjuntos'
+};
+
+exports.Prisma.DiagnosticoOrderByRelevanceFieldEnum = {
+  codigo: 'codigo',
+  descripcion: 'descripcion',
+  tipo: 'tipo'
+};
+
+exports.Prisma.ConsentimientoOrderByRelevanceFieldEnum = {
+  tipoProcedimiento: 'tipoProcedimiento',
+  metodo: 'metodo',
+  archivoId: 'archivoId'
 };
 
 
 exports.Prisma.ModelName = {
   Usuario: 'Usuario',
-  Paciente: 'Paciente',
+  PersonaAtendida: 'PersonaAtendida',
   Profesional: 'Profesional',
   UnidadAtencion: 'UnidadAtencion',
   BloqueAgenda: 'BloqueAgenda',
   Cita: 'Cita',
   EpisodioAtencion: 'EpisodioAtencion',
-  NotaClinica: 'NotaClinica'
+  NotaClinica: 'NotaClinica',
+  Diagnostico: 'Diagnostico',
+  Consentimiento: 'Consentimiento'
 };
 
 /**

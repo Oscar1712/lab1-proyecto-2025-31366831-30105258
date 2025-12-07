@@ -4,15 +4,25 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "dist",
-    "rootDir": "./",
-    "lib": ["ES2022"],
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
+    "rootDir": "src",
     "resolveJsonModule": true,
     "allowJs": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ],
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true
   },
-  "include": ["src//*", "prisma//*", "src/generated/**/*"]
+  "include": [
+    "src/**/*.ts",
+    "prisma/**/*.prisma",
+    "src/generated/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

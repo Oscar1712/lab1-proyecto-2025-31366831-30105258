@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { ENV } from '../config/env';
+import { ENV } from '../config/env.js';
 
 // Hashear una contraseña
 

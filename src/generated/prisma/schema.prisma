@@ -5,10 +5,36 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  //  url      = env("DATABASE_URL")
+  // url      = env("DATABASE_URL")
 }
 
-// Tabla de Usuarios para autenticación
+//
+// ENUMS
+//
+enum EstadoBloqueAgenda {
+  abierto
+  cerrado
+  reservado
+}
+
+enum EstadoCita {
+  solicitada
+  confirmada
+  cumplida
+  cancelada
+  noAsistida
+}
+
+enum EstadoEpisodio {
+  abierto
+  cerrado
+}
+
+//
+// MODELOS
+//
+
+// Usuarios para autenticación
 model Usuario {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -44,6 +70,7 @@ model PersonaAtendida {
   episodios       EpisodioAtencion[]
   consentimientos Consentimiento[]
 
+  @@index([numeroDocumento])
   @@map("personas_atendidas")
 }
 
@@ -88,55 +115,57 @@ model UnidadAtencion {
 
 // Bloques de Agenda
 model BloqueAgenda {
-  id            Int      @id @default(autoincrement())
+  id            Int                @id @default(autoincrement())
   profesionalId Int
   unidadId      Int
   inicio        DateTime
   fin           DateTime
-  capacidad     Int      @default(1)
-  estado        String   @default("abierto") // abierto, cerrado, reservado
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  capacidad     Int                @default(1)
+  estado        EstadoBloqueAgenda @default(abierto)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
 
   profesional Profesional    @relation(fields: [profesionalId], references: [id])
   unidad      UnidadAtencion @relation(fields: [unidadId], references: [id])
 
+  @@index([profesionalId, inicio, fin])
   @@map("bloques_agenda")
 }
 
 // Citas
 model Cita {
-  id               Int      @id @default(autoincrement())
+  id               Int        @id @default(autoincrement())
   personaId        Int
   profesionalId    Int
   unidadId         Int
   inicio           DateTime
   fin              DateTime
-  motivo           String   @db.Text
+  motivo           String     @db.Text
   canal            String // presencial, virtual
-  estado           String   @default("solicitada") // solicitada, confirmada, cumplida, cancelada, noAsistida
-  observaciones    String?  @db.Text
-  historialCambios String?  @db.Text
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  estado           EstadoCita @default(solicitada)
+  observaciones    String?    @db.Text
+  historialCambios Json?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 
   persona     PersonaAtendida @relation(fields: [personaId], references: [id])
   profesional Profesional     @relation(fields: [profesionalId], references: [id])
   unidad      UnidadAtencion  @relation(fields: [unidadId], references: [id])
 
+  @@index([profesionalId, inicio, fin])
   @@map("citas")
 }
 
 // Episodios de Atención
 model EpisodioAtencion {
-  id            Int      @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
   personaId     Int
-  fechaApertura DateTime @default(now())
-  motivo        String   @db.Text
+  fechaApertura DateTime       @default(now())
+  motivo        String         @db.Text
   tipo          String // consulta, procedimiento, control, urgencia ambulatoria
-  estado        String   @default("abierto") // abierto, cerrado
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  estado        EstadoEpisodio @default(abierto)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
   persona       PersonaAtendida @relation(fields: [personaId], references: [id])
   notasClinicas NotaClinica[]
@@ -155,9 +184,12 @@ model NotaClinica {
   objetivo      String?  @db.Text
   analisis      String?  @db.Text
   plan          String?  @db.Text
-  adjuntos      String?  @db.Text // JSON array de URLs
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+
+  // JSON array de URLs
+  adjuntos String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   episodio    EpisodioAtencion @relation(fields: [episodioId], references: [id])
   profesional Profesional      @relation(fields: [profesionalId], references: [id])

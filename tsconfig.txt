@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    // ...
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "noImplicitAny": false,
+    
+    // 💡 AÑADIR PARA CUMPLIR EL REQUISITO DE 'allowImportingTsExtensions'
+    "noEmit": true, 
+    
+    // 💡 BANDERA DE COMPATIBILIDAD CON TS (¡AHORA ES VÁLIDA!)
+    "allowImportingTsExtensions": true, 
+
+    // ❌ ELIMINAR ESTA (Era desconocida/obsoleta)
+    // "experimentalSpecifierResolution": "node", 
+    
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "sourceMap": true
+  },
+  "include": ["src/**/*.ts", "prisma/**/*.prisma", "src/generated/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

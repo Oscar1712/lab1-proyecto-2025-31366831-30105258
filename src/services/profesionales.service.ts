@@ -1,5 +1,5 @@
-import prisma from '../config/database';
-import { ProfesionalInput } from '../schemas/profesional.schema';
+import prisma from '../config/database.js';
+import { CreateProfesionalInput, UpdateProfesionalInput } from '../schemas/profesional.schema.js';
 
 export class ProfesionalesService {
   async getAll(filters: {
@@ -123,7 +123,7 @@ export class ProfesionalesService {
     return profesional;
   }
 
-  async create(data: ProfesionalInput) {
+  async create(data: CreateProfesionalInput) {
     // Verificar que no exista otro profesional con el mismo registro
     const existing = await prisma.profesional.findUnique({
       where: { registroProfesional: data.registroProfesional },
@@ -141,7 +141,7 @@ export class ProfesionalesService {
     });
   }
 
-  async update(id: number, data: Partial<ProfesionalInput>) {
+  async update(id: number, data: UpdateProfesionalInput) {
     const profesional = await this.getById(id);
 
     // Si se actualiza el registro, verificar que no exista

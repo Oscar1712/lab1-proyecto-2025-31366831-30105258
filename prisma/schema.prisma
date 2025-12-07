@@ -1,14 +1,43 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+ // engineType = "binary"
+  output   = "../node_modules/.prisma/client"
+ // output   = "app/generated/prisma/client"
+ // output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "mysql"
-//  url      = env("DATABASE_URL")
+  // url      = env("DATABASE_URL")
 }
 
-// Tabla de Usuarios para autenticación
+//
+// ENUMS
+//
+enum EstadoBloqueAgenda {
+  abierto
+  cerrado
+  reservado
+}
+
+enum EstadoCita {
+  solicitada
+  confirmada
+  cumplida
+  cancelada
+  noAsistida
+}
+
+enum EstadoEpisodio {
+  abierto
+  cerrado
+}
+
+//
+// MODELOS
+//
+
+// Usuarios para autenticación
 model Usuario {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -40,11 +69,12 @@ model PersonaAtendida {
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
-  citas          Cita[]
-  episodios      EpisodioAtencion[]
+  citas           Cita[]
+  episodios       EpisodioAtencion[]
   consentimientos Consentimiento[]
 
   @@map("personas_atendidas")
+  @@index([numeroDocumento])
 }
 
 // Profesionales de Salud
@@ -61,8 +91,8 @@ model Profesional {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  bloques      BloqueAgenda[]
-  citas        Cita[]
+  bloques       BloqueAgenda[]
+  citas         Cita[]
   notasClinicas NotaClinica[]
 
   @@map("profesionales")
@@ -70,15 +100,15 @@ model Profesional {
 
 // Unidades de Atención
 model UnidadAtencion {
-  id               Int      @id @default(autoincrement())
-  nombre           String
-  tipo             String   // sede, consultorio, servicio
-  direccion        String?
-  telefono         String?
+  id                Int      @id @default(autoincrement())
+  nombre            String
+  tipo              String   // sede, consultorio, servicio
+  direccion         String?
+  telefono          String?
   horarioReferencia String?
-  estado           String   @default("activo")
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  estado            String   @default("activo")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   bloques BloqueAgenda[]
   citas   Cita[]
@@ -94,7 +124,7 @@ model BloqueAgenda {
   inicio        DateTime
   fin           DateTime
   capacidad     Int      @default(1)
-  estado        String   @default("abierto") // abierto, cerrado, reservado
+  estado        EstadoBloqueAgenda @default(abierto)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -102,31 +132,32 @@ model BloqueAgenda {
   unidad      UnidadAtencion @relation(fields: [unidadId], references: [id])
 
   @@map("bloques_agenda")
+  @@index([profesionalId, inicio, fin])
 }
 
 // Citas
 model Cita {
-  id             Int      @id @default(autoincrement())
-  personaId      Int
-  profesionalId  Int
-  unidadId       Int
-  inicio         DateTime
-  fin            DateTime
-  motivo         String   @db.Text
-  canal          String   // presencial, virtual
-  estado         String   @default("solicitada") // solicitada, confirmada, cumplida, cancelada, noAsistida
-  observaciones  String?  @db.Text
-  historialCambios String? @db.Text
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  personaId       Int
+  profesionalId   Int
+  unidadId        Int
+  inicio          DateTime
+  fin             DateTime
+  motivo          String   @db.Text
+  canal           String   // presencial, virtual
+  estado          EstadoCita @default(solicitada)
+  observaciones   String?  @db.Text
+  historialCambios Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  persona      PersonaAtendida @relation(fields: [personaId], references: [id])
-  profesional  Profesional     @relation(fields: [profesionalId], references: [id])
-  unidad       UnidadAtencion  @relation(fields: [unidadId], references: [id])
+  persona     PersonaAtendida @relation(fields: [personaId], references: [id])
+  profesional Profesional     @relation(fields: [profesionalId], references: [id])
+  unidad      UnidadAtencion  @relation(fields: [unidadId], references: [id])
 
   @@map("citas")
+  @@index([profesionalId, inicio, fin])
 }
-
 // Episodios de Atención
 model EpisodioAtencion {
   id            Int      @id @default(autoincrement())
@@ -134,11 +165,11 @@ model EpisodioAtencion {
   fechaApertura DateTime @default(now())
   motivo        String   @db.Text
   tipo          String   // consulta, procedimiento, control, urgencia ambulatoria
-  estado        String   @default("abierto") // abierto, cerrado
+  estado        EstadoEpisodio @default(abierto)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-persona       PersonaAtendida @relation(fields: [personaId], references: [id])
+  persona       PersonaAtendida @relation(fields: [personaId], references: [id])
   notasClinicas NotaClinica[]
   diagnosticos  Diagnostico[]
 
@@ -155,7 +186,10 @@ model NotaClinica {
   objetivo      String?  @db.Text
   analisis      String?  @db.Text
   plan          String?  @db.Text
-  adjuntos      String?  @db.Text // JSON array de URLs
+
+  // JSON array de URLs
+  adjuntos      String?  @db.Text
+
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

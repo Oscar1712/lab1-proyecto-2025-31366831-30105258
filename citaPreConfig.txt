@@ -1,0 +1,190 @@
+// src/services/citas.service.ts (Importaciones Corregidas)
+
+import prisma from '../config/database.js'; 
+// 🟢 SOLUCIÓN EXITOSA: Importar Prisma y el tipo de modelo desde el directorio de tipos generados.
+// Esto garantiza que el namespace 'Prisma' sea encontrado.
+import type { Prisma } from '../generated/prisma/client.js'; 
+
+import { CreateCitaInput, UpdateCitaInput } from '../schemas/cita.schema.js';
+// ... el resto del archivo citas.service.ts
+type CambioHistorial = {
+  fecha: string; // ISO string
+  accion: string;
+  estado: string;
+  usuarioId: number;
+};
+
+export class CitasService {
+  // Crear una cita
+  async createCita(data: CreateCitaInput, userId: number) {
+    const persona = await prisma.personaAtendida.findUnique({ where: { id: data.personaId } });
+    if (!persona || persona.estado !== 'activo') { 
+      throw new Error('Persona no encontrada o inactiva'); 
+    }
+
+    const bloqueDisponible = await prisma.bloqueAgenda.findFirst({
+      where: {
+        profesionalId: data.profesionalId,
+        inicio: { lte: data.inicio },
+        fin: { gte: data.fin },
+        estado: 'abierto',
+      },
+    });
+    if (!bloqueDisponible) { 
+      throw new Error('No hay disponibilidad para este horario');
+    }
+
+    const citaExistente = await prisma.cita.findFirst({
+      where: {
+        profesionalId: data.profesionalId,
+        OR: [
+          { AND: [{ inicio: { lte: data.inicio } }, { fin: { gt: data.inicio } }] },
+          { AND: [{ inicio: { lt: data.fin } }, { fin: { gte: data.fin } }] },
+        ],
+        estado: { in: ['solicitada', 'confirmada'] },
+      },
+    });
+    if (citaExistente) {
+      throw new Error('Ya existe una cita en ese horario');
+    }
+
+    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      const cita = await tx.cita.create({
+        data: {
+          ...data,
+          historialCambios: [
+            {
+              fecha: new Date().toISOString(),
+              accion: 'CREACION',
+              estado: 'solicitada',
+              usuarioId: userId,
+            },
+          ] as Prisma.JsonArray,
+        },
+        include: { persona: true, profesional: true, unidad: true },
+      });
+
+      await tx.bloqueAgenda.update({
+        where: { id: bloqueDisponible.id },
+        data: { estado: 'reservado' },
+      });
+
+      return cita;
+    });
+  }
+
+  // Actualizar cita
+  async updateCita(id: number, data: UpdateCitaInput, userId: number) {
+    const citaActual = await prisma.cita.findUnique({ where: { id } });
+    if (!citaActual) throw new Error('Cita no encontrada');
+
+    const historial: CambioHistorial[] = (citaActual.historialCambios as CambioHistorial[] | null) ?? [];
+    historial.push({
+      fecha: new Date().toISOString(),
+      accion: 'ACTUALIZACION',
+      estado: data.estado ?? citaActual.estado,
+      usuarioId: userId,
+    });
+
+    return prisma.cita.update({
+      where: { id },
+      data: {
+        ...data,
+        historialCambios: historial as Prisma.JsonArray,
+      },
+      include: { persona: true, profesional: true, unidad: true },
+    });
+  }
+
+  // Obtener citas por profesional en un día
+  async getCitasPorProfesional(profesionalId: number, fecha: Date) {
+    const inicioDia = new Date(fecha);
+    inicioDia.setHours(0, 0, 0, 0);
+    const finDia = new Date(fecha);
+    finDia.setHours(23, 59, 59, 999);
+
+    return prisma.cita.findMany({
+      where: {
+        profesionalId,
+        inicio: { gte: inicioDia },
+        fin: { lte: finDia },
+        estado: { in: ['solicitada', 'confirmada'] },
+      },
+      include: { persona: true, unidad: true },
+      orderBy: { inicio: 'asc' },
+    });
+  }
+
+  // Confirmar cita
+  async confirmarCita(id: number, userId: number, observaciones?: string) {
+    const cita = await prisma.cita.findUnique({ where: { id } });
+    if (!cita) throw new Error('Cita no encontrada');
+
+    const historial: CambioHistorial[] = (cita.historialCambios as CambioHistorial[] | null) ?? [];
+    historial.push({
+      fecha: new Date().toISOString(),
+      accion: 'CONFIRMACION',
+      estado: 'confirmada',
+      usuarioId: userId,
+    });
+
+    return prisma.cita.update({
+      where: { id },
+      data: { 
+        estado: 'confirmada', 
+        observaciones, 
+        historialCambios: historial as Prisma.JsonArray 
+      },
+      include: { persona: true, profesional: true, unidad: true },
+    });
+  }
+
+  // Cancelar cita
+  async cancelarCita(id: number, userId: number, observaciones?: string) {
+    const cita = await prisma.cita.findUnique({ where: { id } });
+    if (!cita) throw new Error('Cita no encontrada');
+
+    const historial: CambioHistorial[] = (cita.historialCambios as CambioHistorial[] | null) ?? [];
+    historial.push({
+      fecha: new Date().toISOString(),
+      accion: 'CANCELACION',
+      estado: 'cancelada',
+      usuarioId: userId,
+    });
+
+    return prisma.cita.update({
+      where: { id },
+      data: { 
+        estado: 'cancelada', 
+        observaciones, 
+        historialCambios: historial as Prisma.JsonArray
+      },
+      include: { persona: true, profesional: true, unidad: true },
+    });
+  }
+
+  // Reprogramar cita
+  async reprogramarCita(id: number, inicio: Date, fin: Date, userId: number) {
+    const cita = await prisma.cita.findUnique({ where: { id } });
+    if (!cita) throw new Error('Cita no encontrada');
+
+    const historial: CambioHistorial[] = (cita.historialCambios as CambioHistorial[] | null) ?? [];
+    historial.push({
+      fecha: new Date().toISOString(),
+      accion: 'REPROGRAMACION',
+      estado: 'solicitada',
+      usuarioId: userId,
+    });
+
+    return prisma.cita.update({
+      where: { id },
+      data: { 
+        inicio, 
+        fin, 
+        estado: 'solicitada', 
+        historialCambios: historial as Prisma.JsonArray 
+      },
+      include: { persona: true, profesional: true, unidad: true },
+    });
+  }
+}

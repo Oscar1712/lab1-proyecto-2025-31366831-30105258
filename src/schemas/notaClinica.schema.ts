@@ -1,52 +1,56 @@
+// src/schemas/notaClinica.schema.ts
+
 import { z } from 'zod';
+import { idParamSchema, tiposDiagnostico } from './base.schema.js'; 
+import { paginationSchema } from './base.schema.js'; // Si tienes un esquema de paginación reusable
 
-// IDs son números, no UUIDs
-export const idSchema = z.number().int().positive('ID debe ser un número positivo');
-
-export const idParamSchema = z.string()
-  .regex(/^\d+$/, 'ID debe ser un número')
-  .transform((val) => Number(val))
-  .refine((n) => n > 0, 'ID debe ser positivo');
-
-// Fechas en formato ISO -> Date
-export const dateSchema = z.string()
-  .refine((val) => !isNaN(Date.parse(val)), {
-    message: 'Fecha inválida. Use formato ISO (YYYY-MM-DD)',
-  })
-  .transform((val) => new Date(val));
-
-// Enums
-export const roles = ['admin', 'medico', 'recepcionista'] as const;
-export const estados = ['activo', 'inactivo'] as const;
-export const sexos = ['M', 'F'] as const;
-export const tiposDocumento = ['DNI', 'PASAPORTE', 'CEDULA'] as const;
-export const canalesCita = ['presencial', 'virtual'] as const;
-export const estadosCita = ['solicitada', 'confirmada', 'cumplida', 'cancelada', 'noAsistida'] as const;
-export const estadosBloque = ['abierto', 'cerrado', 'reservado'] as const;
-export const tiposEpisodio = ['consulta', 'procedimiento', 'control', 'urgencia ambulatoria'] as const;
-export const estadosEpisodio = ['abierto', 'cerrado'] as const;
-export const tiposDiagnostico = ['presuntivo', 'definitivo'] as const;
-
-// Validaciones comunes
-export const emailSchema = z.string().email('Email inválido');
-
-export const phoneSchema = z.string()
-  .regex(/^\+?[1-9]\d{1,14}$/, 'Número de teléfono inválido')
-  .optional()
-  .or(z.literal(''));
-
-// Passwords
-export const passwordSchema = z.string()
-  .min(8, 'La contraseña debe tener al menos 8 caracteres')
-  .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-    'Debe contener al menos una mayúscula, una minúscula y un número'
-  );
-
-// Paginación
-export const paginationSchema = z.object({
-  page: z.number().int().min(1).default(1),
-  limit: z.number().int().min(1).max(100).default(10),
-  search: z.string().optional(),
-  sortBy: z.string().optional(),
-  sortOrder: z.enum(['asc', 'desc']).default('asc'),
+// Define la estructura de la Nota Clínica
+export const notaClinicaSchema = z.object({
+  episodioId: z.number().int().positive('ID de episodio inválido'),
+  profesionalId: z.number().int().positive('ID de profesional inválido'),
+  
+  // Contenido de la nota (SOAP format)
+  subjetivo: z.string().max(4000).optional(), 
+  objetivo: z.string().max(4000).optional(), 
+  analisis: z.string().max(4000).optional(), 
+  plan: z.string().max(4000).optional(), 
+  
+  // Diagnósticos asociados a la nota 
+  diagnosticos: z.array(z.object({
+    cie10Code: z.string().max(10),
+    tipo: z.enum(tiposDiagnostico), 
+    principal: z.boolean().default(false)
+  })).optional(),
 });
+
+// Esquema para la creación (Body)
+export const createNotaClinicaSchema = z.object({
+  body: notaClinicaSchema,
+});
+
+// Esquema para la actualización (Body y Params)
+export const updateNotaClinicaSchema = z.object({
+  params: z.object({
+    id: idParamSchema,
+  }),
+  body: notaClinicaSchema.partial(),
+});
+
+// Esquema para la búsqueda/listado (Query Params)
+export const searchNotasClinicasSchema = z.object({
+  query: z.object({
+    // 🟢 REUTILIZACIÓN: Usamos idParamSchema, ya que transforma string -> Number y valida positivo.
+    episodioId: idParamSchema.optional(), 
+    profesionalId: idParamSchema.optional(), 
+    search: z.string().optional(), 
+
+    // 🟢 REUTILIZACIÓN DE PAGINACIÓN: Si no quieres anidar todo paginationSchema
+    // Usamos idParamSchema para Page y Limit, ya que cumplen la misma función: string -> number > 0
+    page: idParamSchema.optional(),
+    limit: idParamSchema.optional(),
+  }).optional(),
+});
+
+// Tipos inferidos
+export type NotaClinicaInput = z.infer<typeof notaClinicaSchema>;
+export type SearchNotasClinicasQuery = z.infer<typeof searchNotasClinicasSchema>['query'];

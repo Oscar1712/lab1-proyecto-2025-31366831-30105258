@@ -1,132 +1,200 @@
 import fs from 'fs';
 import path from 'path';
-import { z } from 'zod';
-import * as schemas from '../schemas/';
+import { z, ZodTypeAny, ZodObject } from 'zod';
+import * as schemaExports from '../schemas/index.js'; // Asegúrate que schemas/index.ts exporte todo
 import { fileURLToPath } from 'url';
 
+// Definición de la estructura de la documentación
 interface SchemaDoc {
-  name: string;
-  description: string;
-  fields: Array<{
-    name: string;
-    type: string;
-    required: boolean;
-    description: string;
-    validations: string[];
-  }>;
-  examples: any;
+    name: string;
+    description: string;
+    fields: Array<{
+        name: string;
+        type: string;
+        required: boolean;
+        description: string;
+        validations: string[];
+    }>;
+    examples?: any; 
 }
 
-function generateSchemaDocs() {
-  const docs: SchemaDoc[] = [];
+// ----------------------------------------------------------------------
+// UTILS
+// ----------------------------------------------------------------------
 
-  // Persona Schema
-  const personaFields = Object.entries(schemas.personaAtendidaSchema.shape).map(([key, value]) => {
-    const field = value as z.ZodTypeAny;
-    const validations: string[] = [];
+/**
+ * Analiza un esquema ZodType para extraer detalles de validación.
+ */
+function analyzeField(key: string, field: ZodTypeAny, descriptions: Record<string, string>) {
+    const validations: string[] = [];
+    let fieldType = 'Unknown';
+    let isRequired = true;
+    let baseField = field;
+    
+    // Si es opcional o nullable, encontramos el esquema base
+    if (field instanceof z.ZodOptional || field instanceof z.ZodNullable) {
+        baseField = (field as any)._def.innerType;
+        isRequired = false;
+    }
+    
+    fieldType = baseField.constructor.name.replace('Zod', '');
+    
+    // Extracción de validaciones específicas
+    if (baseField instanceof z.ZodString) {
+        (baseField._def as any).checks?.forEach((check: any) => {
+            if (check.kind === 'min') validations.push(`Mínimo ${check.value} caracteres`);
+            if (check.kind === 'max') validations.push(`Máximo ${check.value} caracteres`);
+            if (check.kind === 'regex') validations.push('Formato específico');
+            if (check.kind === 'email') validations.push('Email válido');
+        });
+    }
 
-    if (field instanceof z.ZodString) {
-      field._def.checks?.forEach((check: any) => {
-        if (check.kind === 'min') validations.push(Mínimo ${check.value} caracteres);
-        if (check.kind === 'max') validations.push(Máximo ${check.value} caracteres);
-        if (check.kind === 'regex') validations.push('Formato específico');
-        if (check.kind === 'email') validations.push('Email válido');
-      });
-    }
+    if (baseField instanceof z.ZodEnum) {
+        const enumValues = (baseField._def as any).values;
+        if (Array.isArray(enumValues)) {
+            validations.push(`Valores permitidos: ${enumValues.join(', ')}`);
+        }
+    }
 
-    if (field instanceof z.ZodEnum) {
-      validations.push(Valores permitidos: ${field._def.values.join(', ')});
-    }
+    if (baseField instanceof z.ZodNumber) {
+        (baseField._def as any).checks?.forEach((check: any) => {
+            if (check.kind === 'min') validations.push(`Mínimo ${check.value}`);
+            if (check.kind === 'max') validations.push(`Máximo ${check.value}`);
+            if (check.kind === 'int') validations.push('Número entero');
+        });
+    }
 
-    if (field instanceof z.ZodNumber) {
-      field._def.checks?.forEach((check: any) => {
-        if (check.kind === 'min') validations.push(Mínimo ${check.value});
-        if (check.kind === 'max') validations.push(Máximo ${check.value});
-      });
-    }
-
-    return {
-      name: key,
-      type: field._def.typeName.replace('Zod', ''),
-      required: !(field instanceof z.ZodOptional),
-      description: getFieldDescription(key),
-      validations,
-    };
-  });
-
-  docs.push({
-    name: 'PersonaAtendida',
-    description: 'Schema para personas atendidas (pacientes)',
-    fields: personaFields,
-    examples: {
-      create: {
-        tipoDocumento: 'DNI',
-        numeroDocumento: '12345678',
-        nombres: 'Juan',
-        apellidos: 'Pérez',
-        fechaNacimiento: '1990-01-15',
-        sexo: 'M',
-        correo: 'juan@example.com',
-        telefono: '+5491122334455',
-        direccion: 'Calle Falsa 123',
-        contactoEmergencia: 'María González - +5491155667788',
-      },
-      update: {
-        telefono: '+5491199887766',
-        direccion: 'Nueva Dirección 456',
-      },
-    },
-  });
-
-  // Resolver __dirname en ES Modules
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-
-  // Escribir documentación a archivo
-  const outputPath = path.join(__dirname, '../../docs/schemas.json');
-  fs.writeFileSync(outputPath, JSON.stringify(docs, null, 2));
-
-  // Generar documentación en Markdown
-  const markdown = generateMarkdownDocs(docs);
-  fs.writeFileSync(path.join(__dirname, '../../docs/SCHEMAS.md'), markdown);
-
-  console.log('✅ Documentación de esquemas generada exitosamente');
+    return {
+        name: key,
+        type: fieldType,
+        required: isRequired,
+        description: descriptions[key] || '-',
+        validations,
+    };
 }
 
-function getFieldDescription(fieldName: string): string {
-  const descriptions: Record<string, string> = {
-    tipoDocumento: 'Tipo de documento de identidad',
-    numeroDocumento: 'Número único de documento',
-    nombres: 'Nombres de la persona',
-    apellidos: 'Apellidos de la persona',
-    fechaNacimiento: 'Fecha de nacimiento en formato ISO',
-    sexo: 'Sexo biológico',
-    correo: 'Correo electrónico de contacto',
-    telefono: 'Número de teléfono con código de país',
-    direccion: 'Dirección completa',
-    contactoEmergencia: 'Contacto en caso de emergencia',
-    alergias: 'Alergias conocidas del paciente',
-    antecedentesResumen: 'Resumen de antecedentes médicos',
-    estado: 'Estado del registro',
-  };
 
-return descriptions[fieldName] 
-'-'} |\n`;
-    });
+/**
+ * Genera la documentación de esquema para la salida Markdown.
+ */
+function generateMarkdownDocs(docs: SchemaDoc[]): string {
+    let markdown = '# 📝 Documentación de Esquemas (Zod)\n\n';
+    markdown += 'Esta documentación es generada automáticamente a partir de los esquemas Zod.\n\n';
+    markdown += '---\n\n';
 
-    markdown += '\n### Ejemplos\n\n';
-    markdown += '```json\n';
-    markdown += JSON.stringify(doc.examples, null, 2);
-    markdown += '\n```\n\n';
-    markdown += '---\n\n';
-  });
+    docs.forEach(doc => {
+        markdown += `## ${doc.name}\n\n`;
+        markdown += `${doc.description}\n\n`;
+        markdown += '| Campo | Tipo | Requerido | Descripción | Validaciones |\n';
+        markdown += '| :--- | :--- | :---: | :--- | :--- |\n';
 
-  return markdown;
+        doc.fields.forEach(field => {
+            markdown += `| **${field.name}** | ${field.type} | ${field.required ? '✅' : '❌'} | ${field.description} | ${field.validations.join(', ') || '-'} |\n`;
+        });
+
+        // Solo incluir ejemplos si existen
+        if (doc.examples) {
+            markdown += '\n### Ejemplos\n\n';
+            markdown += '```json\n';
+            markdown += JSON.stringify(doc.examples, null, 2);
+            markdown += '\n```\n\n';
+        }
+        markdown += '---\n\n';
+    });
+
+    return markdown;
 }
 
-// Ejecutar si se llama directamente
-if (require.main === module) {
-  generateSchemaDocs();
+// Nota: Necesitarás extender esta función para soportar más esquemas
+function getFieldDescriptions(schemaName: string): Record<string, string> {
+     // Puedes tener diferentes conjuntos de descripciones por esquema
+    if (schemaName.includes('persona')) {
+        return {
+            tipoDocumento: 'Tipo de documento de identidad',
+            numeroDocumento: 'Número único de documento',
+            nombres: 'Nombres de la persona',
+            apellidos: 'Apellidos de la persona',
+            fechaNacimiento: 'Fecha de nacimiento en formato ISO',
+            sexo: 'Sexo biológico',
+            correo: 'Correo electrónico de contacto',
+            telefono: 'Número de teléfono con código de país',
+            direccion: 'Dirección completa',
+            contactoEmergencia: 'Contacto en caso de emergencia',
+            alergias: 'Alergias conocidas del paciente',
+            antecedentesResumen: 'Resumen de antecedentes médicos',
+            estado: 'Estado del registro',
+        };
+    }
+    return {};
 }
 
-export { generateSchemaDocs };
+// ----------------------------------------------------------------------
+// GENERADOR PRINCIPAL
+// ----------------------------------------------------------------------
+
+export function generateSchemaDocs() {
+    const docs: SchemaDoc[] = [];
+
+    // Iterar sobre todas las exportaciones del archivo index
+    for (const key in schemaExports) {
+        const schema = (schemaExports as any)[key];
+        
+        // Solo procesar esquemas Zod Object que terminan en 'Schema'
+        if (schema instanceof ZodObject && key.endsWith('Schema')) {
+            
+            const schemaName = key.replace('Schema', '');
+            const descriptions = getFieldDescriptions(schemaName); 
+            
+            const fields = Object.entries(schema.shape).map(([fieldKey, fieldValue]) => {
+                return analyzeField(fieldKey, fieldValue as ZodTypeAny, descriptions);
+            });
+            
+            // 🟢 CORRECCIÓN APLICADA: Declaración de tipo explícito para resolver el error.
+            let examples: any = undefined; 
+            
+            // Si el esquema es 'personaAtendidaSchema', añadimos ejemplos
+            if (key === 'personaAtendidaSchema') {
+                 examples = {
+                    create: { /* ... */ },
+                    update: { /* ... */ },
+                 };
+            }
+
+            docs.push({
+                name: schemaName,
+                description: `Esquema de validación para la entidad ${schemaName}.`,
+                fields: fields,
+                examples: examples,
+            });
+        }
+    }
+
+
+    // Resolver __dirname en ES Modules
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    // Escribir documentación a archivo
+    const outputDir = path.join(__dirname, '../../docs');
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+    }
+    
+    const outputPathJson = path.join(outputDir, 'schemas.json');
+    fs.writeFileSync(outputPathJson, JSON.stringify(docs, null, 2));
+
+    const outputPathMd = path.join(outputDir, 'SCHEMAS.md');
+    const markdown = generateMarkdownDocs(docs);
+    fs.writeFileSync(outputPathMd, markdown);
+
+    console.log('✅ Documentación de esquemas generada exitosamente en /docs');
+}
+
+// ----------------------------------------------------------------------
+// Ejecutar si se llama directamente (ES Module style)
+// ----------------------------------------------------------------------
+
+// Verifica si el módulo se está ejecutando como el punto de entrada principal
+if (import.meta.url === path.resolve(process.argv[1])) {
+    generateSchemaDocs();
+}

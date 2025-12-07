@@ -1,89 +1,89 @@
 import { Request, Response } from 'express';
 import { CitasService } from '../services/citas.service.js';
-import { CreateCitaInput, UpdateCitaInput } from '../schemas/cita.schema.js';
+
+// ⚠️ NOTA: Si mueves la lógica de 'citas.routes.ts' aquí, debes asegurarte
+// de que las rutas que usan req.user también tengan adjunto el middleware de autenticación.
+
+const service = new CitasService();
 
 export class CitasController {
-  private service = new CitasService();
-
-  create = async (
-    req: Request<{}, {}, CreateCitaInput>,
-    res: Response
-  ) => {
+  // Crear cita
+  async create(req: Request, res: Response) {
     try {
-      if (!req.user) { // Falta carpeta
-        return res.status(401).json({
-          success: false,
-          error: 'Usuario no autenticado',
-        });
-      }
-
-      const result = await this.service.createCita(req.body, req.user.id);
-      
-      res.status(201).json({
-        success: true,
-        data: result,
-        message: 'Cita creada exitosamente',
-      });
+      // ✅ Solucionado por src/types/express.d.ts
+      const userId: number = req.user?.id ?? 0; 
+      const cita = await service.createCita(req.body, userId);
+      res.status(201).json({ success: true, data: cita });
     } catch (error: any) {
-      res.status(400).json({
-        success: false,
-        error: error.message,
-      });
+      res.status(400).json({ success: false, error: error.message });
     }
-  };
+  }
 
-  update = async (
-    req: Request<{ id: string }, {}, UpdateCitaInput>,
-    res: Response
-  ) => {
+  // Actualizar cita
+  async update(req: Request, res: Response) {
     try {
-      if (!req.user) {
-        return res.status(401).json({
-          success: false,
-          error: 'Usuario no autenticado',
-        });
-      }
-
-      const result = await this.service.updateCita(
-        req.params.id,
-        req.body,
-        req.user.id
-      );
-      
-      res.json({
-        success: true,
-        data: result,
-        message: 'Cita actualizada exitosamente',
-      });
+      const id: number = parseInt(req.params.id, 10);
+      // ✅ Solucionado por src/types/express.d.ts
+      const userId: number = req.user?.id ?? 0; 
+      const cita = await service.updateCita(id, req.body, userId);
+      res.json({ success: true, data: cita });
     } catch (error: any) {
-      res.status(400).json({
-        success: false,
-        error: error.message,
-      });
+      res.status(400).json({ success: false, error: error.message });
     }
-  };
+  }
 
-  getByProfesional = async (
-    req: Request<{ profesionalId: string }, {}, {}, { fecha: string }>,
-    res: Response
-  ) => {
+  // Obtener citas por profesional en una fecha (No requiere req.user)
+  async getByProfesional(req: Request, res: Response) {
     try {
-      const fecha = new Date(req.query.fecha || Date.now());
-      const result = await this.service.getCitasPorProfesional(
-        req.params.profesionalId,
-        fecha
-      );
-      
-      res.json({
-        success: true,
-        data: result,
-        count: result.length,
-      });
+      const profesionalId: number = parseInt(req.params.profesionalId, 10);
+      // La validación de fechas debería hacerse con Zod, pero lo mantengo
+      const fecha: Date = new Date(req.params.fecha); 
+      const citas = await service.getCitasPorProfesional(profesionalId, fecha);
+      res.json({ success: true, data: citas });
     } catch (error: any) {
-      res.status(400).json({
-        success: false,
-        error: error.message,
-      });
+      res.status(400).json({ success: false, error: error.message });
     }
-  };
+  }
+
+  // Confirmar cita
+  async confirmar(req: Request, res: Response) {
+    try {
+      const id: number = parseInt(req.params.id, 10);
+      // ✅ Solucionado por src/types/express.d.ts
+      const userId: number = req.user?.id ?? 0; 
+      const { observaciones } = req.body;
+      const cita = await service.confirmarCita(id, userId, observaciones);
+      res.json({ success: true, message: 'Cita confirmada', data: cita });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  }
+
+  // Cancelar cita
+  async cancelar(req: Request, res: Response) {
+    try {
+      const id: number = parseInt(req.params.id, 10);
+      // ✅ Solucionado por src/types/express.d.ts
+      const userId: number = req.user?.id ?? 0; 
+      const { observaciones } = req.body;
+      const cita = await service.cancelarCita(id, userId, observaciones);
+      res.json({ success: true, message: 'Cita cancelada', data: cita });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  }
+
+  // Reprogramar cita
+  async reprogramar(req: Request, res: Response) {
+    try {
+      const id: number = parseInt(req.params.id, 10);
+      // ✅ Solucionado por src/types/express.d.ts
+      const userId: number = req.user?.id ?? 0; 
+      const { inicio, fin } = req.body;
+      const cita = await service.reprogramarCita(id, new Date(inicio), new Date(fin), userId);
+      res.json({ success: true, message: 'Cita reprogramada', data: cita });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  }
 }

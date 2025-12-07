@@ -5,55 +5,31 @@ export const citaSchema = z.object({
   personaId: z.number().int().positive('ID de persona inválido'),
   profesionalId: z.number().int().positive('ID de profesional inválido'),
   unidadId: z.number().int().positive('ID de unidad inválido'),
-  
-  inicio: dateSchema.refine(
-    date => date >= new Date(),
-    { message: 'La fecha debe ser futura' }
-  ),
-  
+  inicio: dateSchema.refine(date => date >= new Date(), { message: 'La fecha debe ser futura' }),
   fin: dateSchema,
-  
-  motivo: z.string()
-    .min(5, 'Motivo demasiado corto')
-    .max(2000, 'Motivo demasiado largo'),
-  
+  motivo: z.string().min(5).max(2000),
   canal: z.enum(canalesCita),
-  
   estado: z.enum(estadosCita).default('solicitada'),
-  
-  observaciones: z.string()
-    .max(2000, 'Observaciones demasiado largas')
-    .optional(),
-}).refine(
-  data => data.fin > data.inicio,
-  {
-    message: 'La fecha de fin debe ser posterior a la de inicio',
-    path: ['fin'],
-  }
-).refine(
-  data => {
-    const duration = data.fin.getTime() - data.inicio.getTime();
-    const hours = duration / (1000 * 60 * 60);
-    return hours <= 4; // Máximo 4 horas por cita
-  },
-  {
-    message: 'La cita no puede durar más de 4 horas',
-    path: ['fin'],
-  }
-);
-
-export const createCitaSchema = z.object({
-  body: citaSchema,
+  observaciones: z.string().max(2000).optional(),
+}).refine(data => data.fin > data.inicio, {
+  message: 'La fecha de fin debe ser posterior a la de inicio',
+  path: ['fin'],
+}).refine(data => {
+  const duration = data.fin.getTime() - data.inicio.getTime();
+  const hours = duration / (1000 * 60 * 60);
+  return hours <= 4;
+}, {
+  message: 'La cita no puede durar más de 4 horas',
+  path: ['fin'],
 });
 
+export const createCitaSchema = z.object({ body: citaSchema });
+
 export const updateCitaSchema = z.object({
-  params: z.object({
-    id: idParamSchema,
+  params: z.object({ id: idParamSchema }),
+  body: citaSchema.partial().refine(data => Object.keys(data).length > 0, {
+    message: 'Debe proporcionar al menos un campo para actualizar',
   }),
-  body: citaSchema.partial().refine(
-    data => Object.keys(data).length > 0,
-    { message: 'Debe proporcionar al menos un campo para actualizar' }
-  ),
 });
 
 export const searchCitasSchema = z.object({
@@ -69,12 +45,66 @@ export const searchCitasSchema = z.object({
 });
 
 export const cambiarEstadoCitaSchema = z.object({
-  params: z.object({
-    id: idParamSchema,
-  }),
+  params: z.object({ id: idParamSchema }),
   body: z.object({
     estado: z.enum(estadosCita),
     observaciones: z.string().max(1000).optional(),
+  }),
+});
+
+export const confirmarCitaSchema = z.object({
+  params: z.object({ id: idParamSchema }),
+  body: z.object({
+    estado: z.literal('confirmada'),
+    observaciones: z.string().max(1000).optional(),
+  }),
+});
+
+export const cancelarCitaSchema = z.object({
+  params: z.object({ id: idParamSchema }),
+  body: z.object({
+    estado: z.literal('cancelada'),
+    observaciones: z.string().max(1000).optional(),
+  }),
+});
+
+export const reprogramarCitaSchema = z.object({
+  params: z.object({ id: idParamSchema }),
+  body: z.object({
+    inicio: dateSchema.refine(date => date >= new Date(), {
+      message: 'La nueva fecha debe ser futura',
+    }),
+    fin: dateSchema,
+  }).superRefine((data, ctx) => {
+    if (data.fin <= data.inicio) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'La fecha de fin debe ser posterior a la de inicio',
+        path: ['fin'],
+      });
+    }
+
+    const duration = data.fin.getTime() - data.inicio.getTime();
+    const hours = duration / (1000 * 60 * 60);
+    if (hours > 4) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'La cita no puede durar más de 4 horas',
+        path: ['fin'],
+      });
+    }
+  }),
+});
+
+export const deleteCitaSchema = z.object({
+  params: z.object({ id: idParamSchema }),
+});
+
+export const agendaProfesionalSchema = z.object({
+  params: z.object({ profesionalId: idParamSchema }),
+  query: z.object({
+    fechaInicio: z.string().optional(),
+    fechaFin: z.string().optional(),
   }),
 });
 

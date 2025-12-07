@@ -1,24 +1,37 @@
+// src/middlewares/auth.middleware.ts
+
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+// 🟢 Importamos el módulo de JWT y el util que ya tiene la lógica de verificación
+import { verifyToken, JWTPayload, extractTokenFromHeader } from '../utils/jwt.util.js'; 
+// Asumiendo que has extendido Request para incluir 'user'
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ success: false, error: 'Token no proporcionado' });
-  }
+  // 1. Usamos el util para extraer el token
+  const token = extractTokenFromHeader(authHeader);
 
-  const token = authHeader.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ success: false, error: 'Token no proporcionado o formato incorrecto' });
+  }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as Express.UserPayload;
-    req.user = {
-      id: decoded.id,
-      email: decoded.email,
-      rol: decoded.rol,
-    };
-    next();
-  } catch (error) {
-    return res.status(401).json({ success: false, error: 'Token inválido o expirado' });
-  }
+  try {
+    // 2. Usamos el util para verificar (maneja expiración/invalidez)
+    const decoded = verifyToken(token) as JWTPayload; 
+    
+    // 3. Asignamos a req.user (ajusta si la interfaz Express.UserPayload difiere de JWTPayload)
+    req.user = {
+      id: decoded.id,
+      email: decoded.email,
+      rol: decoded.rol,
+    };
+    next();
+  } catch (error) {
+    // 4. El util lanza errores específicos (expirado, inválido), que son capturados aquí.
+    // Podemos devolver el mensaje específico del error para mejor feedback.
+    const errorMessage = error instanceof Error ? error.message : 'Token inválido o expirado';
+    return res.status(401).json({ success: false, error: errorMessage });
+  }
 }
+// Renombrar: Para seguir tu convención en routes.ts, deberías exportar 'checkAuth' o renombrar 'authMiddleware' a 'checkAuth'
+// export const checkAuth = authMiddleware;

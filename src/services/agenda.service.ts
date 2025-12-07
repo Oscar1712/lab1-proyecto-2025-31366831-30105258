@@ -1,108 +1,180 @@
-import prisma from '../config/database';
-import { BloqueAgendaInput } from '../schemas/bloqueAgenda.schema';
+// src/services/agenda.service.ts
+
+// Importamos la instancia de Prisma (default)
+import prisma from '../config/database.js'; 
+// Eliminamos la importación que causa el error: import type { Prisma } from '../config/database'; 
+
+// Importamos los tipos necesarios del esquema 
+import type { BloqueAgendaInput, SearchBloquesQuery } from '../schemas/bloqueAgenda.schema.js';
+
+// 🚨 SOLUCIÓN TEMPORAL: Usamos 'any' para evitar el error 'Cannot find namespace Prisma'
+// Esto permite que el código compile y se ejecute, pero perdemos la estricta tipificación de Prisma.
+type BloqueAgendaWhereInput = any; 
 
 export class AgendaService {
-  async getAll(filters: {
-    profesionalId?: number;
-    unidadId?: number;
-    fechaInicio?: string;
-    fechaFin?: string;
-    estado?: string;
-    page?: number;
-    limit?: number;
-  }) {
-    const {
-      profesionalId,
-      unidadId,
-      fechaInicio,
-      fechaFin,
-      estado,
-      page = 1,
-      limit = 10,
-    } = filters;
+  // 1. Obtener todos los bloques con filtros y paginación
+  async getAll(filters: SearchBloquesQuery) {
+    const {
+      profesionalId,
+      unidadId,
+      fechaInicio,
+      fechaFin,
+      estado,
+      page = 1,
+      limit = 10,
+    } = filters;
 
-    const where: any = {};
+    // Construimos el objeto where dinámicamente
+    // El tipo es 'any' temporalmente
+    const where: BloqueAgendaWhereInput = {};
 
-    if (profesionalId) {
-      where.profesionalId = profesionalId;
-    }
+    if (profesionalId) where.profesionalId = profesionalId;
+    if (unidadId) where.unidadId = unidadId;
+    if (estado) where.estado = estado;
 
-    if (unidadId) {
-      where.unidadId = unidadId;
-    }
+    // Filtro por rango de fechas
+    if (fechaInicio || fechaFin) {
+      where.inicio = {};
+      if (fechaInicio) where.inicio.gte = new Date(fechaInicio);
+      if (fechaFin) where.inicio.lte = new Date(fechaFin);
+    }
 
-    if (fechaInicio profesional.estado !== 'activo') {
-      throw new Error('Profesional no encontrado o inactivo');
-    }
+    const skip = (page - 1) * limit;
+    const total = await prisma.bloqueAgenda.count({ where });
 
-    // Verificar que la unidad existe y está activa
-    const unidad = await prisma.unidadAtencion.findUnique({
-      where: { id: data.unidadId },
-    });
+    const bloques = await prisma.bloqueAgenda.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: { inicio: 'desc' },
+      include: {
+        profesional: { select: { id: true, nombres: true, apellidos: true } },
+        unidadAtencion: { select: { id: true, nombre: true } },
+      },
+    });
 
-if (!unidad  data.fin  data.unidadId) {
-      const inicio = data.inicio  bloque.fin;
-      const profesionalId = data.profesionalId  bloque.unidadId;
+    return {
+      data: bloques,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit),
+      },
+    };
+  }
 
-      const solapamiento = await prisma.bloqueAgenda.findFirst({
-        where: {
-          id: { not: id },
-          profesionalId,
-          unidadId,
-          OR: [
-            {
-              AND: [
-                { inicio: { lte: inicio } },
-                { fin: { gt: inicio } },
-              ],
-            },
-            {
-              AND: [
-                { inicio: { lt: fin } },
-                { fin: { gte: fin } },
-              ],
-            },
-            {
-              AND: [
-                { inicio: { gte: inicio } },
-                { fin: { lte: fin } },
-            ],
-            },
-          ],
-        },
-      });
+  // 2. Obtener bloque por ID
+  async getById(id: number) {
+    const bloque = await prisma.bloqueAgenda.findUnique({
+      where: { id },
+      include: {
+        profesional: { select: { id: true, estado: true } } as any,
+        unidadAtencion: { select: { id: true, estado: true } },
+      },
+    });
 
-      if (solapamiento) {
-        throw new Error('El bloque se solapa con otro existente');
-      }
-    }
+    if (!bloque) throw new Error('Bloque de agenda no encontrado');
+    return bloque;
+  }
 
-    return await prisma.bloqueAgenda.update({
-      where: { id },
-      data,
-    });
-  }
+  // 3. Crear bloque de agenda
+  async create(data: BloqueAgendaInput) {
+    await this.validateAndCheckOverlap(data);
 
-  async delete(id: number) {
-    const bloque = await this.getById(id);
+    return await prisma.bloqueAgenda.create({
+      data: {
+        ...data,
+        inicio: new Date(data.inicio),
+        fin: new Date(data.fin),
+      },
+    });
+  }
 
-    // Verificar que no tenga citas asociadas
-    const citas = await prisma.cita.count({
-      where: {
-        profesionalId: bloque.profesionalId,
-        unidadId: bloque.unidadId,
-        inicio: { gte: bloque.inicio },
-        fin: { lte: bloque.fin },
-        estado: { in: ['solicitada', 'confirmada'] },
-      },
-    });
+  // 4. Actualizar bloque de agenda
+  async update(id: number, data: Partial<BloqueAgendaInput>) {
+    const bloqueExistente = await this.getById(id);
 
-    if (citas > 0) {
-      throw new Error('No se puede eliminar el bloque porque tiene citas asociadas');
-    }
+    // Combinamos datos existentes y nuevos para validar
+    const dataToValidate = { ...bloqueExistente, ...data };
+    await this.validateAndCheckOverlap(dataToValidate as BloqueAgendaInput, id);
 
-    return await prisma.bloqueAgenda.delete({
-      where: { id },
-    });
-  }
+    return await prisma.bloqueAgenda.update({
+      where: { id },
+      data: {
+        ...data,
+        inicio: data.inicio ? new Date(data.inicio) : undefined,
+        fin: data.fin ? new Date(data.fin) : undefined,
+      },
+    });
+  }
+
+  // 5. Eliminar bloque de agenda
+  async delete(id: number) {
+    const bloque = await this.getById(id);
+
+    // Verificamos que no tenga citas asociadas
+    const citas = await prisma.cita.count({
+      where: {
+        unidadId: bloque.unidadAtencion.id,
+        profesionalId: (bloque.profesional as any).id,
+        inicio: { gte: bloque.inicio },
+        fin: { lte: bloque.fin },
+        estado: { in: ['solicitada', 'confirmada'] },
+      },
+    });
+
+    if (citas > 0) {
+      throw new Error('No se puede eliminar el bloque porque tiene citas asociadas');
+    }
+
+    return await prisma.bloqueAgenda.delete({ where: { id } });
+  }
+
+  // --- LÓGICA DE VALIDACIÓN COMPARTIDA ---
+  private async validateAndCheckOverlap(data: BloqueAgendaInput, id?: number) {
+    const inicio = new Date(data.inicio);
+    const fin = new Date(data.fin);
+
+    // 1. Verificar profesional
+    const profesional = await prisma.profesional.findUnique({
+      where: { id: data.profesionalId },
+      include: { usuario: { select: { activo: true } } },
+    });
+
+    if (!profesional || profesional.usuario.activo !== true || profesional.estado !== 'ACTIVO') {
+      throw new Error('Profesional no encontrado o inactivo');
+    }
+
+    // 2. Verificar unidad de atención
+    const unidad = await prisma.unidadAtencion.findUnique({
+      where: { id: data.unidadId },
+    });
+
+    if (!unidad || unidad.estado !== 'activo') {
+      throw new Error('Unidad de atención no encontrada o inactiva');
+    }
+
+    // 3. Chequeo de fechas
+    if (inicio >= fin) {
+      throw new Error('La fecha de inicio debe ser anterior a la fecha de fin');
+    }
+    if (inicio < new Date()) {
+      throw new Error('El bloque no puede iniciar en el pasado');
+    }
+
+    // 4. Chequeo de solapamiento
+    const whereOverlap: BloqueAgendaWhereInput = {
+      profesionalId: data.profesionalId,
+      unidadId: data.unidadId,
+      id: id ? { not: id } : undefined,
+      OR: [{ inicio: { lt: fin }, fin: { gt: inicio } }],
+    };
+
+    const solapamiento = await prisma.bloqueAgenda.findFirst({ where: whereOverlap });
+
+    if (solapamiento) {
+      throw new Error('El bloque se solapa con otro existente');
+    }
+  }
 }

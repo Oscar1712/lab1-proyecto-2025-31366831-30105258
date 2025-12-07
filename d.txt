@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "lib": ["ES2022"],
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "noImplicitAny": false,
+    // 💡 CORRECCIÓN CRUCIAL: La ruta debe apuntar a la carpeta types dentro de la raíz del proyecto.
+    // Usamos './types' porque la carpeta types está directamente en la raíz del proyecto.
+    // Si la carpeta types está DENTRO de src, y el tsconfig.json está en la raíz, la ruta es './src/types'.
+    // Si la carpeta types está DENTRO de src, y rootDir está configurado, a veces es más estable usar la ruta absoluta desde la raíz.
+    // Probaremos la ruta absoluta desde la raíz, ya que la anterior falló.
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "sourceMap": true
+  },
+  // 💡 CORRECCIÓN: Tu patrón de include está mal escrito. Debe ser src/**/*.ts
+  "include": ["src/**/*.ts", "prisma/**/*.prisma", "src/generated/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

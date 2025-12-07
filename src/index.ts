@@ -1,4 +1,4 @@
-// src/app.ts
+// src/index.ts
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';

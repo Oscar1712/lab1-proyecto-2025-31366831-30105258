@@ -8,7 +8,7 @@ import type {
     Prisma, 
     Cita as PrismaCita, 
     EstadoCita 
-} from '../generated/prisma/client.js'; 
+} from '@prisma/client'; 
 
 // 🟢 Importamos los tipos de entrada desde el esquema Zod
 import type { CreateCitaInput, UpdateCitaInput } from '../schemas/cita.schema.js'; 

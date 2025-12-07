@@ -1,4 +1,8 @@
-import prisma from '../config/database.js'; // Falta archivo
+// src/services/personasAtendidas.service.ts
+
+import prisma from '../config/database.js'; 
+// 🟢 CORRECCIÓN 1: Importar el namespace de tipos Prisma
+import type { Prisma } from '@prisma/client'; 
 import { PersonaAtendidaInput, UpdatePersonaInput } from '../schemas/persona.schema.js';
 
 export class PersonasAtendidasService {

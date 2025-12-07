@@ -1,13 +1,18 @@
 // src/services/consentimientos.service.ts
 
 import prisma from '../config/database.js'; 
-import type { Prisma, Consentimiento as PrismaConsentimiento } from '../generated/prisma/client.js'; 
+
+// 🟢 CORRECCIÓN: Usar el paquete estándar de Prisma
+import type { 
+    Prisma, 
+    Consentimiento as PrismaConsentimiento,
+    // (Añade aquí otros tipos de modelos que uses en este archivo)
+} from '@prisma/client'; 
 
 import type { ConsentimientoInput } from '../schemas/consentimiento.schema.js';
 
-type ConsentimientoWhereInput = Prisma.ConsentimientoWhereInput;
+type ConsentimientoWhereInput = Prisma.ConsentimientoWhereInput; // ✅ Funciona por la corrección anterior
 type Consentimiento = PrismaConsentimiento;
-
 export class ConsentimientoService {
 
     // 1. Obtener todos los consentimientos (generalmente por persona)

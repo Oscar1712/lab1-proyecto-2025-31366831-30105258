@@ -2,15 +2,15 @@
 
 // Importamos la instancia de Prisma (default)
 import prisma from '../config/database.js'; 
-// Eliminamos la importación que causa el error: import type { Prisma } from '../config/database'; 
+
+// 🟢 CORRECCIÓN: Importamos el namespace de tipos 'Prisma'
+import type { Prisma } from '@prisma/client'; 
 
 // Importamos los tipos necesarios del esquema 
 import type { BloqueAgendaInput, SearchBloquesQuery } from '../schemas/bloqueAgenda.schema.js';
 
-// 🚨 SOLUCIÓN TEMPORAL: Usamos 'any' para evitar el error 'Cannot find namespace Prisma'
-// Esto permite que el código compile y se ejecute, pero perdemos la estricta tipificación de Prisma.
-type BloqueAgendaWhereInput = any; 
-
+// ✅ CORRECCIÓN: Usamos el tipo de Prisma correcto
+type BloqueAgendaWhereInput = Prisma.BloqueAgendaWhereInput; // 👈 Ahora está tipado correctamente.
 export class AgendaService {
   // 1. Obtener todos los bloques con filtros y paginación
   async getAll(filters: SearchBloquesQuery) {

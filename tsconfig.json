@@ -8,6 +8,11 @@
     "resolveJsonModule": true,
     "allowJs": false,
     "noImplicitAny": false,
+    "ignoreDeprecations": "6.0",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"] 
+    },
     "typeRoots": [
       "./src/types",
       "./node_modules/@types"
@@ -19,7 +24,8 @@
   "include": [
     "src/**/*.ts",
     "prisma/**/*.prisma",
-    "src/generated/**/*"
+    "src/generated/**/*",
+    "src/types/**/*"
   ],
   "exclude": [
     "node_modules",

@@ -1,4 +1,5 @@
-import prisma from '../config/database.js'; // Falta archivo
+// src/services/personasAtendidas.service.ts
+import prisma from '../config/database.js';
 export class PersonasAtendidasService {
     async getAll(filters) {
         const { documento, nombres, apellidos, estado, page = 1, limit = 10, } = filters;

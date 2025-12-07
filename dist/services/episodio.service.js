@@ -1,5 +1,5 @@
 // src/services/episodio.service.ts
-import prisma from '../config/database.js';
+import prisma from '../config/database.js'; // 🟢 Correcto: Usando el Singleton
 export class EpisodioService {
     // 1. Obtener todos los episodios con filtros y paginación
     async getAll(filters) {
@@ -94,7 +94,6 @@ export class EpisodioService {
         });
     }
     // --- LÓGICA DE VALIDACIÓN COMPARTIDA ---
-    // 🟢 LA DEFINICIÓN DEBE ESTAR DENTRO DE LAS LLAVES DE LA CLASE
     async validatePersona(personaId) {
         const persona = await prisma.personaAtendida.findUnique({
             where: { id: personaId },

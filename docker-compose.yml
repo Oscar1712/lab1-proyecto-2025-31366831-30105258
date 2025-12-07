@@ -1,14 +1,42 @@
 services:
-  db:
+  mysql:
     image: mysql:8.0
-    container_name: mysql_lab1
+    container_name: medical_mysql
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: salud_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: medical_db
+      MYSQL_USER: medical_user
+      MYSQL_PASSWORD: medical_password
     ports:
       - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+    networks:
+      - medical_network
+
+  api:
+    build: .
+    container_name: medical_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mysql://medical_user:medical_password@mysql:3306/medical_db
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: 24h
+    depends_on:
+      - mysql
+    networks:
+      - medical_network
+    volumes:
+      - ./src:/app/src
+
 volumes:
-  db_data:
+  mysql_data:
+
+networks:
+  medical_network:
+    driver: bridge

@@ -8,11 +8,6 @@
     "resolveJsonModule": true,
     "allowJs": false,
     "noImplicitAny": false,
-    "ignoreDeprecations": "6.0",
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["./src/*"] 
-    },
     "typeRoots": [
       "./src/types",
       "./node_modules/@types"

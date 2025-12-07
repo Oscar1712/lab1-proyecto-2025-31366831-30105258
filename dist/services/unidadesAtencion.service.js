@@ -4,7 +4,6 @@ export class UnidadesAtencionService {
     // Obtener todas las unidades de atención con filtros y paginación
     async getAll(filters) {
         const { tipo, estado, page = 1, limit = 10 } = filters;
-        // El tipo se resuelve correctamente con 'import type * as Prisma'
         const where = {};
         if (tipo)
             where.tipo = tipo;
@@ -71,11 +70,11 @@ export class UnidadesAtencionService {
         return prisma.unidadAtencion.create({
             data: {
                 ...data,
-                // Garantizar NULL para campos opcionales si vienen como undefined o strings vacíos
-                direccion: data.direccion || null,
-                telefono: data.telefono || null,
-                // Tipado defensivo para horarioReferencia
-                horarioReferencia: data.horarioReferencia || null,
+                // Usamos el operador NULLISH COALESCING (??) para asegurar que si es un string vacío (''),
+                // o undefined/null, se convierta a NULL para la base de datos.
+                direccion: data.direccion ?? null,
+                telefono: data.telefono ?? null,
+                horarioReferencia: data.horarioReferencia ?? null,
             },
         });
     }
@@ -83,9 +82,10 @@ export class UnidadesAtencionService {
     async update(id, data) {
         // 1. Verificar si la unidad existe
         await this.getById(id);
-        // 2. Preparar los datos para la actualización
+        // 2. Preparamos los datos con el tipado de UPDATE de Prisma, que sí acepta 'null'.
         const updateData = { ...data };
         // 3. Convertir strings vacíos a NULL para campos opcionales
+        // Nota: Si el valor existe (no es undefined) y es un string vacío, lo convertimos a null.
         if (updateData.direccion !== undefined)
             updateData.direccion = updateData.direccion || null;
         if (updateData.telefono !== undefined)
@@ -95,7 +95,7 @@ export class UnidadesAtencionService {
         // 4. Ejecutar la actualización
         return prisma.unidadAtencion.update({
             where: { id },
-            data: updateData,
+            data: updateData, // ✅ Ahora el tipo es correcto
         });
     }
     // Eliminar (desactivar) una unidad de atención

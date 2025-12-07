@@ -1,5 +1,5 @@
 // src/services/diagnosticos.service.ts
-import prisma from '../config/database.js';
+import prisma from '../config/database.js'; // 🟢 Correcto: Usando el Singleton
 export class DiagnosticoService {
     // 1. Obtener todos los diagnósticos (generalmente, se buscarán por episodio)
     async getAllByEpisode(episodioId) {

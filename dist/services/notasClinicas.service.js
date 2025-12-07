@@ -1,5 +1,5 @@
 // src/services/notaClinica.service.ts
-import prisma from '../config/database.js';
+import prisma from '../config/database.js'; // 🟢 Correcto: Usando el Singleton
 export class NotaClinicaService {
     // 1. Obtener todas las notas clínicas con filtros
     async getAll(filters) {
@@ -13,7 +13,6 @@ export class NotaClinicaService {
         // Búsqueda por contenido (Subjetivo, Objetivo, Análisis, Plan)
         if (search) {
             where.OR = [
-                // 🟢 CORRECCIÓN APLICADA: Eliminada la propiedad 'mode: "insensitive"'
                 { subjetivo: { contains: search } },
                 { objetivo: { contains: search } },
                 { analisis: { contains: search } },
@@ -66,7 +65,9 @@ export class NotaClinicaService {
     async update(id, data) {
         await this.getById(id); // Verifica existencia
         if (data.episodioId || data.profesionalId) {
-            await this.validateDependencies(data.episodioId || (await this.getById(id)).episodioId, data.profesionalId || (await this.getById(id)).profesionalId);
+            // Se necesita el ID existente si no se proporciona el nuevo
+            const existing = await this.getById(id);
+            await this.validateDependencies(data.episodioId || existing.episodioId, data.profesionalId || existing.profesionalId);
         }
         return await prisma.notaClinica.update({
             where: { id },

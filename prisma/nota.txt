@@ -1,0 +1,59 @@
+Qué hacer si quieres vincular Usuario ↔️ Profesional
+
+Si de verdad quieres que al registrar un medico se cree el profesional y quede vinculado, añade una relación en prisma/schema.prisma, por ejemplo:
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  rol       String
+  activo    Boolean  @default(true)
+  profesional Profesional? @relation(fields: [profesionalId], references: [id])
+  profesionalId Int? 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profesional {
+  id                  Int      @id @default(autoincrement())
+  usuario             Usuario? @relation
+  // ... otros campos ...
+}
+
+
+O la forma inversa (más natural: Profesional tiene usuarioId):
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  rol       String
+  activo    Boolean  @default(true)
+  profesional Profesional?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profesional {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int      @unique
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+  // ... otros campos ...
+}
+
+
+Después de ajustar el schema.prisma:
+
+npx prisma generate
+npx prisma migrate dev --name link_usuario_profesional
+
+
+Y entonces en el AuthService podrías crear el profesional con usuarioId: user.id.
+
+Comprueba esto después de pegar el archivo
+
+npx tsc --noEmit — para ver errores TS.
+
+npm run dev — probar rutas POST /auth/register y POST /auth/login.
+
+Si recibes errores del tipo campo no existe en prisma.usuario o model profesional no existe, pega aquí el schema.prisma actualizado y la salida de npx prisma generate.

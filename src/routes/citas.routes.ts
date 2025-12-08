@@ -1,6 +1,4 @@
 import { Router, Request, Response } from 'express';
-// ⚠️ Nota: Si tu controlador está bien, no necesitas importar CitasService aquí.
-// Pero como tienes la lógica en el router, la mantendremos por ahora.
 import { CitasService } from '../services/citas.service.js';
 import { validate } from '../middlewares/validator.middleware.js';
 import {
@@ -10,12 +8,6 @@ import {
   cancelarCitaSchema,
   reprogramarCitaSchema,
 } from '../schemas/cita.schema.js';
-
-// *******************************************************************
-// 💡 RECOMENDACIÓN: DEBERÍAS IMPORTAR LA CLASE CONTROLLER AQUÍ
-// import { CitasController } from '../controllers/citas.controller.js';
-// const controller = new CitasController();
-// *******************************************************************
 
 const router = Router();
 const service = new CitasService(); // Solo si la lógica se queda en el router

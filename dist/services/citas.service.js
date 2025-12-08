@@ -1,30 +1,26 @@
 // src/services/citas.service.ts
-// 🟢 Importamos el cliente Prisma
+// 🟢 CORRECCIÓN 1: Importamos el cliente Prisma (singleton) con extensión .js
 import prisma from '../config/database.js';
 export class CitasService {
     /**
      * Crea una nueva cita y registra el cambio inicial en el historial.
      */
-    // 💡 NOTA: Forzamos la presencia de 'inicio' y 'fin' si el esquema Zod los garantiza.
     async createCita(data, userId) {
         // 1. Construir el historial de cambios inicial
         const historial = [
             {
-                // 💡 CORRECCIÓN 1: Convertir Date a string para JSON
                 timestamp: new Date().toISOString(),
                 responsableId: userId,
                 accion: 'creada',
                 observacion: data.motivo || 'Cita creada inicialmente.',
             },
         ];
-        // 2. Construir los datos para Prisma usando CitaUncheckedCreateInput
-        // Usamos el cast 'as' para asegurar que el objeto cumpla los requisitos de Prisma.
+        // 2. Construir los datos para Prisma
         const citaData = {
             ...data,
-            // 💡 CORRECCIÓN 2: Asegurar que inicio/fin existan si son requeridos en el modelo.
-            // Si el schema Zod garantiza que están, esto es seguro.
-            inicio: data.inicio,
-            fin: data.fin,
+            // Asegurando que los campos de fecha están como Date si el esquema lo requiere
+            inicio: new Date(data.inicio),
+            fin: new Date(data.fin),
             historialCambios: historial,
             estado: 'solicitada',
         };
@@ -45,7 +41,6 @@ export class CitasService {
     async updateCita(id, data, userId) {
         // 1. Prepara el registro de historial
         const nuevoRegistro = {
-            // 💡 CORRECCIÓN 1: Convertir Date a string para JSON
             timestamp: new Date().toISOString(),
             responsableId: userId,
             accion: 'actualizada',
@@ -54,7 +49,10 @@ export class CitasService {
         // 2. Construir los datos para la actualización
         const updateData = {
             ...data,
-            // Forma correcta de hacer PUSH, asegurando que el tipo es JsonValue.
+            // Convertir fechas de entrada a Date si existen
+            inicio: data.inicio ? new Date(data.inicio) : undefined,
+            fin: data.fin ? new Date(data.fin) : undefined,
+            // Forma correcta de hacer PUSH
             historialCambios: {
                 push: nuevoRegistro,
             },
@@ -71,31 +69,10 @@ export class CitasService {
             throw new Error('No se pudo actualizar la cita.');
         }
     }
-    /**
-     * Obtiene citas por profesional en un día específico.
-     */
-    async getCitasPorProfesional(profesionalId, fecha) {
-        const startOfDay = new Date(fecha);
-        startOfDay.setHours(0, 0, 0, 0);
-        const endOfDay = new Date(fecha);
-        endOfDay.setHours(23, 59, 59, 999);
-        return prisma.cita.findMany({
-            where: {
-                profesionalId,
-                inicio: {
-                    gte: startOfDay,
-                    lte: endOfDay,
-                },
-            },
-            orderBy: {
-                inicio: 'asc',
-            },
-        });
-    }
+    // ... resto del servicio ...
     // --- Métodos de Estado ---
     async actualizarEstado(id, nuevoEstado, userId, observaciones, inicio, fin) {
         const observacionHistorial = observaciones || `Estado cambiado a ${nuevoEstado}.`;
-        // 💡 CORRECCIÓN 3: Asegurar que todas las fechas que van al JSONB sean strings.
         const datosAdicionales = (inicio && fin)
             ? { inicio: inicio.toISOString(), fin: fin.toISOString() }
             : undefined;
@@ -127,6 +104,7 @@ export class CitasService {
         }
     }
     async confirmarCita(id, userId, observaciones) {
+        // ... (El resto de los métodos de estado están correctos)
         return this.actualizarEstado(id, 'confirmada', userId, observaciones);
     }
     async cancelarCita(id, userId, observaciones) {
@@ -135,6 +113,24 @@ export class CitasService {
     async reprogramarCita(id, inicio, fin, userId) {
         const obs = `Cita reprogramada de ${inicio.toISOString()} a ${fin.toISOString()}`;
         return this.actualizarEstado(id, 'solicitada', userId, obs, inicio, fin);
+    }
+    async getCitasPorProfesional(profesionalId, fecha) {
+        const startOfDay = new Date(fecha);
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(fecha);
+        endOfDay.setHours(23, 59, 59, 999);
+        return prisma.cita.findMany({
+            where: {
+                profesionalId,
+                inicio: {
+                    gte: startOfDay,
+                    lte: endOfDay,
+                },
+            },
+            orderBy: {
+                inicio: 'asc',
+            },
+        });
     }
 }
 //# sourceMappingURL=citas.service.js.map

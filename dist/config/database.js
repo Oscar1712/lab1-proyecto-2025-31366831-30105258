@@ -1,7 +1,7 @@
 // src/config/database.ts
 import 'dotenv/config';
 // 🟢 IMPORTACIÓN ESTÁNDAR: Importamos los tipos necesarios
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient, Prisma } from '../generated/prisma/client.js';
 const globalForPrisma = globalThis;
 // 🟢 Nota: La función debe devolver AnyPrismaClient para silenciar errores
 function createPrismaClient() {

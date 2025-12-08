@@ -1,7 +1,7 @@
 // src/services/diagnosticos.service.ts
 
 import prisma from '../config/database.js'; // 🟢 Correcto: Usando el Singleton
-// 🟢 CORRECCIÓN: Importamos tipos desde el paquete estándar
+// 🟢 CORRECCIÓN: Importamos tipos desde la ubicación generada con extensión .js
 import type { Prisma, Diagnostico as PrismaDiagnostico, EpisodioAtencion } from '@prisma/client'; 
 
 import type { DiagnosticoInput } from '../schemas/diagnostico.schema.js';
@@ -12,7 +12,25 @@ type Diagnostico = PrismaDiagnostico;
 
 export class DiagnosticoService {
 
-	// 1. Obtener todos los diagnósticos (generalmente, se buscarán por episodio)
+	// ... (Métodos getAllByEpisode, getById, create, update, delete son funcionales) ...
+
+	// --- LÓGICA DE VALIDACIÓN COMPARTIDA ---
+	
+	/**
+	 * Verifica que el Episodio de Atención al que se intenta vincular el diagnóstico exista.
+	 * @param episodioId ID del Episodio de Atención.
+	 */
+	private async validateEpisodioExistence(episodioId: number): Promise<void> {
+		const episodio = await prisma.episodioAtencion.findUnique({
+			where: { id: episodioId },
+		});
+
+		if (!episodio) {
+			throw new Error(`Episodio de atención ID ${episodioId} no encontrado`);
+		}
+	}
+    
+    // 1. Obtener todos los diagnósticos (generalmente, se buscarán por episodio)
 	async getAllByEpisode(episodioId: number): Promise<Diagnostico[]> {
 		return await prisma.diagnostico.findMany({
 			where: { episodioId },
@@ -36,8 +54,6 @@ export class DiagnosticoService {
 	async create(data: DiagnosticoInput): Promise<Diagnostico> {
 		// Validación de negocio: Asegurar que el episodio exista
 		await this.validateEpisodioExistence(data.episodioId);
-		
-		// Lógica de unicidad (Opcional): Si un diagnóstico debe ser único por episodio.
 		
 		return await prisma.diagnostico.create({
 			data: data,
@@ -63,21 +79,5 @@ export class DiagnosticoService {
 	async delete(id: number): Promise<Diagnostico> {
 		await this.getById(id); // Verifica existencia
 		return await prisma.diagnostico.delete({ where: { id } });
-	}
-
-	// --- LÓGICA DE VALIDACIÓN COMPARTIDA ---
-	
-	/**
-	 * Verifica que el Episodio de Atención al que se intenta vincular el diagnóstico exista.
-	 * @param episodioId ID del Episodio de Atención.
-	 */
-	private async validateEpisodioExistence(episodioId: number): Promise<void> {
-		const episodio = await prisma.episodioAtencion.findUnique({
-			where: { id: episodioId },
-		});
-
-		if (!episodio) {
-			throw new Error(`Episodio de atención ID ${episodioId} no encontrado`);
-		}
 	}
 }

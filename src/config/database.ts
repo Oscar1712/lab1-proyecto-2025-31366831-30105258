@@ -2,6 +2,7 @@
 import 'dotenv/config';
 // 🟢 IMPORTACIÓN ESTÁNDAR: Importamos los tipos necesarios
 import { PrismaClient, Prisma } from '@prisma/client';
+// import { PrismaClient, Prisma } from '@prisma/client';
 // import { PrismaClient, Prisma } from '../node_modules/.prisma/client';
 
 // ----- Definición de Tipos y Singleton -----

@@ -3,30 +3,29 @@
 # ----------------------------------------------------------------------
 FROM node:20-alpine AS build
 
-# Establece el directorio de trabajo dentro del contenedor
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# 1. Copia solo los archivos de manifiesto
+# 1. Copia package.json y package-lock.json
 COPY package.json package-lock.json ./
 
-# 2. Copia los archivos necesarios para el postinstall de Prisma
-# **ESTE PASO RESUELVE EL ERROR DE "SCHEMA NOT FOUND"**
+# 2. Copia los archivos necesarios para la instalación y compilación
+# Esto es esencial para que 'prisma generate' (postinstall) y 'tsc' funcionen.
 COPY prisma/ ./prisma/
 COPY .env ./.env
 COPY src/ ./src/
 COPY tsconfig.json ./
 
-# 3. Instala las dependencias de producción y desarrollo
-# Esto ejecuta automáticamente 'prisma generate' (postinstall)
+# 3. Instala las dependencias (ejecuta prisma generate)
+# El cliente de Prisma se genera aquí.
 RUN npm install
 
-# 4. Compila el código TypeScript a JavaScript
+# 4. Compila el código TypeScript a JavaScript (genera la carpeta 'dist')
 RUN npm run build
 
 
 # ----------------------------------------------------------------------
 # ETAPA 2: PRODUCCIÓN (Runtime Final)
-# Se usa una imagen base ligera para el entorno de ejecución.
 # ----------------------------------------------------------------------
 FROM node:20-alpine AS production
 
@@ -36,18 +35,22 @@ WORKDIR /app
 # 1. Copia el manifiesto de dependencias
 COPY package.json ./
 
-# 2. Instala solo las dependencias de producción
-RUN npm install --only=production
+# 2. Instala solo las dependencias de producción, OMITIENDO los scripts.
+# La bandera --ignore-scripts evita que 'prisma generate' se ejecute y falle.
+# Ya no necesitamos el schema, porque el cliente ya fue generado en la etapa 'build'.
+RUN npm install --only=production --ignore-scripts 
 
 # 3. Copia el código compilado (dist) y el cliente de Prisma generado
 # Copia los archivos JavaScript compilados
 COPY --from=build /app/dist ./dist
 
-# Copia los binarios y librerías del cliente de Prisma (esenciales para la conexión)
-COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
-COPY --from=build /app/src/generated /app/src/generated
+# Copia los binarios y librerías del cliente de Prisma 
+COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma 
 
-# 4. Copia el archivo .env para inyección de variables (aunque Docker Compose ya lo maneja)
+# Copia la carpeta GENERADA por tu 'output' personalizado en schema.prisma
+COPY --from=build /app/src/generated /app/src/generated 
+
+# 4. Copia el archivo .env
 COPY .env ./.env
 
 # Puerto de la API

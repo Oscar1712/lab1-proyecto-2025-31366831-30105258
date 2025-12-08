@@ -1,56 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
-  provider = "prisma-client-js"
-  engineType = "binary"
- // output   = "../node_modules/.prisma/client"
- // output   = "app/generated/prisma/client"
- // output   = "../src/generated/prisma"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "mysql"
-  // url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
-//
-// ENUMS
-//
-enum EstadoBloqueAgenda {
-  abierto
-  cerrado
-  reservado
-}
 
-enum EstadoCita {
-  solicitada
-  confirmada
-  cumplida
-  cancelada
-  noAsistida
-}
-
-enum EstadoEpisodio {
-  abierto
-  cerrado
-}
-
-//
-// MODELOS
-//
-
-// Usuarios para autenticación
 model Usuario {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  rol       String   // admin, medico, recepcionista
+  rol       String
   activo    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   @@map("usuarios")
 }
 
-// Personas Atendidas (Pacientes)
 model PersonaAtendida {
   id                   Int      @id @default(autoincrement())
   tipoDocumento        String
@@ -68,16 +43,12 @@ model PersonaAtendida {
   estado               String   @default("activo")
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
-
-  citas           Cita[]
-  episodios       EpisodioAtencion[]
-  consentimientos Consentimiento[]
-
+  citas                Cita[]
+  episodios            EpisodioAtencion[]
+  consentimientos      Consentimiento[]
   @@map("personas_atendidas")
-  @@index([numeroDocumento])
 }
 
-// Profesionales de Salud
 model Profesional {
   id                  Int      @id @default(autoincrement())
   nombres             String
@@ -90,33 +61,27 @@ model Profesional {
   estado              String   @default("activo")
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
-
-  bloques       BloqueAgenda[]
-  citas         Cita[]
-  notasClinicas NotaClinica[]
-
+  bloques             BloqueAgenda[]
+  citas               Cita[]
+  notasClinicas       NotaClinica[]
   @@map("profesionales")
 }
 
-// Unidades de Atención
 model UnidadAtencion {
-  id                Int      @id @default(autoincrement())
-  nombre            String
-  tipo              String   // sede, consultorio, servicio
-  direccion         String?
-  telefono          String?
+  id               Int      @id @default(autoincrement())
+  nombre           String
+  tipo             String
+  direccion        String?
+  telefono         String?
   horarioReferencia String?
-  estado            String   @default("activo")
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  bloques BloqueAgenda[]
-  citas   Cita[]
-
+  estado           String   @default("activo")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  bloques          BloqueAgenda[]
+  citas            Cita[]
   @@map("unidades_atencion")
 }
 
-// Bloques de Agenda
 model BloqueAgenda {
   id            Int      @id @default(autoincrement())
   profesionalId Int
@@ -124,59 +89,49 @@ model BloqueAgenda {
   inicio        DateTime
   fin           DateTime
   capacidad     Int      @default(1)
-  estado        EstadoBloqueAgenda @default(abierto)
+  estado        String   @default("abierto")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-
-  profesional Profesional    @relation(fields: [profesionalId], references: [id])
-  unidad      UnidadAtencion @relation(fields: [unidadId], references: [id])
-
+  profesional   Profesional    @relation(fields: [profesionalId], references: [id])
+  unidad        UnidadAtencion @relation(fields: [unidadId], references: [id])
   @@map("bloques_agenda")
-  @@index([profesionalId, inicio, fin])
 }
 
-// Citas
 model Cita {
-  id              Int      @id @default(autoincrement())
-  personaId       Int
-  profesionalId   Int
-  unidadId        Int
-  inicio          DateTime
-  fin             DateTime
-  motivo          String   @db.Text
-  canal           String   // presencial, virtual
-  estado          EstadoCita @default(solicitada)
-  observaciones   String?  @db.Text
-  historialCambios Json?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  persona     PersonaAtendida @relation(fields: [personaId], references: [id])
-  profesional Profesional     @relation(fields: [profesionalId], references: [id])
-  unidad      UnidadAtencion  @relation(fields: [unidadId], references: [id])
-
+  id               Int      @id @default(autoincrement())
+  personaId        Int
+  profesionalId    Int
+  unidadId         Int
+  inicio           DateTime
+  fin              DateTime
+  motivo           String   @db.Text
+  canal            String
+  estado           String   @default("solicitada")
+  observaciones    String?  @db.Text
+  historialCambios String?  @db.Text
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  persona          PersonaAtendida @relation(fields: [personaId], references: [id])
+  profesional      Profesional     @relation(fields: [profesionalId], references: [id])
+  unidad           UnidadAtencion  @relation(fields: [unidadId], references: [id])
   @@map("citas")
-  @@index([profesionalId, inicio, fin])
 }
-// Episodios de Atención
+
 model EpisodioAtencion {
   id            Int      @id @default(autoincrement())
   personaId     Int
   fechaApertura DateTime @default(now())
   motivo        String   @db.Text
-  tipo          String   // consulta, procedimiento, control, urgencia ambulatoria
-  estado        EstadoEpisodio @default(abierto)
+  tipo          String
+  estado        String   @default("abierto")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-
   persona       PersonaAtendida @relation(fields: [personaId], references: [id])
   notasClinicas NotaClinica[]
   diagnosticos  Diagnostico[]
-
   @@map("episodios_atencion")
 }
 
-// Notas Clínicas
 model NotaClinica {
   id            Int      @id @default(autoincrement())
   episodioId    Int
@@ -186,47 +141,36 @@ model NotaClinica {
   objetivo      String?  @db.Text
   analisis      String?  @db.Text
   plan          String?  @db.Text
-
-  // JSON array de URLs
   adjuntos      String?  @db.Text
-
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-
-  episodio    EpisodioAtencion @relation(fields: [episodioId], references: [id])
-  profesional Profesional      @relation(fields: [profesionalId], references: [id])
-
+  episodio      EpisodioAtencion @relation(fields: [episodioId], references: [id])
+  profesional   Profesional      @relation(fields: [profesionalId], references: [id])
   @@map("notas_clinicas")
 }
 
-// Diagnósticos
 model Diagnostico {
   id          Int      @id @default(autoincrement())
   episodioId  Int
-  codigo      String   // CIE-10
+  codigo      String
   descripcion String
-  tipo        String   // presuntivo, definitivo
+  tipo        String
   principal   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  episodio EpisodioAtencion @relation(fields: [episodioId], references: [id])
-
+  episodio    EpisodioAtencion @relation(fields: [episodioId], references: [id])
   @@map("diagnosticos")
 }
 
-// Consentimientos Informados
 model Consentimiento {
   id                Int      @id @default(autoincrement())
   personaId         Int
   tipoProcedimiento String
   fecha             DateTime @default(now())
-  metodo            String   // firma digital, aceptación verbal con registro
+  metodo            String
   archivoId         String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
-
-  persona PersonaAtendida @relation(fields: [personaId], references: [id])
-
+  persona           PersonaAtendida @relation(fields: [personaId], references: [id])
   @@map("consentimientos")
 }

@@ -1,50 +1,42 @@
 {
-  "name": "lab1-proyecto-2025-31366831-30105258-main",
+  "name": "lab1-proyecto-2025-31366831-30105258",
   "version": "1.0.0",
-  "description": "API REST completa para gestión integral de servicios médicos desarrollada con Node.js, Express, TypeScript, Prisma y MySQL.",
-  "main": "dist/index.js",
-  "type": "module",
+  "description": "API REST completa para gestión integral de servicios médicos desarrollada con Node.js, Express, TypeScript, Prisma y MySQL. Incluye módulos para agendamiento clínico, atención ambulatoria, registro clínico electrónico y trazabilidad completa.",
+  "main": "index.js",
   "scripts": {
-    "watch-ts": "npm run build -- --watch",
-    "watch-node": "nodemon --watch dist --exec npm run start",
-    "dev": "concurrently \"npm run watch-ts\" \"npm run watch-node\"",
-    "build": "tsc",
-    "start": "node --enable-source-maps dist/server.js",
-    "postinstall": "prisma generate"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oscar1712/lab1-proyecto-2025-31366831-30105258.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oscar1712/lab1-proyecto-2025-31366831-30105258/issues"
+  },
+  "homepage": "https://github.com/Oscar1712/lab1-proyecto-2025-31366831-30105258#readme",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.19",
-    "@types/express": "^4.17.21",
+    "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/morgan": "^1.9.10",
     "@types/node": "^24.10.1",
-    "@types/swagger-jsdoc": "^6.0.4",
-    "@types/swagger-ui-express": "^4.1.8",
-    "concurrently": "^9.2.1",
-    "eslint": "^9.39.1",
-    "nodemon": "^3.1.11",
-    "prettier": "^3.7.4",
-    "prisma": "^7.1.0",
-    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@prisma/adapter-mariadb": "^7.1.0",
-    "@prisma/client": "^7.1.0",
+    "@prisma/client": "^7.0.1",
+    "@sendgrid/mail": "^8.1.6",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.3",
-    "morgan": "^1.10.1",
+    "express": "^5.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.15.3",
+    "prisma": "^7.0.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1",
-    "zod": "^4.1.13"
+    "swagger-ui-express": "^5.0.1"
   }
 }

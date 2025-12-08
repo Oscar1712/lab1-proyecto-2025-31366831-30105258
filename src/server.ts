@@ -1,31 +1,39 @@
-// src/server.ts
-import 'dotenv/config';
-import app from './index.js';
-import { ENV } from './config/env.js';
-import { connectDatabase } from './config/database.js';
+// ============================================
+// ARCHIVO: src/server.ts
+// ============================================
+import app from './app';
+import { ENV } from './config/env';
+import prisma from './config/database';
 
-const PORT = ENV.PORT ?? 3000;
+const PORT = ENV.PORT;
 
-/**
- * Función principal para iniciar la aplicación.
- */
-async function bootstrap() {
+const startServer = async () => {
   try {
-    // 1. Conectar a la base de datos (Prisma)
-    await connectDatabase();
+    await prisma.$connect();
+    console.log('✅ Conexión a la base de datos establecida');
 
-    // 2. Iniciar el servidor Express
     app.listen(PORT, () => {
-      console.log('----------------------------------------------------');
-      console.log(`🚀 Servidor Express corriendo en: http://localhost:${PORT}`);
-      console.log(`📄 Documentación (Swagger) en: http://localhost:${PORT}/api-docs`);
-      console.log('----------------------------------------------------');
+      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+      console.log(`📚 Documentación: http://localhost:${PORT}/api-docs`);
+      console.log(`🏥 API de Servicios Médicos v1.0.0`);
+      console.log(`🌍 Entorno: ${ENV.NODE_ENV}`);
     });
   } catch (error) {
-    console.error('❌ Error fatal al iniciar la aplicación:', error);
+    console.error('❌ Error al iniciar el servidor:', error);
     process.exit(1);
   }
-}
+};
 
-// Iniciar la aplicación
-bootstrap();
+process.on('SIGINT', async () => {
+  console.log('\n🛑 Cerrando servidor...');
+  await prisma.$disconnect();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  console.log('\n🛑 Cerrando servidor...');
+  await prisma.$disconnect();
+  process.exit(0);
+});
+
+startServer();

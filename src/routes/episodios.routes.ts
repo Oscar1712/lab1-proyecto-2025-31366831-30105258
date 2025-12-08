@@ -1,17 +1,17 @@
 // ============================================
-// ARCHIVO: src/routes/notasClinicas.routes.ts
+// ARCHIVO: src/routes/episodios.routes.ts
 // ============================================
 /**
  * @swagger
  * tags:
- *   name: Notas Clínicas
+ *   name: Episodios
  */
 import { Router } from 'express';
-import { NotasClinicasController } from '../controllers/notasClinicas.controller';
+import { EpisodiosController } from '../controllers/episodios.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
-const controller = new NotasClinicasController();
+const controller = new EpisodiosController();
 
 router.use(authMiddleware);
 
@@ -22,4 +22,3 @@ router.put('/:id', (req, res) => controller.update(req, res));
 router.delete('/:id', (req, res) => controller.delete(req, res));
 
 export default router;
-

@@ -1,17 +1,62 @@
+// ============================================
+// ARCHIVO: src/routes/auth.routes.ts
+// ============================================
+/**
+ * @swagger
+ * tags:
+ *   name: Autenticación
+ *   description: Endpoints de autenticación y autorización
+ */
 import { Router } from 'express';
-import { AuthController } from '../controllers/auth.controller.js';
-import { authMiddleware } from '../middlewares/auth.middleware.js';
+import { AuthController } from '../controllers/auth.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
-const authController = new AuthController();
+const controller = new AuthController();
 
-// Rutas públicas
-router.post('/register', authController.register.bind(authController));
-router.post('/login', authController.login.bind(authController));
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     tags: [Autenticación]
+ *     summary: Registrar nuevo usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               rol:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuario creado
+ */
+router.post('/register', (req, res) => controller.register(req, res));
 
-// Rutas protegidas (requieren token válido)
-router.get('/me', authMiddleware, authController.me.bind(authController));
-router.post('/refresh', authMiddleware, authController.refreshToken.bind(authController));
-router.post('/logout', authMiddleware, authController.logout.bind(authController));
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     tags: [Autenticación]
+ *     summary: Iniciar sesión
+ */
+router.post('/login', (req, res) => controller.login(req, res));
+
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     tags: [Autenticación]
+ *     summary: Obtener usuario actual
+ *     security:
+ *       - bearerAuth: []
+ */
+router.get('/me', authMiddleware, (req, res) => controller.me(req, res));
 
 export default router;

@@ -1,130 +1,34 @@
-// src/services/notaClinica.service.ts
+// ============================================
+// ARCHIVO: src/services/notasClinicas.service.ts
+// ============================================
+import prisma from '../config/database';
 
-import prisma from '../config/database.js'; // 🟢 Correcto: Usando el Singleton
-// 🟢 CORRECCIÓN: Importamos tipos desde el paquete estándar
-import type { Prisma, NotaClinica as PrismaNotaClinica, EpisodioAtencion, Profesional } from '@prisma/client'; 
+export class NotasClinicasService {
+  async getAll() {
+    return await prisma.notaClinica.findMany({
+      include: { episodio: true, profesional: true },
+      orderBy: { fecha: 'desc' },
+    });
+  }
 
-import type { NotaClinicaInput, SearchNotasClinicasQuery } from '../schemas/notaClinica.schema.js';
+  async getById(id: number) {
+    const nota = await prisma.notaClinica.findUnique({
+      where: { id },
+      include: { episodio: true, profesional: true },
+    });
+    if (!nota) throw new Error('Nota clínica no encontrada');
+    return nota;
+  }
 
-type NotaClinicaWhereInput = Prisma.NotaClinicaWhereInput;
-type NotaClinica = PrismaNotaClinica;
+  async create(data: any) {
+    return await prisma.notaClinica.create({ data });
+  }
 
-export class NotaClinicaService {
+  async update(id: number, data: any) {
+    return await prisma.notaClinica.update({ where: { id }, data });
+  }
 
-	// 1. Obtener todas las notas clínicas con filtros
-	async getAll(filters: SearchNotasClinicasQuery) {
-		const {
-			episodioId,
-			profesionalId,
-			search,
-			page = 1,
-			limit = 10,
-		} = filters || {};
-
-		const where: NotaClinicaWhereInput = {};
-
-		// Filtros de ID
-		if (episodioId) where.episodioId = episodioId;
-		if (profesionalId) where.profesionalId = profesionalId;
-
-		// Búsqueda por contenido (Subjetivo, Objetivo, Análisis, Plan)
-		if (search) {
-			where.OR = [
-				{ subjetivo: { contains: search } }, 
-				{ objetivo: { contains: search } },
-				{ analisis: { contains: search } },
-				{ plan: { contains: search } },
-			];
-		}
-
-		const skip = (page - 1) * limit;
-		const total = await prisma.notaClinica.count({ where });
-
-		const notas = await prisma.notaClinica.findMany({
-			where,
-			skip,
-			take: limit,
-			orderBy: { createdAt: 'desc' },
-			include: {
-				profesional: { select: { id: true, nombres: true, apellidos: true } }
-			},
-		});
-
-		// Retorno paginado...
-		return {
-			data: notas,
-			pagination: { page, limit, total, pages: Math.ceil(total / limit) },
-		};
-	}
-
-	// 2. Obtener nota por ID
-	async getById(id: number): Promise<NotaClinica> {
-		const nota = await prisma.notaClinica.findUnique({
-			where: { id },
-			include: {
-				profesional: { select: { id: true, nombres: true, apellidos: true } }
-			},
-		});
-
-		if (!nota) {
-			throw new Error(`Nota clínica ID ${id} no encontrada`);
-		}
-		return nota;
-	}
-
-	// 3. Crear nota clínica
-	async create(data: NotaClinicaInput) {
-		// Validación de negocio: Asegurar que el episodio y el profesional existen
-		await this.validateDependencies(data.episodioId, data.profesionalId);
-		
-		const { diagnosticos, ...notaData } = data;
-
-		return await prisma.notaClinica.create({
-			data: {
-				...notaData,
-				// Lógica para diagnosticos si se requiere anidar
-			},
-		});
-	}
-
-	// 4. Actualizar nota clínica
-	async update(id: number, data: Partial<NotaClinicaInput>) {
-		await this.getById(id); // Verifica existencia
-
-		if (data.episodioId || data.profesionalId) {
-			 // Se necesita el ID existente si no se proporciona el nuevo
-			const existing = await this.getById(id);
-
-			await this.validateDependencies(
-				data.episodioId || existing.episodioId,
-				data.profesionalId || existing.profesionalId,
-			);
-		}
-		
-		return await prisma.notaClinica.update({
-			where: { id },
-			data: data,
-		});
-	}
-	
-	// 5. Eliminar nota clínica
-	async delete(id: number) {
-		await this.getById(id);
-		return await prisma.notaClinica.delete({ where: { id } });
-	}
-
-	// --- LÓGICA DE VALIDACIÓN COMPARTIDA ---
-	private async validateDependencies(episodioId: number, profesionalId: number) {
-		// Validar Episodio
-		const episodio = await prisma.episodioAtencion.findUnique({ where: { id: episodioId } });
-		if (!episodio) {
-			throw new Error(`Episodio ID ${episodioId} no encontrado.`);
-		}
-		
-		// Validar Profesional
-		const profesional = await prisma.profesional.findUnique({ where: { id: profesionalId } });
-		if (!profesional) {
-			throw new Error(`Profesional ID ${profesionalId} no encontrado.`);
-		}
-	}
+  async delete(id: number) {
+    return await prisma.notaClinica.delete({ where: { id } });
+  }
 }

@@ -1,95 +1,57 @@
-// src/controllers/consentimientos.controller.ts
-
+// ============================================
+// ARCHIVO: src/controllers/consentimientos.controller.ts
+// ============================================
 import { Request, Response } from 'express';
-import { ConsentimientoService } from '../services/consentimientos.service.js';
-import { createConsentimientoSchema, updateConsentimientoSchema } from '../schemas/consentimiento.schema.js';
-import { idParamSchema } from '../schemas/base.schema.js';
-import { handleHttp } from '../utils/error.handle.js';
+import { ConsentimientosService } from '../services/consentimientos.service';
 
-const consentimientoService = new ConsentimientoService();
+const service = new ConsentimientosService();
 
-/**
- * Obtiene todos los consentimientos asociados a una Persona.
- * RUTA: GET /api/consentimientos/persona/:personaId
- */
-export async function getAllConsentimientosByPersona(req: Request, res: Response): Promise<void> {
+export class ConsentimientosController {
+  async getAll(req: Request, res: Response) {
     try {
-        // Validación del ID de la persona desde los parámetros de la ruta
-        const personaId = idParamSchema.parse(req.params.personaId);
-        
-        const result = await consentimientoService.getAllByPersona(personaId);
-        res.status(200).json(result);
-    } catch (error) {
-        handleHttp(res, 'ERROR_GETTING_CONSENTIMIENTOS_BY_PERSONA', error);
+      const data = await service.getAll();
+      res.json({ data });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
     }
-}
+  }
 
-/**
- * Obtiene un consentimiento específico por su ID.
- * RUTA: GET /api/consentimientos/:id
- */
-export async function getConsentimientoById(req: Request, res: Response): Promise<void> {
+  async getById(req: Request, res: Response) {
     try {
-        // Validación del ID del consentimiento
-        const id = idParamSchema.parse(req.params.id);
-        
-        const consentimiento = await consentimientoService.getById(id);
-        res.status(200).json(consentimiento);
-    } catch (error) {
-        handleHttp(res, 'ERROR_GETTING_CONSENTIMIENTO', error);
+      const id = parseInt(req.params.id);
+      const data = await service.getById(id);
+      res.json({ data });
+    } catch (error: any) {
+      res.status(404).json({ error: error.message });
     }
-}
+  }
 
-/**
- * Crea un nuevo consentimiento.
- * RUTA: POST /api/consentimientos
- */
-export async function createConsentimiento(req: Request, res: Response): Promise<void> {
+  async create(req: Request, res: Response) {
     try {
-        // Validación del cuerpo (body)
-        const validatedBody = createConsentimientoSchema.parse({ body: req.body });
-        
-        const nuevoConsentimiento = await consentimientoService.create(validatedBody.body);
-        res.status(201).json(nuevoConsentimiento);
-    } catch (error) {
-        handleHttp(res, 'ERROR_CREATING_CONSENTIMIENTO', error);
+      const data = await service.create(req.body);
+      res.status(201).json({ message: 'Consentimiento creado exitosamente', data });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
     }
-}
+  }
 
-/**
- * Actualiza un consentimiento existente.
- * RUTA: PUT /api/consentimientos/:id
- */
-export async function updateConsentimiento(req: Request, res: Response): Promise<void> {
+  async update(req: Request, res: Response) {
     try {
-        // Validación de params y body
-        const validated = updateConsentimientoSchema.parse({ 
-            params: req.params, 
-            body: req.body 
-        });
-        
-        const id = validated.params.id;
-        const data = validated.body;
-
-        const consentimientoActualizado = await consentimientoService.update(id, data);
-        res.status(200).json(consentimientoActualizado);
-    } catch (error) {
-        handleHttp(res, 'ERROR_UPDATING_CONSENTIMIENTO', error);
+      const id = parseInt(req.params.id);
+      const data = await service.update(id, req.body);
+      res.json({ message: 'Consentimiento actualizado exitosamente', data });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
     }
-}
+  }
 
-/**
- * Elimina un consentimiento.
- * RUTA: DELETE /api/consentimientos/:id
- */
-export async function deleteConsentimiento(req: Request, res: Response): Promise<void> {
+  async delete(req: Request, res: Response) {
     try {
-        // Validación del ID del consentimiento
-        const id = idParamSchema.parse(req.params.id);
-        
-        const consentimientoEliminado = await consentimientoService.delete(id);
-        res.status(200).json({ message: `Consentimiento ID ${id} eliminado`, data: consentimientoEliminado });
-    } catch (error) {
-        handleHttp(res, 'ERROR_DELETING_CONSENTIMIENTO', error);
+      const id = parseInt(req.params.id);
+      await service.delete(id);
+      res.json({ message: 'Consentimiento eliminado exitosamente' });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
     }
+  }
 }

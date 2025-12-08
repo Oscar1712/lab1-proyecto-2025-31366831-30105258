@@ -1,49 +1,24 @@
+// ============================================
+// ARCHIVO: src/routes/agenda.routes.ts
+// ============================================
+/**
+ * @swagger
+ * tags:
+ *   name: Agenda
+ */
 import { Router } from 'express';
-import {
-    getAllBloques,
-    getBloqueById,
-    createBloque,
-    updateBloque,
-    deleteBloque
-} from '../controllers/agenda.controller.js';
-
-// ⚠️ PLACEHOLDERS: Reemplaza estos imports con tus funciones reales de middleware de validación ⚠️
-// Asumimos que tienes archivos de validación (ej: schemas/bloqueAgenda.validation.ts)
-// y funciones de middleware (ej: validateSchema)
-const validateSchema = (schema: any) => (req: any, res: any, next: any) => next(); // Reemplazar con lógica de validación real
-const BloqueAgendaInput = {}; // Reemplazar con tu esquema de creación
-const BloqueAgendaUpdateInput = {}; // Reemplazar con tu esquema de actualización
-// ------------------------------------------------------------------------------------------
+import { AgendaController } from '../controllers/agenda.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
+const controller = new AgendaController();
 
-/**
- * Rutas para la gestión de Bloques de Agenda
- * Base: /api/agenda
- */
+router.use(authMiddleware);
 
-// GET /api/agenda?profesionalId=X&fechaInicio=Y
-router.get('/', getAllBloques);
-
-// GET /api/agenda/:id
-router.get('/:id', getBloqueById);
-
-// POST /api/agenda
-router.post(
-    '/',
-    validateSchema(BloqueAgendaInput), // Middleware de validación para la creación
-    createBloque
-);
-
-// PUT /api/agenda/:id
-router.put(
-    '/:id',
-    validateSchema(BloqueAgendaUpdateInput), // Middleware de validación para la actualización
-    updateBloque
-);
-
-// DELETE /api/agenda/:id
-router.delete('/:id', deleteBloque);
-
+router.get('/', (req, res) => controller.getAll(req, res));
+router.get('/:id', (req, res) => controller.getById(req, res));
+router.post('/', (req, res) => controller.create(req, res));
+router.put('/:id', (req, res) => controller.update(req, res));
+router.delete('/:id', (req, res) => controller.delete(req, res));
 
 export default router;

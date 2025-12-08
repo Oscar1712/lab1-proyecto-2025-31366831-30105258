@@ -1,12 +1,12 @@
 // ============================================
-// ARCHIVO: src/controllers/profesionales.controller.ts
+// ARCHIVO: src/controllers/episodios.controller.ts
 // ============================================
 import { Request, Response } from 'express';
-import { ProfesionalesService } from '../services/profesionales.service';
+import { EpisodiosService } from '../services/episodios.service';
 
-const service = new ProfesionalesService();
+const service = new EpisodiosService();
 
-export class ProfesionalesController {
+export class EpisodiosController {
   async getAll(req: Request, res: Response) {
     try {
       const data = await service.getAll();
@@ -29,7 +29,7 @@ export class ProfesionalesController {
   async create(req: Request, res: Response) {
     try {
       const data = await service.create(req.body);
-      res.status(201).json({ message: 'Profesional creado exitosamente', data });
+      res.status(201).json({ message: 'Episodio creado exitosamente', data });
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }
@@ -39,7 +39,7 @@ export class ProfesionalesController {
     try {
       const id = parseInt(req.params.id);
       const data = await service.update(id, req.body);
-      res.json({ message: 'Profesional actualizado exitosamente', data });
+      res.json({ message: 'Episodio actualizado exitosamente', data });
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }
@@ -49,7 +49,7 @@ export class ProfesionalesController {
     try {
       const id = parseInt(req.params.id);
       await service.delete(id);
-      res.json({ message: 'Profesional eliminado exitosamente' });
+      res.json({ message: 'Episodio eliminado exitosamente' });
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }
